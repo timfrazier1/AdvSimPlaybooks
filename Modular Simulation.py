@@ -69,7 +69,7 @@ def Format_ART_Command(action=None, success=None, container=None, results=None, 
                 'context': {'artifact_id': container_item[3]},
             })
 
-    phantom.act("format command", parameters=parameters, app={ "name": 'Atomic Red Team' }, callback=filter_1, name="Format_ART_Command", parent_action=action)
+    phantom.act("format command", parameters=parameters, app={ "name": 'Atomic Red Team' }, callback=decision_1, name="Format_ART_Command", parent_action=action)
 
     return
 
@@ -370,13 +370,13 @@ def Run_Powershell_Test(action=None, success=None, container=None, results=None,
         for results_item_2 in results_data_2:
             if results_item_1[0]:
                 parameters.append({
-                    'ip_hostname': results_item_1[0],
-                    'script_file': "",
-                    'script_str': results_item_2[0],
-                    'parser': "",
-                    'async': "",
-                    'command_id': "",
                     'shell_id': "",
+                    'parser': "",
+                    'ip_hostname': results_item_1[0],
+                    'async': "",
+                    'script_str': results_item_2[0],
+                    'script_file': "",
+                    'command_id': "",
                     # context (artifact id) is added to associate results with the artifact
                     'context': {'artifact_id': results_item_1[1]},
                 })
@@ -413,23 +413,6 @@ def Run_Cmd_Test(action=None, success=None, container=None, results=None, handle
                 })
 
     phantom.act("run command", parameters=parameters, app={ "name": 'Windows Remote Management' }, callback=join_Format_End_Marker, name="Run_Cmd_Test")
-
-    return
-
-def filter_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):
-    phantom.debug('filter_1() called')
-
-    # collect filtered artifact ids for 'if' condition 1
-    matched_artifacts_1, matched_results_1 = phantom.condition(
-        container=container,
-        conditions=[
-            ["Path", "not in", "Format_ART_Command:action_result.data.*.executor.arg_types"],
-        ],
-        name="filter_1:condition_1")
-
-    # call connected blocks if filtered artifacts or results
-    if matched_artifacts_1 or matched_results_1:
-        pass
 
     return
 
