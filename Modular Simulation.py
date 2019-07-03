@@ -386,30 +386,30 @@ def Run_Powershell_Test(action=None, success=None, container=None, results=None,
     return
 
 def Run_Cmd_Test(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):
-    phantom.debug('Run_cmd_test() called')
+    phantom.debug('Run_Cmd_Test() called')
     
     #phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
     
-    # collect data for 'cmd_test' call
-    results_data_1 = phantom.collect2(container=container, datapath=['Run_Start_Marker:action_result.parameter.ip_hostname'], action_results=results)
-    filtered_results_data_1 = phantom.collect2(container=container, datapath=["filtered-data:filter_1:condition_1:Format_ART_Command:action_result.data.*.executor.command", "filtered-data:filter_1:condition_1:Format_ART_Command:action_result.parameter.context.artifact_id"])
+    # collect data for 'Run_Cmd_Test' call
+    results_data_1 = phantom.collect2(container=container, datapath=['Run_Start_Marker:action_result.parameter.ip_hostname', 'Run_Start_Marker:action_result.parameter.context.artifact_id'], action_results=results)
+    results_data_2 = phantom.collect2(container=container, datapath=['Format_ART_Command:action_result.data.*.executor.command', 'Format_ART_Command:action_result.parameter.context.artifact_id'], action_results=results)
 
     parameters = []
     
-    # build parameters list for 'cmd_test' call
+    # build parameters list for 'Run_Cmd_Test' call
     for results_item_1 in results_data_1:
-        for filtered_results_item_1 in filtered_results_data_1:
+        for results_item_2 in results_data_2:
             if results_item_1[0]:
                 parameters.append({
                     'ip_hostname': results_item_1[0],
-                    'command': filtered_results_item_1[0].split(' ', 1)[0],
-                    'arguments': filtered_results_item_1[0].split(' ', 1)[1],
+                    'command': results_item_2[0].split(' ', 1)[0],
+                    'arguments': results_item_2[0].split(' ', 1)[1],
                     'parser': "",
                     'async': True,
                     'command_id': "",
                     'shell_id': "",
                     # context (artifact id) is added to associate results with the artifact
-                    #'context': {'artifact_id': results_item_1[1]},
+                    'context': {'artifact_id': results_item_1[1]},
                 })
 
     phantom.act("run command", parameters=parameters, app={ "name": 'Windows Remote Management' }, callback=join_Format_End_Marker, name="Run_Cmd_Test")
