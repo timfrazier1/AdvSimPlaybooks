@@ -198,14 +198,14 @@ def decision_2(action=None, success=None, container=None, results=None, handle=N
 def TODO_Run_Linux_Test(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):
     phantom.debug('TODO_Run_Linux_Test() called')
 
-    phantom.set_status(container, "closed")
+    phantom.set_status(container=container, status="closed")
 
     return
 
 def TODO_Run_Mac_Test(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):
     phantom.debug('TODO_Run_Mac_Test() called')
 
-    phantom.set_status(container, "closed")
+    phantom.set_status(container=container, status="closed")
 
     return
 
