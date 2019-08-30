@@ -584,12 +584,15 @@ def Post_Error_Msg(action=None, success=None, container=None, results=None, hand
     
     # collect data for 'Post_Error_Msg' call
     results_data_1 = phantom.collect2(container=container, datapath=['Post_Start_Event_to_Splunk:action_result.parameter.data', 'Post_Start_Event_to_Splunk:action_result.parameter.host', 'Post_Start_Event_to_Splunk:action_result.parameter.source', 'Post_Start_Event_to_Splunk:action_result.parameter.source_type', 'Post_Start_Event_to_Splunk:action_result.parameter.index', 'Post_Start_Event_to_Splunk:action_result.parameter.context.artifact_id'], action_results=results)
+    
+    id_value = container.get('id', None)
 
     parameters = []
     
     # build parameters list for 'Post_Error_Msg' call
     for results_item_1 in results_data_1:
         if results_item_1[0]:
+            results_item_1[0] = {"guid": results_item_1[0]["guid"], "msg": "Likely error in powershell script run on endpoint. See Phantom event {0} for more details.".format(id_value)}
             parameters.append({
                 'data': results_item_1[0],
                 'host': results_item_1[1],
@@ -644,11 +647,14 @@ def Post_Error_Msg_2(action=None, success=None, container=None, results=None, ha
     # collect data for 'Post_Error_Msg_2' call
     results_data_1 = phantom.collect2(container=container, datapath=['Post_Start_Event_to_Splunk:action_result.parameter.data', 'Post_Start_Event_to_Splunk:action_result.parameter.host', 'Post_Start_Event_to_Splunk:action_result.parameter.source', 'Post_Start_Event_to_Splunk:action_result.parameter.source_type', 'Post_Start_Event_to_Splunk:action_result.parameter.index', 'Post_Start_Event_to_Splunk:action_result.parameter.context.artifact_id'], action_results=results)
 
+    id_value = container.get('id', None)
+    
     parameters = []
     
     # build parameters list for 'Post_Error_Msg_2' call
     for results_item_1 in results_data_1:
         if results_item_1[0]:
+            results_item_1[0] = {"guid": results_item_1[0]["guid"], "msg": "Likely error in cmd.exe command run on endpoint. See Phantom event {0} for more details.".format(id_value)}
             parameters.append({
                 'data': results_item_1[0],
                 'host': results_item_1[1],
