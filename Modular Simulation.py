@@ -392,7 +392,9 @@ def Run_Cmd_Test(action=None, success=None, container=None, results=None, handle
             if '\n' in results_item_2[0]:
                 cmd_list = results_item_2[0].split('\n')
                 for each_cmd in cmd_list:
-                    if ' ' in each_cmd:
+                    if each_cmd.strip() == "":
+                        continue
+                    elif ' ' in each_cmd:
                         parameters.append({
                             'ip_hostname': results_item_1[0],
                             'command': each_cmd.split(' ', 1)[0],
