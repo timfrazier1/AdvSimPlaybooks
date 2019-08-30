@@ -7,7 +7,7 @@
             "clean": true,
             "code_block": "",
             "description": "",
-            "hash": "eb2fc0dcbd3f00bad6603aae413fd5682bd16264",
+            "hash": "24db586c16e6f17fdaa4cc27ba28ea89e1848851",
             "joint": {
                 "cells": [
                     {
@@ -6493,7 +6493,7 @@
                         "connection_name": "Format ART Command",
                         "connection_type": "action",
                         "custom_callback": "",
-                        "custom_code": "def filter_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):\n    phantom.debug('filter_1() called')\n\n    # collect filtered artifact ids for 'if' condition 1\n    matched_artifacts_1, matched_results_1 = phantom.condition(\n        container=container,\n        action_results=results,\n        conditions=[\n            [\"Format_ART_Command:action_result.data.*.executor.name\", \"==\", \"powershell\"],\n        ],\n        name=\"filter_1:condition_1\")\n\n    # call connected blocks if filtered artifacts or results\n    if matched_artifacts_1 or matched_results_1:\n        phantom.save_run_data(value=True, key='powershell_test', auto=True)\n        Run_Powershell_Test(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_1, filtered_results=matched_results_1)\n\n    # collect filtered artifact ids for 'if' condition 2\n    matched_artifacts_2, matched_results_2 = phantom.condition(\n        container=container,\n        action_results=results,\n        conditions=[\n            [\"Format_ART_Command:action_result.data.*.executor.name\", \"==\", \"command_prompt\"],\n        ],\n        name=\"filter_1:condition_2\")\n\n    # call connected blocks if filtered artifacts or results\n    if matched_artifacts_2 or matched_results_2:\n        phantom.save_run_data(value=True, key='cmd_test', auto=True)\n        Run_Cmd_Test(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_2, filtered_results=matched_results_2)\n\n    return",
+                        "custom_code": "def filter_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):\n    phantom.debug('filter_1() called')\n\n    # collect filtered artifact ids for 'if' condition 1\n    matched_artifacts_1, matched_results_1 = phantom.condition(\n        container=container,\n        action_results=results,\n        conditions=[\n            [\"Format_ART_Command:action_result.data.*.executor.name\", \"==\", \"powershell\"],\n        ],\n        name=\"filter_1:condition_1\")\n\n    # call connected blocks if filtered artifacts or results\n    if matched_artifacts_1 or matched_results_1:\n        phantom.save_run_data(value='present', key='powershell_test', auto=True)\n        Run_Powershell_Test(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_1, filtered_results=matched_results_1)\n\n    # collect filtered artifact ids for 'if' condition 2\n    matched_artifacts_2, matched_results_2 = phantom.condition(\n        container=container,\n        action_results=results,\n        conditions=[\n            [\"Format_ART_Command:action_result.data.*.executor.name\", \"==\", \"command_prompt\"],\n        ],\n        name=\"filter_1:condition_2\")\n\n    # call connected blocks if filtered artifacts or results\n    if matched_artifacts_2 or matched_results_2:\n        phantom.save_run_data(value='present', key='cmd_test', auto=True)\n        Run_Cmd_Test(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_2, filtered_results=matched_results_2)\n\n    return",
                         "custom_join": "",
                         "custom_name": "",
                         "description": "",
@@ -6613,7 +6613,7 @@
                         "status": "",
                         "type": "coa.Filter",
                         "warn": false,
-                        "z": 425
+                        "z": 428
                     },
                     {
                         "active": false,
@@ -6679,7 +6679,7 @@
                         "connection_name": "Run Powershell Test",
                         "connection_type": "action",
                         "custom_callback": "",
-                        "custom_code": "def filter_2(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):\n    phantom.debug('filter_2() called')\n\n    # collect filtered artifact ids for 'if' condition 1\n    matched_artifacts_1, matched_results_1 = phantom.condition(\n        container=container,\n        action_results=results,\n        conditions=[\n            [\"Run_Powershell_Test:action_result.data.*.status_code\", \"!=\", 0],\n        ],\n        name=\"filter_2:condition_1\")\n\n    # call connected blocks if filtered artifacts or results\n    if matched_artifacts_1 or matched_results_1:\n        phantom.save_run_data(value=True, key='powershell_error', auto=True)\n        Post_Error_Msg(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_1, filtered_results=matched_results_1)\n\n    # collect filtered artifact ids for 'if' condition 2\n    matched_artifacts_2, matched_results_2 = phantom.condition(\n        container=container,\n        action_results=results,\n        conditions=[\n            [\"Run_Powershell_Test:action_result.data.*.status_code\", \"==\", 0],\n        ],\n        name=\"filter_2:condition_2\")\n\n    # call connected blocks if filtered artifacts or results\n    if matched_artifacts_2 or matched_results_2:\n        join_Format_End_Marker(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_2, filtered_results=matched_results_2)\n\n    return",
+                        "custom_code": "def filter_2(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):\n    phantom.debug('filter_2() called')\n\n    # collect filtered artifact ids for 'if' condition 1\n    matched_artifacts_1, matched_results_1 = phantom.condition(\n        container=container,\n        action_results=results,\n        conditions=[\n            [\"Run_Powershell_Test:action_result.data.*.status_code\", \"!=\", 0],\n        ],\n        name=\"filter_2:condition_1\")\n\n    # call connected blocks if filtered artifacts or results\n    if matched_artifacts_1 or matched_results_1:\n        phantom.save_run_data(value='present', key='powershell_error', auto=True)\n        Post_Error_Msg(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_1, filtered_results=matched_results_1)\n\n    # collect filtered artifact ids for 'if' condition 2\n    matched_artifacts_2, matched_results_2 = phantom.condition(\n        container=container,\n        action_results=results,\n        conditions=[\n            [\"Run_Powershell_Test:action_result.data.*.status_code\", \"==\", 0],\n        ],\n        name=\"filter_2:condition_2\")\n\n    # call connected blocks if filtered artifacts or results\n    if matched_artifacts_2 or matched_results_2:\n        join_Format_End_Marker(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_2, filtered_results=matched_results_2)\n\n    return",
                         "custom_join": "",
                         "custom_name": "",
                         "description": "",
@@ -6799,7 +6799,7 @@
                         "status": "",
                         "type": "coa.Filter",
                         "warn": false,
-                        "z": 426
+                        "z": 429
                     },
                     {
                         "active": false,
@@ -6868,7 +6868,7 @@
                         "connection_name": "Run Cmd Test",
                         "connection_type": "action",
                         "custom_callback": "",
-                        "custom_code": "def filter_3(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):\n    phantom.debug('filter_3() called')\n\n    # collect filtered artifact ids for 'if' condition 1\n    matched_artifacts_1, matched_results_1 = phantom.condition(\n        container=container,\n        action_results=results,\n        conditions=[\n            [\"Run_Cmd_Test:action_result.data.*.status_code\", \"!=\", 0],\n        ],\n        name=\"filter_3:condition_1\")\n\n    # call connected blocks if filtered artifacts or results\n    if matched_artifacts_1 or matched_results_1:\n        phantom.save_run_data(value=True, key='cmd_error', auto=True)\n        Post_Error_Msg_2(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_1, filtered_results=matched_results_1)\n\n    # collect filtered artifact ids for 'if' condition 2\n    matched_artifacts_2, matched_results_2 = phantom.condition(\n        container=container,\n        action_results=results,\n        conditions=[\n            [\"Run_Cmd_Test:action_result.data.*.status_code\", \"==\", 0],\n        ],\n        name=\"filter_3:condition_2\")\n\n    # call connected blocks if filtered artifacts or results\n    if matched_artifacts_2 or matched_results_2:\n        join_Format_End_Marker(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_2, filtered_results=matched_results_2)\n\n    return",
+                        "custom_code": "def filter_3(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):\n    phantom.debug('filter_3() called')\n\n    # collect filtered artifact ids for 'if' condition 1\n    matched_artifacts_1, matched_results_1 = phantom.condition(\n        container=container,\n        action_results=results,\n        conditions=[\n            [\"Run_Cmd_Test:action_result.data.*.status_code\", \"!=\", 0],\n        ],\n        name=\"filter_3:condition_1\")\n\n    # call connected blocks if filtered artifacts or results\n    if matched_artifacts_1 or matched_results_1:\n        phantom.save_run_data(value='present', key='cmd_error', auto=True)\n        Post_Error_Msg_2(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_1, filtered_results=matched_results_1)\n\n    # collect filtered artifact ids for 'if' condition 2\n    matched_artifacts_2, matched_results_2 = phantom.condition(\n        container=container,\n        action_results=results,\n        conditions=[\n            [\"Run_Cmd_Test:action_result.data.*.status_code\", \"==\", 0],\n        ],\n        name=\"filter_3:condition_2\")\n\n    # call connected blocks if filtered artifacts or results\n    if matched_artifacts_2 or matched_results_2:\n        join_Format_End_Marker(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_2, filtered_results=matched_results_2)\n\n    return",
                         "custom_join": "",
                         "custom_name": "",
                         "description": "",
@@ -6988,7 +6988,7 @@
                         "status": "",
                         "type": "coa.Filter",
                         "warn": false,
-                        "z": 427
+                        "z": 430
                     }
                 ]
             },
@@ -6997,7 +6997,7 @@
         "schema": 3,
         "version": "4.5.15425"
     },
-    "create_time": "2019-08-30T14:46:07.770097+00:00",
+    "create_time": "2019-08-30T14:50:44.410513+00:00",
     "draft_mode": false,
     "labels": [
         "advsim_test"

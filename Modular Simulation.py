@@ -526,7 +526,7 @@ def filter_1(action=None, success=None, container=None, results=None, handle=Non
 
     # call connected blocks if filtered artifacts or results
     if matched_artifacts_1 or matched_results_1:
-        phantom.save_run_data(value=True, key='powershell_test', auto=True)
+        phantom.save_run_data(value='present', key='powershell_test', auto=True)
         Run_Powershell_Test(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_1, filtered_results=matched_results_1)
 
     # collect filtered artifact ids for 'if' condition 2
@@ -540,7 +540,7 @@ def filter_1(action=None, success=None, container=None, results=None, handle=Non
 
     # call connected blocks if filtered artifacts or results
     if matched_artifacts_2 or matched_results_2:
-        phantom.save_run_data(value=True, key='cmd_test', auto=True)
+        phantom.save_run_data(value='present', key='cmd_test', auto=True)
         Run_Cmd_Test(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_2, filtered_results=matched_results_2)
 
     return
@@ -559,7 +559,7 @@ def filter_2(action=None, success=None, container=None, results=None, handle=Non
 
     # call connected blocks if filtered artifacts or results
     if matched_artifacts_1 or matched_results_1:
-        phantom.save_run_data(value=True, key='powershell_error', auto=True)
+        phantom.save_run_data(value='present', key='powershell_error', auto=True)
         Post_Error_Msg(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_1, filtered_results=matched_results_1)
 
     # collect filtered artifact ids for 'if' condition 2
@@ -618,7 +618,7 @@ def filter_3(action=None, success=None, container=None, results=None, handle=Non
 
     # call connected blocks if filtered artifacts or results
     if matched_artifacts_1 or matched_results_1:
-        phantom.save_run_data(value=True, key='cmd_error', auto=True)
+        phantom.save_run_data(value='present', key='cmd_error', auto=True)
         Post_Error_Msg_2(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_1, filtered_results=matched_results_1)
 
     # collect filtered artifact ids for 'if' condition 2
