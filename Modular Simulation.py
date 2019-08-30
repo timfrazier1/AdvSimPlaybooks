@@ -388,6 +388,7 @@ def Run_Cmd_Test(action=None, success=None, container=None, results=None, handle
     # build parameters list for 'Run_Cmd_Test' call
     for results_item_1 in results_data_1:
         for results_item_2 in results_data_2:
+            phantom.debug(results_item_2[0])
             if '\n' in results_item_2[0]:
                 cmd_list = results_item_2[0].split('\n')
                 for each_cmd in cmd_list:
@@ -427,6 +428,7 @@ def Run_Cmd_Test(action=None, success=None, container=None, results=None, handle
                     # context (artifact id) is added to associate results with the artifact
                     'context': {'artifact_id': results_item_1[1]},
                 })
+    phantom.debug(parameters)
 
     phantom.act("run command", parameters=parameters, app={ "name": 'Windows Remote Management' }, callback=filter_3, name="Run_Cmd_Test")
 
