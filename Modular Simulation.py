@@ -370,7 +370,7 @@ def Run_Powershell_Test(action=None, success=None, container=None, results=None,
                     'context': {'artifact_id': results_item_1[1]},
                 })
 
-    phantom.act("run script", parameters=parameters, app={ "name": 'Windows Remote Management' }, callback=join_Format_End_Marker, name="Run_Powershell_Test")
+    phantom.act("run script", parameters=parameters, app={ "name": 'Windows Remote Management' }, callback=filter_2, name="Run_Powershell_Test")
 
     return
 
@@ -459,10 +459,14 @@ def join_Format_End_Marker(action=None, success=None, container=None, results=No
     if phantom.get_run_data(key='join_Format_End_Marker_called'):
         return
 
-    # no callbacks to check, call connected block "Format_End_Marker"
-    phantom.save_run_data(key='join_Format_End_Marker_called', value='Format_End_Marker', auto=True)
-
-    Format_End_Marker(container=container, handle=handle)
+    # check if all connected incoming actions are done i.e. have succeeded or failed
+    if phantom.actions_done([ 'Post_Error_Msg', 'Post_Error_Msg_2' ]):
+        
+        # save the state that the joined function has now been called
+        phantom.save_run_data(key='join_Format_End_Marker_called', value='Format_End_Marker')
+        
+        # call connected block "Format_End_Marker"
+        Format_End_Marker(container=container, handle=handle)
     
     return
 
@@ -494,6 +498,122 @@ def filter_1(action=None, success=None, container=None, results=None, handle=Non
     # call connected blocks if filtered artifacts or results
     if matched_artifacts_2 or matched_results_2:
         Run_Cmd_Test(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_2, filtered_results=matched_results_2)
+
+    return
+
+def filter_2(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):
+    phantom.debug('filter_2() called')
+
+    # collect filtered artifact ids for 'if' condition 1
+    matched_artifacts_1, matched_results_1 = phantom.condition(
+        container=container,
+        action_results=results,
+        conditions=[
+            ["Run_Powershell_Test:action_result.data.*.status_code", "!=", 0],
+        ],
+        name="filter_2:condition_1")
+
+    # call connected blocks if filtered artifacts or results
+    if matched_artifacts_1 or matched_results_1:
+        Post_Error_Msg(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_1, filtered_results=matched_results_1)
+
+    # collect filtered artifact ids for 'if' condition 2
+    matched_artifacts_2, matched_results_2 = phantom.condition(
+        container=container,
+        action_results=results,
+        conditions=[
+            ["Run_Powershell_Test:action_result.data.*.status_code", "==", 0],
+        ],
+        name="filter_2:condition_2")
+
+    # call connected blocks if filtered artifacts or results
+    if matched_artifacts_2 or matched_results_2:
+        join_Format_End_Marker(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_2, filtered_results=matched_results_2)
+
+    return
+
+def Post_Error_Msg(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):
+    phantom.debug('Post_Error_Msg() called')
+    
+    #phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
+    
+    # collect data for 'Post_Error_Msg' call
+    results_data_1 = phantom.collect2(container=container, datapath=['Post_Start_Event_to_Splunk:action_result.parameter.data', 'Post_Start_Event_to_Splunk:action_result.parameter.host', 'Post_Start_Event_to_Splunk:action_result.parameter.source', 'Post_Start_Event_to_Splunk:action_result.parameter.source_type', 'Post_Start_Event_to_Splunk:action_result.parameter.index', 'Post_Start_Event_to_Splunk:action_result.parameter.context.artifact_id'], action_results=results)
+
+    parameters = []
+    
+    # build parameters list for 'Post_Error_Msg' call
+    for results_item_1 in results_data_1:
+        if results_item_1[0]:
+            parameters.append({
+                'data': results_item_1[0],
+                'host': results_item_1[1],
+                'source': results_item_1[2],
+                'source_type': results_item_1[3],
+                'index': results_item_1[4],
+                # context (artifact id) is added to associate results with the artifact
+                'context': {'artifact_id': results_item_1[5]},
+            })
+
+    phantom.act("post data", parameters=parameters, app={ "name": 'Splunk' }, callback=join_Format_End_Marker, name="Post_Error_Msg")
+
+    return
+
+def filter_3(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):
+    phantom.debug('filter_3() called')
+
+    # collect filtered artifact ids for 'if' condition 1
+    matched_artifacts_1, matched_results_1 = phantom.condition(
+        container=container,
+        action_results=results,
+        conditions=[
+            ["Run_Cmd_Test:action_result.data.*.status_code", "!=", 0],
+        ],
+        name="filter_3:condition_1")
+
+    # call connected blocks if filtered artifacts or results
+    if matched_artifacts_1 or matched_results_1:
+        Post_Error_Msg_2(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_1, filtered_results=matched_results_1)
+
+    # collect filtered artifact ids for 'if' condition 2
+    matched_artifacts_2, matched_results_2 = phantom.condition(
+        container=container,
+        action_results=results,
+        conditions=[
+            ["Run_Cmd_Test:action_result.data.*.status_code", "==", 0],
+        ],
+        name="filter_3:condition_2")
+
+    # call connected blocks if filtered artifacts or results
+    if matched_artifacts_2 or matched_results_2:
+        join_Format_End_Marker(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_2, filtered_results=matched_results_2)
+
+    return
+
+def Post_Error_Msg_2(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):
+    phantom.debug('Post_Error_Msg_2() called')
+    
+    #phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
+    
+    # collect data for 'Post_Error_Msg_2' call
+    results_data_1 = phantom.collect2(container=container, datapath=['Post_Start_Event_to_Splunk:action_result.parameter.data', 'Post_Start_Event_to_Splunk:action_result.parameter.host', 'Post_Start_Event_to_Splunk:action_result.parameter.source', 'Post_Start_Event_to_Splunk:action_result.parameter.source_type', 'Post_Start_Event_to_Splunk:action_result.parameter.index', 'Post_Start_Event_to_Splunk:action_result.parameter.context.artifact_id'], action_results=results)
+
+    parameters = []
+    
+    # build parameters list for 'Post_Error_Msg_2' call
+    for results_item_1 in results_data_1:
+        if results_item_1[0]:
+            parameters.append({
+                'data': results_item_1[0],
+                'host': results_item_1[1],
+                'source': results_item_1[2],
+                'source_type': results_item_1[3],
+                'index': results_item_1[4],
+                # context (artifact id) is added to associate results with the artifact
+                'context': {'artifact_id': results_item_1[5]},
+            })
+
+    phantom.act("post data", parameters=parameters, app={ "name": 'Splunk' }, callback=join_Format_End_Marker, name="Post_Error_Msg_2")
 
     return
 
