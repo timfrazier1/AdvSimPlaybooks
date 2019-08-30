@@ -125,13 +125,13 @@ def Run_End_Marker(action=None, success=None, container=None, results=None, hand
     for results_item_1 in results_data_1:
         if results_item_1[0]:
             parameters.append({
-                'shell_id': "",
-                'parser': "",
                 'ip_hostname': results_item_1[0],
-                'async': "",
-                'script_str': formatted_data_1,
                 'script_file': "",
+                'script_str': formatted_data_1,
+                'parser': "",
+                'async': "",
                 'command_id': "",
+                'shell_id': "",
                 # context (artifact id) is added to associate results with the artifact
                 'context': {'artifact_id': results_item_1[1]},
             })
@@ -589,6 +589,8 @@ def Post_Error_Msg(action=None, success=None, container=None, results=None, hand
     # collect data for 'Post_Error_Msg' call
     results_data_1 = phantom.collect2(container=container, datapath=['Post_Start_Event_to_Splunk:action_result.parameter.data', 'Post_Start_Event_to_Splunk:action_result.parameter.host', 'Post_Start_Event_to_Splunk:action_result.parameter.source', 'Post_Start_Event_to_Splunk:action_result.parameter.source_type', 'Post_Start_Event_to_Splunk:action_result.parameter.index', 'Post_Start_Event_to_Splunk:action_result.parameter.context.artifact_id'], action_results=results)
     
+    filtered_results_data_1 = phantom.collect2(container=container, datapath=["filtered-data:filter_2:condition_1:Run_Powershell_Test:action_result.data.*.std_err", "filtered-data:filter_2:condition_1:Run_Powershell_Test:action_result.parameter.context.artifact_id"])
+    
     id_value = container.get('id', None)
 
     parameters = []
@@ -598,7 +600,9 @@ def Post_Error_Msg(action=None, success=None, container=None, results=None, hand
         if results_item_1[0]:
             phantom.debug(results_item_1[0])
             results_item_1[0] = json.loads(results_item_1[0])
-            results_item_1[0] = json.dumps({"guid": results_item_1[0]["guid"], "msg": "Likely error in powershell script run on endpoint. See Phantom event {0} for more details.".format(id_value)})
+            results_item_1[0] = json.dumps({"guid": results_item_1[0]["guid"], 
+                                            "msg": "Likely error in powershell script run on endpoint. See Phantom event {0} for more details.".format(id_value),
+                                          "std_err": filtered_results_data_1[0][0]})
             parameters.append({
                 'data': results_item_1[0],
                 'host': results_item_1[1],
