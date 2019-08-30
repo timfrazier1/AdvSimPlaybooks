@@ -381,7 +381,7 @@ def Run_Cmd_Test(action=None, success=None, container=None, results=None, handle
     
     # collect data for 'Run_Cmd_Test' call
     results_data_1 = phantom.collect2(container=container, datapath=['Run_Start_Marker:action_result.parameter.ip_hostname', 'Run_Start_Marker:action_result.parameter.context.artifact_id'], action_results=results)
-    results_data_2 = phantom.collect2(container=container, datapath=["filtered-data:filter_1:condition_2:Format_ART_Command:action_result.data.*.executor.command", "filtered-data:filter_1:condition_2:Format_ART_Command:action_result.parameter.context.artifact_id"], action_results=results)
+    results_data_2 = phantom.collect2(container=container, datapath=["filtered-data:filter_1:condition_2:Format_ART_Command:action_result.data.*.executor.command", "filtered-data:filter_1:condition_2:Format_ART_Command:action_result.parameter.context.artifact_id"])
 
     parameters = []
     
