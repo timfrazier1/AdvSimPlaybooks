@@ -350,22 +350,22 @@ def Run_Powershell_Test(action=None, success=None, container=None, results=None,
     
     # collect data for 'Run_Powershell_Test' call
     results_data_1 = phantom.collect2(container=container, datapath=['Run_Start_Marker:action_result.parameter.ip_hostname', 'Run_Start_Marker:action_result.parameter.context.artifact_id'], action_results=results)
-    results_data_2 = phantom.collect2(container=container, datapath=['Format_ART_Command:action_result.data.*.executor.command', 'Format_ART_Command:action_result.parameter.context.artifact_id'], action_results=results)
+    filtered_results_data_1 = phantom.collect2(container=container, datapath=["filtered-data:filter_1:condition_1:Format_ART_Command:action_result.data.*.executor.command", "filtered-data:filter_1:condition_1:Format_ART_Command:action_result.parameter.context.artifact_id"])
 
     parameters = []
     
     # build parameters list for 'Run_Powershell_Test' call
     for results_item_1 in results_data_1:
-        for results_item_2 in results_data_2:
+        for filtered_results_item_1 in filtered_results_data_1:
             if results_item_1[0]:
                 parameters.append({
-                    'shell_id': "",
-                    'parser': "",
                     'ip_hostname': results_item_1[0],
-                    'async': "",
-                    'script_str': results_item_2[0],
                     'script_file': "",
+                    'script_str': filtered_results_item_1[0],
+                    'parser': "",
+                    'async': "",
                     'command_id': "",
+                    'shell_id': "",
                     # context (artifact id) is added to associate results with the artifact
                     'context': {'artifact_id': results_item_1[1]},
                 })
@@ -381,7 +381,7 @@ def Run_Cmd_Test(action=None, success=None, container=None, results=None, handle
     
     # collect data for 'Run_Cmd_Test' call
     results_data_1 = phantom.collect2(container=container, datapath=['Run_Start_Marker:action_result.parameter.ip_hostname', 'Run_Start_Marker:action_result.parameter.context.artifact_id'], action_results=results)
-    results_data_2 = phantom.collect2(container=container, datapath=['Format_ART_Command:action_result.data.*.executor.command', 'Format_ART_Command:action_result.parameter.context.artifact_id'], action_results=results)
+    results_data_2 = phantom.collect2(container=container, datapath=["filtered-data:filter_1:condition_2:Format_ART_Command:action_result.data.*.executor.command", "filtered-data:filter_1:condition_2:Format_ART_Command:action_result.parameter.context.artifact_id"], action_results=results)
 
     parameters = []
     
