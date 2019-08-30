@@ -592,6 +592,8 @@ def Post_Error_Msg(action=None, success=None, container=None, results=None, hand
     # build parameters list for 'Post_Error_Msg' call
     for results_item_1 in results_data_1:
         if results_item_1[0]:
+            phantom.debug(results_item_1[0])
+            results_item_1[0] = json.loads(results_item_1[0])
             results_item_1[0] = {"guid": results_item_1[0]["guid"], "msg": "Likely error in powershell script run on endpoint. See Phantom event {0} for more details.".format(id_value)}
             parameters.append({
                 'data': results_item_1[0],
@@ -654,6 +656,8 @@ def Post_Error_Msg_2(action=None, success=None, container=None, results=None, ha
     # build parameters list for 'Post_Error_Msg_2' call
     for results_item_1 in results_data_1:
         if results_item_1[0]:
+            phantom.debug(results_item_1[0])
+            results_item_1[0] = json.loads(results_item_1[0])
             results_item_1[0] = {"guid": results_item_1[0]["guid"], "msg": "Likely error in cmd.exe command run on endpoint. See Phantom event {0} for more details.".format(id_value)}
             parameters.append({
                 'data': results_item_1[0],
