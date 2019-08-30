@@ -22,27 +22,16 @@ def decision_1(action=None, success=None, container=None, results=None, handle=N
         action_results=results,
         conditions=[
             ["Format_ART_Command:action_result.data.*.executor.name", "==", "powershell"],
-        ])
+            ["Format_ART_Command:action_result.data.*.executor.name", "==", "command_prompt"],
+        ],
+        logical_operator='or')
 
     # call connected blocks if condition 1 matched
     if matched_artifacts_1 or matched_results_1:
-        Run_Powershell_Test(action=action, success=success, container=container, results=results, handle=handle)
+        filter_1(action=action, success=success, container=container, results=results, handle=handle)
         return
 
-    # check for 'elif' condition 2
-    matched_artifacts_2, matched_results_2 = phantom.condition(
-        container=container,
-        action_results=results,
-        conditions=[
-            ["Format_ART_Command:action_result.data.*.executor.name", "==", "command_prompt"],
-        ])
-
-    # call connected blocks if condition 2 matched
-    if matched_artifacts_2 or matched_results_2:
-        Run_Cmd_Test(action=action, success=success, container=container, results=results, handle=handle)
-        return
-
-    # call connected blocks for 'else' condition 3
+    # call connected blocks for 'else' condition 2
     Run_User_Supplied_Cmd(action=action, success=success, container=container, results=results, handle=handle)
 
     return
@@ -399,7 +388,34 @@ def Run_Cmd_Test(action=None, success=None, container=None, results=None, handle
     # build parameters list for 'Run_Cmd_Test' call
     for results_item_1 in results_data_1:
         for results_item_2 in results_data_2:
-            if results_item_1[0]:
+            if '\n' in results_item_2[0]:
+                cmd_list = results_item_2[0].split('\n')
+                for each_cmd in cmd_list:
+                    if ' ' in each_cmd:
+                        parameters.append({
+                            'ip_hostname': results_item_1[0],
+                            'command': each_cmd.split(' ', 1)[0],
+                            'arguments': each_cmd.split(' ', 1)[1],
+                            'parser': "",
+                            'async': True,
+                            'command_id': "",
+                            'shell_id': "",
+                            # context (artifact id) is added to associate results with the artifact
+                            'context': {'artifact_id': results_item_1[1]},
+                        })
+                    else:
+                        parameters.append({
+                            'ip_hostname': results_item_1[0],
+                            'command': each_cmd,
+                            'arguments': "",
+                            'parser': "",
+                            'async': True,
+                            'command_id': "",
+                            'shell_id': "",
+                            # context (artifact id) is added to associate results with the artifact
+                            'context': {'artifact_id': results_item_1[1]},
+                        })
+            else:
                 parameters.append({
                     'ip_hostname': results_item_1[0],
                     'command': results_item_2[0].split(' ', 1)[0],
@@ -448,6 +464,37 @@ def join_Format_End_Marker(action=None, success=None, container=None, results=No
 
     Format_End_Marker(container=container, handle=handle)
     
+    return
+
+def filter_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):
+    phantom.debug('filter_1() called')
+
+    # collect filtered artifact ids for 'if' condition 1
+    matched_artifacts_1, matched_results_1 = phantom.condition(
+        container=container,
+        action_results=results,
+        conditions=[
+            ["Format_ART_Command:action_result.data.*.executor.name", "==", "powershell"],
+        ],
+        name="filter_1:condition_1")
+
+    # call connected blocks if filtered artifacts or results
+    if matched_artifacts_1 or matched_results_1:
+        Run_Powershell_Test(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_1, filtered_results=matched_results_1)
+
+    # collect filtered artifact ids for 'if' condition 2
+    matched_artifacts_2, matched_results_2 = phantom.condition(
+        container=container,
+        action_results=results,
+        conditions=[
+            ["Format_ART_Command:action_result.data.*.executor.name", "==", "command_prompt"],
+        ],
+        name="filter_1:condition_2")
+
+    # call connected blocks if filtered artifacts or results
+    if matched_artifacts_2 or matched_results_2:
+        Run_Cmd_Test(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_2, filtered_results=matched_results_2)
+
     return
 
 def on_finish(container, summary):
