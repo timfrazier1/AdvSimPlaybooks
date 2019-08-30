@@ -428,7 +428,7 @@ def Run_Cmd_Test(action=None, success=None, container=None, results=None, handle
                     'context': {'artifact_id': results_item_1[1]},
                 })
 
-    phantom.act("run command", parameters=parameters, app={ "name": 'Windows Remote Management' }, callback=join_Format_End_Marker, name="Run_Cmd_Test")
+    phantom.act("run command", parameters=parameters, app={ "name": 'Windows Remote Management' }, callback=filter_3, name="Run_Cmd_Test")
 
     return
 
@@ -458,16 +458,58 @@ def join_Format_End_Marker(action=None, success=None, container=None, results=No
     # if the joined function has already been called, do nothing
     if phantom.get_run_data(key='join_Format_End_Marker_called'):
         return
-
-    # check if all connected incoming actions are done i.e. have succeeded or failed
-    if phantom.actions_done([ 'Post_Error_Msg', 'Post_Error_Msg_2' ]):
-        
-        # save the state that the joined function has now been called
-        phantom.save_run_data(key='join_Format_End_Marker_called', value='Format_End_Marker')
-        
-        # call connected block "Format_End_Marker"
-        Format_End_Marker(container=container, handle=handle)
     
+    if phantom.get_run_data(key='powershell_test') and phantom.get_run_data(key='cmd_test'):
+        if phantom.get_run_data(key='powershell_error') and phantom.get_run_data(key='cmd_error'):
+            if phantom.actions_done([ 'Post_Error_Msg', 'Post_Error_Msg_2' ]):
+                phantom.save_run_data(key='join_Format_End_Marker_called', value='Format_End_Marker')
+        
+                # call connected block "Format_End_Marker"
+                Format_End_Marker(container=container, handle=handle)
+        elif phantom.get_run_data(key='cmd_error'): 
+            if phantom.actions_done([ 'Post_Error_Msg_2', 'Run_Powershell_Test']):
+                phantom.save_run_data(key='join_Format_End_Marker_called', value='Format_End_Marker')
+        
+                # call connected block "Format_End_Marker"
+                Format_End_Marker(container=container, handle=handle)
+        elif phantom.get_run_data(key='powershell_error'): 
+            if phantom.actions_done([ 'Post_Error_Msg', 'Run_Cmd_Test' ]):
+                phantom.save_run_data(key='join_Format_End_Marker_called', value='Format_End_Marker')
+        
+                # call connected block "Format_End_Marker"
+                Format_End_Marker(container=container, handle=handle)
+        elif phantom.actions_done([ 'Run_Powershell_Test', 'Run_Cmd_Test' ]):
+                phantom.save_run_data(key='join_Format_End_Marker_called', value='Format_End_Marker')
+        
+                # call connected block "Format_End_Marker"
+                Format_End_Marker(container=container, handle=handle)
+                
+    elif phantom.get_run_data(key='powershell_test'):
+        if phantom.get_run_data(key='powershell_error') and phantom.actions_done([ 'Post_Error_Msg' ]):
+            phantom.save_run_data(key='join_Format_End_Marker_called', value='Format_End_Marker')
+        
+            # call connected block "Format_End_Marker"
+            Format_End_Marker(container=container, handle=handle)
+            
+        elif phantom.actions_done([ 'Run_Powershell_Test' ]):
+            phantom.save_run_data(key='join_Format_End_Marker_called', value='Format_End_Marker')
+        
+            # call connected block "Format_End_Marker"
+            Format_End_Marker(container=container, handle=handle)
+            
+    elif phantom.get_run_data(key='cmd_test'):
+        if phantom.get_run_data(key='cmd_error') and phantom.actions_done([ 'Post_Error_Msg_2' ]):
+            phantom.save_run_data(key='join_Format_End_Marker_called', value='Format_End_Marker')
+        
+            # call connected block "Format_End_Marker"
+            Format_End_Marker(container=container, handle=handle)
+            
+        elif phantom.actions_done([ 'Run_Cmd_Test' ]):
+            phantom.save_run_data(key='join_Format_End_Marker_called', value='Format_End_Marker')
+        
+            # call connected block "Format_End_Marker"
+            Format_End_Marker(container=container, handle=handle)
+
     return
 
 def filter_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):
@@ -484,6 +526,7 @@ def filter_1(action=None, success=None, container=None, results=None, handle=Non
 
     # call connected blocks if filtered artifacts or results
     if matched_artifacts_1 or matched_results_1:
+        phantom.save_run_data(value=True, key='powershell_test', auto=True)
         Run_Powershell_Test(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_1, filtered_results=matched_results_1)
 
     # collect filtered artifact ids for 'if' condition 2
@@ -497,6 +540,7 @@ def filter_1(action=None, success=None, container=None, results=None, handle=Non
 
     # call connected blocks if filtered artifacts or results
     if matched_artifacts_2 or matched_results_2:
+        phantom.save_run_data(value=True, key='cmd_test', auto=True)
         Run_Cmd_Test(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_2, filtered_results=matched_results_2)
 
     return
@@ -515,6 +559,7 @@ def filter_2(action=None, success=None, container=None, results=None, handle=Non
 
     # call connected blocks if filtered artifacts or results
     if matched_artifacts_1 or matched_results_1:
+        phantom.save_run_data(value=True, key='powershell_error', auto=True)
         Post_Error_Msg(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_1, filtered_results=matched_results_1)
 
     # collect filtered artifact ids for 'if' condition 2
@@ -573,6 +618,7 @@ def filter_3(action=None, success=None, container=None, results=None, handle=Non
 
     # call connected blocks if filtered artifacts or results
     if matched_artifacts_1 or matched_results_1:
+        phantom.save_run_data(value=True, key='cmd_error', auto=True)
         Post_Error_Msg_2(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_1, filtered_results=matched_results_1)
 
     # collect filtered artifact ids for 'if' condition 2
