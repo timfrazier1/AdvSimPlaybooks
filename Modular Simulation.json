@@ -7,7 +7,7 @@
             "clean": true,
             "code_block": "",
             "description": "",
-            "hash": "9022ec0ec4f0564d1f7a6fce2d1d2b658d488a38",
+            "hash": "8c59121478c4882d754accc79cb208ce55af52b9",
             "joint": {
                 "cells": [
                     {
@@ -546,7 +546,7 @@
                         "vertices": [
                             {
                                 "x": 1960,
-                                "y": -140
+                                "y": -160
                             }
                         ],
                         "z": 339
@@ -758,8 +758,8 @@
                         "join_code": "",
                         "join_optional": [],
                         "join_start": 1,
-                        "line_end": 113,
-                        "line_start": 96,
+                        "line_end": 111,
+                        "line_start": 94,
                         "message": "Configuring now",
                         "name": "format",
                         "notes": "",
@@ -914,12 +914,12 @@
                         "join_code": "# read-only block view not available",
                         "join_optional": [],
                         "join_start": 1,
-                        "line_end": 702,
-                        "line_start": 689,
+                        "line_end": 752,
+                        "line_start": 739,
                         "name": "",
                         "notes": "",
                         "number": 0,
-                        "order": 23,
+                        "order": 25,
                         "outPorts": [],
                         "ports": {
                             "groups": {
@@ -1287,8 +1287,8 @@
                         "join_code": "",
                         "join_optional": [],
                         "join_start": 1,
-                        "line_end": 96,
-                        "line_start": 65,
+                        "line_end": 94,
+                        "line_start": 63,
                         "message": "Configuring now",
                         "name": "post data",
                         "notes": "",
@@ -1621,181 +1621,6 @@
                         "attrs": {
                             ".background": {
                                 "fill": "#000000",
-                                "stroke": "#5C6773"
-                            },
-                            ".color-band": {
-                                "fill": "#3C444D"
-                            },
-                            ".format": {
-                                "text": "Format End Marker"
-                            },
-                            ".inPorts>.port-in": {
-                                "ref": ".background",
-                                "ref-x": 0.5
-                            },
-                            ".inPorts>.port-in>.port-body": {
-                                "port": {
-                                    "id": "in",
-                                    "type": "in"
-                                }
-                            },
-                            ".message": {
-                                "opacity": 0,
-                                "text": "Configuring now"
-                            },
-                            ".outPorts>.port-out-1": {
-                                "ref": ".background",
-                                "ref-x": 0.5
-                            },
-                            ".outPorts>.port-out-1>.port-body": {
-                                "port": {
-                                    "id": "out-1",
-                                    "type": "out"
-                                }
-                            },
-                            ".title": {
-                                "text": "format"
-                            },
-                            "g.code image": {
-                                "opacity": 1,
-                                "xlink:href": "/inc/coa/img/block_icon_code_dark_on.svg"
-                            },
-                            "g.delete": {
-                                "display": "none"
-                            },
-                            "g.error": {
-                                "opacity": 0
-                            },
-                            "g.error image": {
-                                "xlink:href": "/inc/coa/img/block_icon_warn.svg"
-                            },
-                            "g.notes": {
-                                "display": "block"
-                            },
-                            "g.notes image": {
-                                "opacity": 1
-                            }
-                        },
-                        "block_code": "def format_2(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):\n    phantom.debug('format_2() called')\n    \n    template = \"\"\"eventcreate /id 999 /D \\\"ended test for {0}\\\" /T INFORMATION /L application\"\"\"\n\n    # parameter list for template variable replacement\n    parameters = [\n        \"write_started_event:action_result.parameter.ip_hostname\",\n    ]\n\n    phantom.format(container=container, template=template, parameters=parameters, name=\"format_2\")\n\n    write_ended_event(container=container)\n\n    return",
-                        "callback_code": "",
-                        "callback_start": 1,
-                        "callsback": false,
-                        "connected_to_start": true,
-                        "connection_name": "Run User Supplied Cmd, Post Error Msg, Run Powershell Test, Post Error Msg 2, Run Cmd Test",
-                        "connection_type": "action",
-                        "custom_callback": "",
-                        "custom_code": "def Format_End_Marker(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):\n    phantom.debug('Format_End_Marker() called')\n    \n    playbook_info = phantom.get_playbook_info()\n    guid = phantom.get_data(playbook_info[0]['id'], clear_data=False)\n    phantom.debug(guid)\n        \n    template = \"eventcreate /id 999 /D \\\"ended test for {0} guid=%s\\\" /T INFORMATION /L application\" % guid\n\n    # parameter list for template variable replacement\n    parameters = [\n        \"Run_Start_Marker:action_result.parameter.ip_hostname\",\n    ]\n\n    phantom.format(container=container, template=template, parameters=parameters, name=\"Format_End_Marker\")\n\n    Run_End_Marker(container=container)\n\n    return",
-                        "custom_join": "def join_Format_End_Marker(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):\n    phantom.debug('join_Format_End_Marker() called')\n    \n    # if the joined function has already been called, do nothing\n    if phantom.get_run_data(key='join_Format_End_Marker_called'):\n        return\n    \n    if phantom.get_run_data(key='powershell_test') and phantom.get_run_data(key='cmd_test'):\n        if phantom.get_run_data(key='powershell_error') and phantom.get_run_data(key='cmd_error'):\n            if phantom.actions_done([ 'Post_Error_Msg', 'Post_Error_Msg_2' ]):\n                phantom.save_run_data(key='join_Format_End_Marker_called', value='Format_End_Marker')\n        \n                # call connected block \"Format_End_Marker\"\n                Format_End_Marker(container=container, handle=handle)\n        elif phantom.get_run_data(key='cmd_error'): \n            if phantom.actions_done([ 'Post_Error_Msg_2', 'Run_Powershell_Test']):\n                phantom.save_run_data(key='join_Format_End_Marker_called', value='Format_End_Marker')\n        \n                # call connected block \"Format_End_Marker\"\n                Format_End_Marker(container=container, handle=handle)\n        elif phantom.get_run_data(key='powershell_error'): \n            if phantom.actions_done([ 'Post_Error_Msg', 'Run_Cmd_Test' ]):\n                phantom.save_run_data(key='join_Format_End_Marker_called', value='Format_End_Marker')\n        \n                # call connected block \"Format_End_Marker\"\n                Format_End_Marker(container=container, handle=handle)\n        elif phantom.actions_done([ 'Run_Powershell_Test', 'Run_Cmd_Test' ]):\n                phantom.save_run_data(key='join_Format_End_Marker_called', value='Format_End_Marker')\n        \n                # call connected block \"Format_End_Marker\"\n                Format_End_Marker(container=container, handle=handle)\n                \n    elif phantom.get_run_data(key='powershell_test'):\n        if phantom.get_run_data(key='powershell_error') and phantom.actions_done([ 'Post_Error_Msg' ]):\n            phantom.save_run_data(key='join_Format_End_Marker_called', value='Format_End_Marker')\n        \n            # call connected block \"Format_End_Marker\"\n            Format_End_Marker(container=container, handle=handle)\n            \n        elif phantom.actions_done([ 'Run_Powershell_Test' ]):\n            phantom.save_run_data(key='join_Format_End_Marker_called', value='Format_End_Marker')\n        \n            # call connected block \"Format_End_Marker\"\n            Format_End_Marker(container=container, handle=handle)\n            \n    elif phantom.get_run_data(key='cmd_test'):\n        if phantom.get_run_data(key='cmd_error') and phantom.actions_done([ 'Post_Error_Msg_2' ]):\n            phantom.save_run_data(key='join_Format_End_Marker_called', value='Format_End_Marker')\n        \n            # call connected block \"Format_End_Marker\"\n            Format_End_Marker(container=container, handle=handle)\n            \n        elif phantom.actions_done([ 'Run_Cmd_Test' ]):\n            phantom.save_run_data(key='join_Format_End_Marker_called', value='Format_End_Marker')\n        \n            # call connected block \"Format_End_Marker\"\n            Format_End_Marker(container=container, handle=handle)\n    \n    \n    return",
-                        "custom_name": "Format End Marker",
-                        "description": "",
-                        "format": "format",
-                        "has_custom": true,
-                        "has_custom_block": true,
-                        "has_custom_callback": false,
-                        "has_custom_join": true,
-                        "id": "4607ee03-c437-4903-9d01-cbff02ae611d",
-                        "inPorts": [
-                            "in"
-                        ],
-                        "join_code": "def join_Format_End_Marker(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):\n    phantom.debug('join_Format_End_Marker() called')\n    \n    # if the joined function has already been called, do nothing\n    if phantom.get_run_data(key='join_Format_End_Marker_called'):\n        return\n\n    # check if all connected incoming actions are done i.e. have succeeded or failed\n    if phantom.actions_done([ 'Post_Error_Msg', 'Post_Error_Msg_2' ]):\n        \n        # save the state that the joined function has now been called\n        phantom.save_run_data(key='join_Format_End_Marker_called', value='Format_End_Marker')\n        \n        # call connected block \"Format_End_Marker\"\n        Format_End_Marker(container=container, handle=handle)\n    \n    return",
-                        "join_optional": [
-                            "Run_Cmd_Test"
-                        ],
-                        "join_start": 459,
-                        "line_end": 519,
-                        "line_start": 439,
-                        "message": "Configuring now",
-                        "name": "format",
-                        "notes": "",
-                        "number": 2,
-                        "order": 17,
-                        "outPorts": [
-                            "out-1"
-                        ],
-                        "parameters": [
-                            {
-                                "position": 0,
-                                "type": "",
-                                "value": "Run_Start_Marker:action_result.parameter.ip_hostname"
-                            }
-                        ],
-                        "ports": {
-                            "groups": {
-                                "in": {
-                                    "attrs": {
-                                        ".port-body": {
-                                            "fill": "#fff",
-                                            "magnet": true,
-                                            "r": 10,
-                                            "stroke": "#000"
-                                        },
-                                        ".port-label": {
-                                            "fill": "#000"
-                                        }
-                                    },
-                                    "label": {
-                                        "position": {
-                                            "args": {
-                                                "y": 10
-                                            },
-                                            "name": "left"
-                                        }
-                                    },
-                                    "position": {
-                                        "name": "left"
-                                    }
-                                },
-                                "out": {
-                                    "attrs": {
-                                        ".port-body": {
-                                            "fill": "#fff",
-                                            "magnet": true,
-                                            "r": 10,
-                                            "stroke": "#000"
-                                        },
-                                        ".port-label": {
-                                            "fill": "#000"
-                                        }
-                                    },
-                                    "label": {
-                                        "position": {
-                                            "args": {
-                                                "y": 10
-                                            },
-                                            "name": "right"
-                                        }
-                                    },
-                                    "position": {
-                                        "name": "right"
-                                    }
-                                }
-                            }
-                        },
-                        "position": {
-                            "x": 1720,
-                            "y": 300
-                        },
-                        "previous_function": "",
-                        "previous_name": "Format_End_Marker",
-                        "show_number": true,
-                        "size": {
-                            "height": 100,
-                            "width": 180
-                        },
-                        "state": "format",
-                        "status": "",
-                        "template": "eventcreate /id 999 /D \"ended test for {0}\" /T INFORMATION /L application",
-                        "title": "format",
-                        "type": "coa.Format",
-                        "warn": false,
-                        "z": 424
-                    },
-                    {
-                        "active": false,
-                        "angle": 0,
-                        "attrs": {
-                            ".background": {
-                                "fill": "#000000",
                                 "stroke": "#5C6773",
                                 "transform": "rotate(45 30 70)"
                             },
@@ -1837,7 +1662,7 @@
                                 }
                             },
                             "g.delete": {
-                                "display": "none"
+                                "display": "block"
                             },
                             "g.error": {
                                 "opacity": 0
@@ -1875,8 +1700,8 @@
                         "join_code": "",
                         "join_optional": [],
                         "join_start": 1,
-                        "line_end": 652,
-                        "line_start": 620,
+                        "line_end": 650,
+                        "line_start": 618,
                         "name": "filter",
                         "notes": "",
                         "number": 3,
@@ -2297,8 +2122,8 @@
                         "join_code": "",
                         "join_optional": [],
                         "join_start": 1,
-                        "line_end": 377,
-                        "line_start": 346,
+                        "line_end": 375,
+                        "line_start": 344,
                         "message": "Configuring now",
                         "name": "run script",
                         "notes": "",
@@ -2677,7 +2502,7 @@
                         "callsback": true,
                         "color": "",
                         "connected_to_start": true,
-                        "connection_name": "Run User Supplied Cmd, Post Error Msg, Run Powershell Test, Post Error Msg 2, Run Cmd Test",
+                        "connection_name": "Run Manual Cmd, Post Error Msg, Run Powershell Test, Post Error Msg 2, Run Cmd Test, Run Manual Powershell",
                         "connection_type": "action",
                         "custom_callback": "",
                         "custom_code": "",
@@ -2696,8 +2521,8 @@
                         "join_code": "",
                         "join_optional": [],
                         "join_start": 1,
-                        "line_end": 143,
-                        "line_start": 113,
+                        "line_end": 141,
+                        "line_start": 111,
                         "message": "Configuring now",
                         "name": "run script",
                         "notes": "",
@@ -2996,8 +2821,8 @@
                         "join_code": "",
                         "join_optional": [],
                         "join_start": 1,
-                        "line_end": 620,
-                        "line_start": 584,
+                        "line_end": 618,
+                        "line_start": 582,
                         "message": "Configuring now",
                         "name": "post data",
                         "notes": "",
@@ -3296,8 +3121,8 @@
                         "join_code": "",
                         "join_optional": [],
                         "join_start": 1,
-                        "line_end": 689,
-                        "line_start": 652,
+                        "line_end": 687,
+                        "line_start": 650,
                         "message": "Configuring now",
                         "name": "post data",
                         "notes": "",
@@ -3688,8 +3513,8 @@
                         "join_code": "",
                         "join_optional": [],
                         "join_start": 1,
-                        "line_end": 439,
-                        "line_start": 377,
+                        "line_end": 437,
+                        "line_start": 375,
                         "message": "Configuring now",
                         "name": "run command",
                         "notes": "",
@@ -3866,8 +3691,8 @@
                         "join_code": "",
                         "join_optional": [],
                         "join_start": 1,
-                        "line_end": 194,
-                        "line_start": 187,
+                        "line_end": 192,
+                        "line_start": 185,
                         "message": "Configuring now",
                         "name": "set status",
                         "notes": "",
@@ -4031,8 +3856,8 @@
                         "join_code": "",
                         "join_optional": [],
                         "join_start": 1,
-                        "line_end": 218,
-                        "line_start": 201,
+                        "line_end": 216,
+                        "line_start": 199,
                         "message": "Configuring now",
                         "name": "format",
                         "notes": "",
@@ -4340,8 +4165,8 @@
                         "join_code": "",
                         "join_optional": [],
                         "join_start": 1,
-                        "line_end": 316,
-                        "line_start": 268,
+                        "line_end": 314,
+                        "line_start": 266,
                         "message": "Configuring now",
                         "name": "post data",
                         "notes": "",
@@ -4668,8 +4493,8 @@
                         "join_code": "",
                         "join_optional": [],
                         "join_start": 1,
-                        "line_end": 187,
-                        "line_start": 143,
+                        "line_end": 185,
+                        "line_start": 141,
                         "name": "decision",
                         "notes": "",
                         "number": 2,
@@ -5100,8 +4925,8 @@
                         "join_code": "",
                         "join_optional": [],
                         "join_start": 1,
-                        "line_end": 65,
-                        "line_start": 39,
+                        "line_end": 63,
+                        "line_start": 37,
                         "message": "Configuring now",
                         "name": "format command",
                         "notes": "",
@@ -5163,8 +4988,8 @@
                             }
                         },
                         "position": {
-                            "x": 1200,
-                            "y": -40
+                            "x": 720,
+                            "y": 100
                         },
                         "previous_function": "",
                         "previous_name": "Format_ART_Command",
@@ -5311,8 +5136,8 @@
                         "join_code": "",
                         "join_optional": [],
                         "join_start": 549,
-                        "line_end": 552,
-                        "line_start": 519,
+                        "line_end": 550,
+                        "line_start": 517,
                         "name": "filter",
                         "notes": "",
                         "number": 1,
@@ -5460,47 +5285,6 @@
                         "z": 519
                     },
                     {
-                        "attrs": {
-                            ".connection": {
-                                "stroke": "#818D99",
-                                "stroke-width": 2
-                            },
-                            ".marker-target": {
-                                "d": "M 10 0 L 0 5 L 10 10 z",
-                                "fill": "#818D99",
-                                "stroke": "#818D99"
-                            }
-                        },
-                        "connector": {
-                            "args": {
-                                "radius": 5
-                            },
-                            "name": "rounded"
-                        },
-                        "endDirections": [
-                            "left"
-                        ],
-                        "id": "ec0d09aa-e0c7-42c8-9de7-fd0be99e00fd",
-                        "router": {
-                            "name": "metro"
-                        },
-                        "source": {
-                            "id": "71f118b1-449a-4e57-aad0-fe4d24e25923",
-                            "port": "out-2",
-                            "selector": "g:nth-child(1) > g:nth-child(2) > g:nth-child(2) > circle:nth-child(1)"
-                        },
-                        "startDirections": [
-                            "right"
-                        ],
-                        "target": {
-                            "id": "e29675fd-9f55-44ff-9301-8429275e8bcf",
-                            "port": null,
-                            "selector": "g:nth-child(1) > g:nth-child(1) > g:nth-child(1) > circle:nth-child(1)"
-                        },
-                        "type": "link",
-                        "z": 520
-                    },
-                    {
                         "active": false,
                         "angle": 0,
                         "api": "set status",
@@ -5594,8 +5378,8 @@
                         "join_code": "",
                         "join_optional": [],
                         "join_start": 1,
-                        "line_end": 201,
-                        "line_start": 194,
+                        "line_end": 199,
+                        "line_start": 192,
                         "message": "Configuring now",
                         "name": "set status",
                         "notes": "",
@@ -5759,8 +5543,8 @@
                         "join_code": "",
                         "join_optional": [],
                         "join_start": 1,
-                        "line_end": 584,
-                        "line_start": 552,
+                        "line_end": 582,
+                        "line_start": 550,
                         "name": "filter",
                         "notes": "",
                         "number": 2,
@@ -6181,8 +5965,8 @@
                         "join_code": "",
                         "join_optional": [],
                         "join_start": 1,
-                        "line_end": 346,
-                        "line_start": 316,
+                        "line_end": 344,
+                        "line_start": 314,
                         "message": "Configuring now",
                         "name": "run script",
                         "notes": "",
@@ -6266,6 +6050,918 @@
                         "z": 525
                     },
                     {
+                        "active": false,
+                        "angle": 0,
+                        "attrs": {
+                            ".background": {
+                                "fill": "#000000",
+                                "stroke": "#5C6773"
+                            },
+                            ".color-band": {
+                                "fill": "#3C444D"
+                            },
+                            ".format": {
+                                "text": "Format Start Marker"
+                            },
+                            ".inPorts>.port-in": {
+                                "ref": ".background",
+                                "ref-x": 0.5
+                            },
+                            ".inPorts>.port-in>.port-body": {
+                                "port": {
+                                    "id": "in",
+                                    "type": "in"
+                                }
+                            },
+                            ".message": {
+                                "opacity": 0,
+                                "text": "Configuring now"
+                            },
+                            ".outPorts>.port-out-1": {
+                                "ref": ".background",
+                                "ref-x": 0.5
+                            },
+                            ".outPorts>.port-out-1>.port-body": {
+                                "port": {
+                                    "id": "out-1",
+                                    "type": "out"
+                                }
+                            },
+                            ".title": {
+                                "text": "format"
+                            },
+                            "g.code image": {
+                                "opacity": 1,
+                                "xlink:href": "/inc/coa/img/block_icon_code_dark_on.svg"
+                            },
+                            "g.delete": {
+                                "display": "none"
+                            },
+                            "g.error": {
+                                "opacity": 0
+                            },
+                            "g.error image": {
+                                "xlink:href": "/inc/coa/img/block_icon_warn.svg"
+                            },
+                            "g.notes": {
+                                "display": "block"
+                            },
+                            "g.notes image": {
+                                "opacity": 1
+                            }
+                        },
+                        "block_code": "def format_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):\n    phantom.debug('format_1() called')\n    \n    template = \"\"\"eventcreate /id 999 /D \\\"started test on {0} guid=\\\" /T INFORMATION /L application\"\"\"\n\n    # parameter list for template variable replacement\n    parameters = [\n        \"artifact:*.cef.destinationAddress\",\n    ]\n\n    phantom.format(container=container, template=template, parameters=parameters, name=\"format_1\")\n\n    write_started_event(container=container)\n\n    return",
+                        "callback_code": "",
+                        "callback_start": 1,
+                        "callsback": false,
+                        "connected_to_start": true,
+                        "connection_name": "Post Start Event to Splunk",
+                        "connection_type": "action",
+                        "custom_callback": "",
+                        "custom_code": "def Format_Start_Marker(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):\n    phantom.debug('format_1() called')\n    \n    playbook_info = phantom.get_playbook_info()\n    guid = phantom.get_data(playbook_info[0]['id'], clear_data=False)\n    \n    template = \"eventcreate /id 999 /D \\\"started test on {0} guid=%s\\\" /T INFORMATION /L application\" % guid\n\n    # parameter list for template variable replacement\n    parameters = [\n        \"artifact:*.cef.destinationAddress\"\n    ]\n\n    phantom.format(container=container, template=template, parameters=parameters, name=\"Format_Start_Marker\")\n\n    Run_Start_Marker(container=container)\n\n    return",
+                        "custom_join": "",
+                        "custom_name": "Format Start Marker",
+                        "description": "",
+                        "format": "format",
+                        "has_custom": true,
+                        "has_custom_block": true,
+                        "has_custom_callback": false,
+                        "has_custom_join": false,
+                        "id": "d6141597-15a3-451a-ae6c-79bd83d15550",
+                        "inPorts": [
+                            "in"
+                        ],
+                        "join_code": "",
+                        "join_optional": [],
+                        "join_start": 1,
+                        "line_end": 266,
+                        "line_start": 247,
+                        "message": "Configuring now",
+                        "name": "format",
+                        "notes": "",
+                        "number": 1,
+                        "order": 12,
+                        "outPorts": [
+                            "out-1"
+                        ],
+                        "parameters": [
+                            {
+                                "position": 0,
+                                "type": "",
+                                "value": "artifact:*.cef.destinationAddress"
+                            }
+                        ],
+                        "ports": {
+                            "groups": {
+                                "in": {
+                                    "attrs": {
+                                        ".port-body": {
+                                            "fill": "#fff",
+                                            "magnet": true,
+                                            "r": 10,
+                                            "stroke": "#000"
+                                        },
+                                        ".port-label": {
+                                            "fill": "#000"
+                                        }
+                                    },
+                                    "label": {
+                                        "position": {
+                                            "args": {
+                                                "y": 10
+                                            },
+                                            "name": "left"
+                                        }
+                                    },
+                                    "position": {
+                                        "name": "left"
+                                    }
+                                },
+                                "out": {
+                                    "attrs": {
+                                        ".port-body": {
+                                            "fill": "#fff",
+                                            "magnet": true,
+                                            "r": 10,
+                                            "stroke": "#000"
+                                        },
+                                        ".port-label": {
+                                            "fill": "#000"
+                                        }
+                                    },
+                                    "label": {
+                                        "position": {
+                                            "args": {
+                                                "y": 10
+                                            },
+                                            "name": "right"
+                                        }
+                                    },
+                                    "position": {
+                                        "name": "right"
+                                    }
+                                }
+                            }
+                        },
+                        "position": {
+                            "x": 640,
+                            "y": -40
+                        },
+                        "previous_function": "",
+                        "previous_name": "Format_Start_Marker",
+                        "show_number": true,
+                        "size": {
+                            "height": 100,
+                            "width": 180
+                        },
+                        "state": "format",
+                        "status": "",
+                        "template": "eventcreate /id 999 /D \"started test on {0} guid=\" /T INFORMATION /L application",
+                        "title": "format",
+                        "type": "coa.Format",
+                        "warn": false,
+                        "z": 527
+                    },
+                    {
+                        "attrs": {
+                            ".connection": {
+                                "stroke": "#818D99",
+                                "stroke-width": 2
+                            },
+                            ".marker-target": {
+                                "d": "M 10 0 L 0 5 L 10 10 z",
+                                "fill": "#818D99",
+                                "stroke": "#818D99"
+                            }
+                        },
+                        "connector": {
+                            "args": {
+                                "radius": 5
+                            },
+                            "name": "rounded"
+                        },
+                        "endDirections": [
+                            "left"
+                        ],
+                        "id": "50ae1383-1b0d-473d-9bfc-5441a959e0ce",
+                        "router": {
+                            "name": "metro"
+                        },
+                        "source": {
+                            "id": "71f118b1-449a-4e57-aad0-fe4d24e25923",
+                            "port": "out-2",
+                            "selector": "g:nth-child(1) > g:nth-child(2) > g:nth-child(2) > circle:nth-child(1)"
+                        },
+                        "startDirections": [
+                            "right"
+                        ],
+                        "target": {
+                            "id": "09a940ba-2076-43da-9fb6-47fca922f0ab",
+                            "selector": ".port-body[type=\"input\"]"
+                        },
+                        "type": "link",
+                        "z": 531
+                    },
+                    {
+                        "attrs": {
+                            ".connection": {
+                                "stroke": "#818D99",
+                                "stroke-width": 2
+                            },
+                            ".marker-target": {
+                                "d": "M 10 0 L 0 5 L 10 10 z",
+                                "fill": "#818D99",
+                                "stroke": "#818D99"
+                            }
+                        },
+                        "connector": {
+                            "args": {
+                                "radius": 5
+                            },
+                            "name": "rounded"
+                        },
+                        "endDirections": [
+                            "left"
+                        ],
+                        "id": "827a4e05-2aa4-471b-a9e1-4ed924b01baf",
+                        "router": {
+                            "name": "metro"
+                        },
+                        "source": {
+                            "id": "09a940ba-2076-43da-9fb6-47fca922f0ab",
+                            "port": "out-1",
+                            "selector": "g:nth-child(1) > g:nth-child(2) > g:nth-child(1) > circle:nth-child(1)"
+                        },
+                        "startDirections": [
+                            "right"
+                        ],
+                        "target": {
+                            "id": "39f1ac18-2560-4ccb-b6c2-e19d8cae9e11",
+                            "selector": ".port-body[type=\"input\"]"
+                        },
+                        "type": "link",
+                        "z": 536
+                    },
+                    {
+                        "attrs": {
+                            ".connection": {
+                                "stroke": "#818D99",
+                                "stroke-width": 2
+                            },
+                            ".marker-target": {
+                                "d": "M 10 0 L 0 5 L 10 10 z",
+                                "fill": "#818D99",
+                                "stroke": "#818D99"
+                            }
+                        },
+                        "connector": {
+                            "args": {
+                                "radius": 5
+                            },
+                            "name": "rounded"
+                        },
+                        "endDirections": [
+                            "left"
+                        ],
+                        "id": "7c2c4fce-3c69-4f72-94f0-e57509137596",
+                        "router": {
+                            "name": "metro"
+                        },
+                        "source": {
+                            "id": "39f1ac18-2560-4ccb-b6c2-e19d8cae9e11",
+                            "port": null,
+                            "selector": "g:nth-child(1) > g:nth-child(2) > g:nth-child(1) > circle:nth-child(1)"
+                        },
+                        "startDirections": [
+                            "right"
+                        ],
+                        "target": {
+                            "id": "4607ee03-c437-4903-9d01-cbff02ae611d",
+                            "port": null,
+                            "selector": "g:nth-child(1) > g:nth-child(1) > g:nth-child(1) > circle:nth-child(1)"
+                        },
+                        "type": "link",
+                        "z": 540
+                    },
+                    {
+                        "action": "run script",
+                        "action_type": "generic",
+                        "active": false,
+                        "active_keys": {},
+                        "active_values": {
+                            "async": "",
+                            "command_id": "",
+                            "ip_hostname": "Run_Start_Marker:action_result.parameter.ip_hostname",
+                            "parser": "",
+                            "script_file": "",
+                            "script_str": "artifact:*.cef.manual_powershell",
+                            "shell_id": ""
+                        },
+                        "angle": 0,
+                        "app": "Windows Remote Management",
+                        "appid": "a0222b95-b006-4c9e-9578-1428defcec0f",
+                        "approver": "",
+                        "assets": [
+                            {
+                                "action": "run script",
+                                "active": true,
+                                "app_name": "Windows Remote Management",
+                                "app_version": "1.0.19",
+                                "appid": "a0222b95-b006-4c9e-9578-1428defcec0f",
+                                "config_type": "app",
+                                "fields": {
+                                    "async": "",
+                                    "command_id": "",
+                                    "ip_hostname": "Run_Start_Marker:action_result.parameter.ip_hostname",
+                                    "parser": "",
+                                    "script_file": "",
+                                    "script_str": "artifact:*.cef.manual_powershell",
+                                    "shell_id": ""
+                                },
+                                "has_app": true,
+                                "id": 36,
+                                "loaded": false,
+                                "missing": false,
+                                "name": "Windows Remote Management",
+                                "output": [
+                                    {
+                                        "data_path": "action_result.status",
+                                        "data_type": "string"
+                                    },
+                                    {
+                                        "data_path": "action_result.parameter.async",
+                                        "data_type": "boolean"
+                                    },
+                                    {
+                                        "contains": [
+                                            "winrm command id"
+                                        ],
+                                        "data_path": "action_result.parameter.command_id",
+                                        "data_type": "string"
+                                    },
+                                    {
+                                        "contains": [
+                                            "ip",
+                                            "host name"
+                                        ],
+                                        "data_path": "action_result.parameter.ip_hostname",
+                                        "data_type": "string"
+                                    },
+                                    {
+                                        "contains": [
+                                            "vault id"
+                                        ],
+                                        "data_path": "action_result.parameter.parser",
+                                        "data_type": "string"
+                                    },
+                                    {
+                                        "contains": [
+                                            "vault id"
+                                        ],
+                                        "data_path": "action_result.parameter.script_file",
+                                        "data_type": "string"
+                                    },
+                                    {
+                                        "data_path": "action_result.parameter.script_str",
+                                        "data_type": "string"
+                                    },
+                                    {
+                                        "contains": [
+                                            "winrm shell id"
+                                        ],
+                                        "data_path": "action_result.parameter.shell_id",
+                                        "data_type": "string"
+                                    },
+                                    {
+                                        "data_path": "action_result.data.*.status_code",
+                                        "data_type": "numeric",
+                                        "example_values": [
+                                            0
+                                        ]
+                                    },
+                                    {
+                                        "data_path": "action_result.data.*.std_err",
+                                        "data_type": "string",
+                                        "example_values": [
+                                            "Error message"
+                                        ]
+                                    },
+                                    {
+                                        "data_path": "action_result.data.*.std_out",
+                                        "data_type": "string",
+                                        "example_values": [
+                                            "Successful output"
+                                        ]
+                                    },
+                                    {
+                                        "contains": [
+                                            "winrm command id"
+                                        ],
+                                        "data_path": "action_result.summary.command_id",
+                                        "data_type": "string"
+                                    },
+                                    {
+                                        "contains": [
+                                            "winrm shell id"
+                                        ],
+                                        "data_path": "action_result.summary.shell_id",
+                                        "data_type": "string"
+                                    },
+                                    {
+                                        "column_name": "Message",
+                                        "column_order": 0,
+                                        "data_path": "action_result.message",
+                                        "data_type": "string"
+                                    },
+                                    {
+                                        "data_path": "summary.total_objects",
+                                        "data_type": "numeric"
+                                    },
+                                    {
+                                        "data_path": "summary.total_objects_successful",
+                                        "data_type": "numeric"
+                                    }
+                                ],
+                                "parameters": {
+                                    "async": {
+                                        "data_type": "boolean",
+                                        "default": false,
+                                        "description": "Start the command, but don't wait for output",
+                                        "key": "async",
+                                        "order": 4,
+                                        "required": false
+                                    },
+                                    "command_id": {
+                                        "contains": [
+                                            "winrm command id"
+                                        ],
+                                        "data_type": "string",
+                                        "default": null,
+                                        "description": "Command ID of async command (Provide with shell_id)",
+                                        "key": "command_id",
+                                        "order": 5,
+                                        "primary": true,
+                                        "required": false
+                                    },
+                                    "ip_hostname": {
+                                        "contains": [
+                                            "ip",
+                                            "host name"
+                                        ],
+                                        "data_type": "string",
+                                        "default": null,
+                                        "description": "IP/Hostname",
+                                        "key": "ip_hostname",
+                                        "order": 0,
+                                        "required": true
+                                    },
+                                    "parser": {
+                                        "contains": [
+                                            "vault id"
+                                        ],
+                                        "data_type": "string",
+                                        "default": null,
+                                        "description": "The vault ID of a custom parser to use for output",
+                                        "key": "parser",
+                                        "order": 3,
+                                        "primary": true,
+                                        "required": false
+                                    },
+                                    "script_file": {
+                                        "contains": [
+                                            "vault id"
+                                        ],
+                                        "data_type": "string",
+                                        "default": null,
+                                        "description": "The vault ID of a PowerShell script to run",
+                                        "key": "script_file",
+                                        "order": 1,
+                                        "primary": true,
+                                        "required": false
+                                    },
+                                    "script_str": {
+                                        "data_type": "string",
+                                        "default": null,
+                                        "description": "A PowerShell script to run",
+                                        "key": "script_str",
+                                        "order": 2,
+                                        "primary": true,
+                                        "required": false
+                                    },
+                                    "shell_id": {
+                                        "contains": [
+                                            "winrm shell id"
+                                        ],
+                                        "data_type": "string",
+                                        "default": null,
+                                        "description": "Shell ID of async command (Provide with command_id)",
+                                        "key": "shell_id",
+                                        "order": 6,
+                                        "required": false
+                                    }
+                                },
+                                "product_name": "Windows Remote Management",
+                                "product_vendor": "Microsoft",
+                                "type": ""
+                            }
+                        ],
+                        "attrs": {
+                            ".action": {
+                                "text": "Run Manual Powershell"
+                            },
+                            ".background": {
+                                "fill": "#000000",
+                                "stroke": "#5C6773"
+                            },
+                            ".color-band": {
+                                "fill": "#3C444D"
+                            },
+                            ".inPorts>.port-in": {
+                                "ref": ".background",
+                                "ref-x": 0.5
+                            },
+                            ".inPorts>.port-in>.port-body": {
+                                "port": {
+                                    "id": "in",
+                                    "type": "in"
+                                }
+                            },
+                            ".message": {
+                                "opacity": 0,
+                                "ref-x": 5,
+                                "ref-y": 105,
+                                "text": "Configuring now"
+                            },
+                            ".outPorts>.port-out": {
+                                "ref": ".background",
+                                "ref-x": 0.5
+                            },
+                            ".outPorts>.port-out>.port-body": {
+                                "port": {
+                                    "id": "out",
+                                    "type": "out"
+                                }
+                            },
+                            ".title": {
+                                "text": "Generic"
+                            },
+                            "g.delete": {
+                                "display": "none"
+                            },
+                            "g.error": {
+                                "opacity": 0
+                            },
+                            "g.error image": {
+                                "xlink:href": "/inc/coa/img/block_icon_warn.svg"
+                            },
+                            "g.icon image": {
+                                "xlink:href": "/inc/coa/img/block_icon_generic.svg"
+                            },
+                            "g.notes": {
+                                "display": "block"
+                            }
+                        },
+                        "block_code": "def Run_Manual_Powershell(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):\n    phantom.debug('Run_Manual_Powershell() called')\n    \n    #phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))\n    \n    # collect data for 'Run_Manual_Powershell' call\n    container_data = phantom.collect2(container=container, datapath=['artifact:*.cef.manual_powershell', 'artifact:*.id'])\n    results_data_1 = phantom.collect2(container=container, datapath=['Run_Start_Marker:action_result.parameter.ip_hostname', 'Run_Start_Marker:action_result.parameter.context.artifact_id'], action_results=results)\n\n    parameters = []\n    \n    # build parameters list for 'Run_Manual_Powershell' call\n    for container_item in container_data:\n        for results_item_1 in results_data_1:\n            if results_item_1[0]:\n                parameters.append({\n                    'ip_hostname': results_item_1[0],\n                    'script_file': \"\",\n                    'script_str': container_item[0],\n                    'parser': \"\",\n                    'async': \"\",\n                    'command_id': \"\",\n                    'shell_id': \"\",\n                    # context (artifact id) is added to associate results with the artifact\n                    'context': {'artifact_id': results_item_1[1]},\n                })\n\n    phantom.act(\"run script\", parameters=parameters, app={ \"name\": 'Windows Remote Management' }, callback=join_Format_End_Marker, name=\"Run_Manual_Powershell\")\n\n    return",
+                        "callback_code": "",
+                        "callback_start": 1,
+                        "callsback": true,
+                        "color": "",
+                        "connected_to_start": true,
+                        "connection_name": "Run Start Marker",
+                        "connection_type": "action",
+                        "custom_callback": "",
+                        "custom_code": "",
+                        "custom_join": "",
+                        "custom_name": "Run Manual Powershell",
+                        "delay": 0,
+                        "description": "",
+                        "has_custom": false,
+                        "has_custom_block": false,
+                        "has_custom_callback": false,
+                        "has_custom_join": false,
+                        "id": "39f1ac18-2560-4ccb-b6c2-e19d8cae9e11",
+                        "inPorts": [
+                            "in"
+                        ],
+                        "join_code": "",
+                        "join_optional": [],
+                        "join_start": 1,
+                        "line_end": 739,
+                        "line_start": 708,
+                        "message": "Configuring now",
+                        "name": "run script",
+                        "notes": "",
+                        "number": 4,
+                        "order": 24,
+                        "outPorts": [
+                            "out"
+                        ],
+                        "ports": {
+                            "groups": {
+                                "in": {
+                                    "attrs": {
+                                        ".port-body": {
+                                            "fill": "#fff",
+                                            "magnet": true,
+                                            "r": 10,
+                                            "stroke": "#000"
+                                        },
+                                        ".port-label": {
+                                            "fill": "#000"
+                                        }
+                                    },
+                                    "label": {
+                                        "position": {
+                                            "args": {
+                                                "y": 10
+                                            },
+                                            "name": "left"
+                                        }
+                                    },
+                                    "position": {
+                                        "name": "left"
+                                    }
+                                },
+                                "out": {
+                                    "attrs": {
+                                        ".port-body": {
+                                            "fill": "#fff",
+                                            "magnet": true,
+                                            "r": 10,
+                                            "stroke": "#000"
+                                        },
+                                        ".port-label": {
+                                            "fill": "#000"
+                                        }
+                                    },
+                                    "label": {
+                                        "position": {
+                                            "args": {
+                                                "y": 10
+                                            },
+                                            "name": "right"
+                                        }
+                                    },
+                                    "position": {
+                                        "name": "right"
+                                    }
+                                }
+                            }
+                        },
+                        "position": {
+                            "x": 1480,
+                            "y": -20
+                        },
+                        "previous_function": "",
+                        "previous_name": "Run_Manual_Powershell",
+                        "required_params": {
+                            "ip_hostname": true
+                        },
+                        "reviewer": "",
+                        "show_number": true,
+                        "size": {
+                            "height": 100,
+                            "width": 180
+                        },
+                        "state": "app_action_config",
+                        "status": "",
+                        "title": "Generic",
+                        "type": "coa.Action",
+                        "warn": "",
+                        "z": 541
+                    },
+                    {
+                        "active": false,
+                        "angle": 0,
+                        "attrs": {
+                            ".background": {
+                                "fill": "#000000",
+                                "stroke": "#637282",
+                                "transform": "rotate(45 30 70)"
+                            },
+                            ".inPorts>.port-0>.port-body": {
+                                "port": {
+                                    "id": "in",
+                                    "type": "in"
+                                }
+                            },
+                            ".number": {
+                                "text": 3
+                            },
+                            ".outPorts>.port-0": {
+                                "port": {
+                                    "id": "out-1",
+                                    "type": "out"
+                                },
+                                "ref-x": 83,
+                                "ref-y": 40
+                            },
+                            ".outPorts>.port-0>.port-body": {
+                                "port": {
+                                    "id": "out-1",
+                                    "type": "out"
+                                }
+                            },
+                            ".outPorts>.port-1": {
+                                "port": {
+                                    "id": "out-2",
+                                    "type": "out"
+                                },
+                                "ref-x": 41,
+                                "ref-y": 82
+                            },
+                            ".outPorts>.port-1>.port-body": {
+                                "port": {
+                                    "id": "out-2",
+                                    "type": "out"
+                                }
+                            },
+                            "g.delete": {
+                                "display": "none"
+                            },
+                            "g.error": {
+                                "opacity": 0
+                            },
+                            "g.error image": {
+                                "xlink:href": "/inc/coa/img/block_icon_warn.svg"
+                            },
+                            "g.notes": {
+                                "display": "block"
+                            }
+                        },
+                        "block_code": "def decision_3(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):\n    phantom.debug('decision_3() called')\n\n    # check for 'if' condition 1\n    matched_artifacts_1, matched_results_1 = phantom.condition(\n        container=container,\n        action_results=results,\n        conditions=[\n            [\"artifact:*.cef.manual_powershell\", \"!=\", \"NA\"],\n        ])\n\n    # call connected blocks if condition 1 matched\n    if matched_artifacts_1 or matched_results_1:\n        Run_Manual_Powershell(action=action, success=success, container=container, results=results, handle=handle)\n        return\n\n    # call connected blocks for 'else' condition 2\n    Format_ART_Command(action=action, success=success, container=container, results=results, handle=handle)\n\n    return",
+                        "callback_code": "",
+                        "callback_start": 1,
+                        "callsback": false,
+                        "connected_to_start": true,
+                        "connection_name": "Run Start Marker",
+                        "connection_type": "action",
+                        "custom_callback": "",
+                        "custom_code": "",
+                        "custom_join": "",
+                        "custom_name": "",
+                        "description": "",
+                        "hasElse": true,
+                        "has_custom": false,
+                        "has_custom_block": false,
+                        "has_custom_callback": false,
+                        "has_custom_join": false,
+                        "id": "09a940ba-2076-43da-9fb6-47fca922f0ab",
+                        "inPorts": [
+                            "in"
+                        ],
+                        "join_code": "",
+                        "join_optional": [],
+                        "join_start": 1,
+                        "line_end": 708,
+                        "line_start": 687,
+                        "name": "decision",
+                        "notes": "",
+                        "number": 3,
+                        "order": 23,
+                        "outPorts": [
+                            "out-1",
+                            "out-2"
+                        ],
+                        "outputs": [
+                            {
+                                "conditions": [
+                                    {
+                                        "comparison": "!=",
+                                        "data_type": "",
+                                        "param": "artifact:*.cef.manual_powershell",
+                                        "value": "NA"
+                                    }
+                                ],
+                                "display": "If",
+                                "logic": "and",
+                                "type": "if"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "comparison": "==",
+                                        "data_type": "",
+                                        "param": "",
+                                        "value": ""
+                                    }
+                                ],
+                                "display": "Else",
+                                "logic": "and",
+                                "type": "else"
+                            }
+                        ],
+                        "ports": {
+                            "groups": {
+                                "in": {
+                                    "attrs": {
+                                        ".port-body": {
+                                            "fill": "#fff",
+                                            "magnet": true,
+                                            "r": 10,
+                                            "stroke": "#000"
+                                        },
+                                        ".port-label": {
+                                            "fill": "#000"
+                                        }
+                                    },
+                                    "label": {
+                                        "position": {
+                                            "args": {
+                                                "y": 10
+                                            },
+                                            "name": "left"
+                                        }
+                                    },
+                                    "position": {
+                                        "name": "left"
+                                    }
+                                },
+                                "out": {
+                                    "attrs": {
+                                        ".port-body": {
+                                            "fill": "#fff",
+                                            "magnet": true,
+                                            "r": 10,
+                                            "stroke": "#000"
+                                        },
+                                        ".port-label": {
+                                            "fill": "#000"
+                                        }
+                                    },
+                                    "label": {
+                                        "position": {
+                                            "args": {
+                                                "y": 10
+                                            },
+                                            "name": "right"
+                                        }
+                                    },
+                                    "position": {
+                                        "name": "right"
+                                    }
+                                }
+                            }
+                        },
+                        "position": {
+                            "x": 1220,
+                            "y": -40
+                        },
+                        "previous_function": "",
+                        "previous_name": "decision_3",
+                        "show_number": true,
+                        "size": {
+                            "height": 82,
+                            "width": 82
+                        },
+                        "state": "decision",
+                        "status": "",
+                        "type": "coa.Decision",
+                        "warn": "",
+                        "z": 543
+                    },
+                    {
+                        "attrs": {
+                            ".connection": {
+                                "stroke": "#818D99",
+                                "stroke-width": 2
+                            },
+                            ".marker-target": {
+                                "d": "M 10 0 L 0 5 L 10 10 z",
+                                "fill": "#818D99",
+                                "stroke": "#818D99"
+                            }
+                        },
+                        "connector": {
+                            "args": {
+                                "radius": 5
+                            },
+                            "name": "rounded"
+                        },
+                        "endDirections": [
+                            "left"
+                        ],
+                        "id": "4bf1e800-0b56-4b59-b420-15d53cd7e124",
+                        "router": {
+                            "name": "metro"
+                        },
+                        "source": {
+                            "id": "09a940ba-2076-43da-9fb6-47fca922f0ab",
+                            "port": "out-2",
+                            "selector": "g:nth-child(1) > g:nth-child(2) > g:nth-child(2) > circle:nth-child(1)"
+                        },
+                        "startDirections": [
+                            "right"
+                        ],
+                        "target": {
+                            "id": "e29675fd-9f55-44ff-9301-8429275e8bcf",
+                            "port": null,
+                            "selector": "g:nth-child(1) > g:nth-child(1) > g:nth-child(1) > circle:nth-child(1)"
+                        },
+                        "type": "link",
+                        "z": 544
+                    },
+                    {
                         "action": "run command",
                         "action_type": "generic",
                         "active": false,
@@ -6273,9 +6969,9 @@
                         "active_values": {
                             "arguments": "",
                             "async": "",
-                            "command": "artifact:*.cef.command",
+                            "command": "artifact:*.cef.manual_command",
                             "command_id": "",
-                            "ip_hostname": "write_started_event:action_result.parameter.ip_hostname",
+                            "ip_hostname": "Run_Start_Marker:action_result.parameter.ip_hostname",
                             "parser": "",
                             "shell_id": ""
                         },
@@ -6288,20 +6984,20 @@
                                 "action": "run command",
                                 "active": true,
                                 "app_name": "Windows Remote Management",
-                                "app_version": "1.0.15",
-                                "appid": "",
+                                "app_version": "1.0.19",
+                                "appid": "a0222b95-b006-4c9e-9578-1428defcec0f",
                                 "config_type": "app",
                                 "fields": {
                                     "arguments": "",
                                     "async": "",
-                                    "command": "artifact:*.cef.command",
+                                    "command": "artifact:*.cef.manual_command",
                                     "command_id": "",
                                     "ip_hostname": "Run_Start_Marker:action_result.parameter.ip_hostname",
                                     "parser": "",
                                     "shell_id": ""
                                 },
                                 "has_app": true,
-                                "id": 128,
+                                "id": 36,
                                 "loaded": false,
                                 "missing": false,
                                 "name": "Windows Remote Management",
@@ -6481,7 +7177,7 @@
                         ],
                         "attrs": {
                             ".action": {
-                                "text": "Run User Supplied Cmd"
+                                "text": "Run Manual Cmd"
                             },
                             ".background": {
                                 "fill": "#000000",
@@ -6526,7 +7222,7 @@
                                 "opacity": 1
                             },
                             "g.delete": {
-                                "display": "none"
+                                "display": "block"
                             },
                             "g.error": {
                                 "opacity": 0
@@ -6547,7 +7243,7 @@
                                 "opacity": 1
                             }
                         },
-                        "block_code": "def Run_User_Supplied_Cmd(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):\n    phantom.debug('Run_User_Supplied_Cmd() called')\n    \n    #phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))\n    \n    # collect data for 'Run_User_Supplied_Cmd' call\n    container_data = phantom.collect2(container=container, datapath=['artifact:*.cef.command', 'artifact:*.id'])\n    results_data_1 = phantom.collect2(container=container, datapath=['Run_Start_Marker:action_result.parameter.ip_hostname', 'Run_Start_Marker:action_result.parameter.context.artifact_id'], action_results=results)\n\n    parameters = []\n    \n    # build parameters list for 'Run_User_Supplied_Cmd' call\n    for container_item in container_data:\n        for results_item_1 in results_data_1:\n            if results_item_1[0]:\n                parameters.append({\n                    'shell_id': \"\",\n                    'parser': \"\",\n                    'ip_hostname': results_item_1[0],\n                    'command': container_item[0],\n                    'arguments': \"\",\n                    'async': \"\",\n                    'command_id': \"\",\n                    # context (artifact id) is added to associate results with the artifact\n                    'context': {'artifact_id': results_item_1[1]},\n                })\n\n    phantom.act(\"run command\", parameters=parameters, app={ \"name\": 'Windows Remote Management' }, callback=join_Format_End_Marker, name=\"Run_User_Supplied_Cmd\")\n\n    return",
+                        "block_code": "def Run_Manual_Cmd(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):\n    phantom.debug('Run_Manual_Cmd() called')\n    \n    #phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))\n    \n    # collect data for 'Run_Manual_Cmd' call\n    container_data = phantom.collect2(container=container, datapath=['artifact:*.cef.manual_command', 'artifact:*.id'])\n    results_data_1 = phantom.collect2(container=container, datapath=['Run_Start_Marker:action_result.parameter.ip_hostname', 'Run_Start_Marker:action_result.parameter.context.artifact_id'], action_results=results)\n\n    parameters = []\n    \n    # build parameters list for 'Run_Manual_Cmd' call\n    for container_item in container_data:\n        for results_item_1 in results_data_1:\n            if results_item_1[0]:\n                parameters.append({\n                    'ip_hostname': results_item_1[0],\n                    'command': container_item[0],\n                    'arguments': \"\",\n                    'parser': \"\",\n                    'async': \"\",\n                    'command_id': \"\",\n                    'shell_id': \"\",\n                    # context (artifact id) is added to associate results with the artifact\n                    'context': {'artifact_id': results_item_1[1]},\n                })\n\n    phantom.act(\"run command\", parameters=parameters, app={ \"name\": 'Windows Remote Management' }, callback=join_Format_End_Marker, name=\"Run_Manual_Cmd\")\n\n    return",
                         "callback_code": "",
                         "callback_start": 1,
                         "callsback": true,
@@ -6558,7 +7254,7 @@
                         "custom_callback": "",
                         "custom_code": "",
                         "custom_join": "",
-                        "custom_name": "Run User Supplied Cmd",
+                        "custom_name": "Run Manual Cmd",
                         "delay": 0,
                         "description": "",
                         "has_custom": false,
@@ -6572,8 +7268,8 @@
                         "join_code": "",
                         "join_optional": [],
                         "join_start": 1,
-                        "line_end": 249,
-                        "line_start": 218,
+                        "line_end": 247,
+                        "line_start": 216,
                         "message": "Configuring now",
                         "name": "run command",
                         "notes": "",
@@ -6636,10 +7332,10 @@
                         },
                         "position": {
                             "x": 1480,
-                            "y": -120
+                            "y": -140
                         },
                         "previous_function": "",
-                        "previous_name": "Run_User_Supplied_Cmd",
+                        "previous_name": "Run_Manual_Cmd",
                         "required_params": {
                             "ip_hostname": true
                         },
@@ -6653,8 +7349,8 @@
                         "status": "",
                         "title": "Generic",
                         "type": "coa.Action",
-                        "warn": false,
-                        "z": 526
+                        "warn": "",
+                        "z": 545
                     },
                     {
                         "active": false,
@@ -6668,7 +7364,7 @@
                                 "fill": "#3C444D"
                             },
                             ".format": {
-                                "text": "Format Start Marker"
+                                "text": "Format End Marker"
                             },
                             ".inPorts>.port-in": {
                                 "ref": ".background",
@@ -6717,37 +7413,39 @@
                                 "opacity": 1
                             }
                         },
-                        "block_code": "def format_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):\n    phantom.debug('format_1() called')\n    \n    template = \"\"\"eventcreate /id 999 /D \\\"started test on {0} guid=\\\" /T INFORMATION /L application\"\"\"\n\n    # parameter list for template variable replacement\n    parameters = [\n        \"artifact:*.cef.destinationAddress\",\n    ]\n\n    phantom.format(container=container, template=template, parameters=parameters, name=\"format_1\")\n\n    write_started_event(container=container)\n\n    return",
+                        "block_code": "def format_2(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):\n    phantom.debug('format_2() called')\n    \n    template = \"\"\"eventcreate /id 999 /D \\\"ended test for {0}\\\" /T INFORMATION /L application\"\"\"\n\n    # parameter list for template variable replacement\n    parameters = [\n        \"write_started_event:action_result.parameter.ip_hostname\",\n    ]\n\n    phantom.format(container=container, template=template, parameters=parameters, name=\"format_2\")\n\n    write_ended_event(container=container)\n\n    return",
                         "callback_code": "",
                         "callback_start": 1,
                         "callsback": false,
                         "connected_to_start": true,
-                        "connection_name": "Post Start Event to Splunk",
+                        "connection_name": "Run Manual Cmd, Post Error Msg, Run Powershell Test, Post Error Msg 2, Run Cmd Test, Run Manual Powershell",
                         "connection_type": "action",
                         "custom_callback": "",
-                        "custom_code": "def Format_Start_Marker(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):\n    phantom.debug('format_1() called')\n    \n    playbook_info = phantom.get_playbook_info()\n    guid = phantom.get_data(playbook_info[0]['id'], clear_data=False)\n    \n    template = \"eventcreate /id 999 /D \\\"started test on {0} guid=%s\\\" /T INFORMATION /L application\" % guid\n\n    # parameter list for template variable replacement\n    parameters = [\n        \"artifact:*.cef.destinationAddress\"\n    ]\n\n    phantom.format(container=container, template=template, parameters=parameters, name=\"Format_Start_Marker\")\n\n    Run_Start_Marker(container=container)\n\n    return",
-                        "custom_join": "",
-                        "custom_name": "Format Start Marker",
+                        "custom_code": "def Format_End_Marker(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):\n    phantom.debug('Format_End_Marker() called')\n    \n    playbook_info = phantom.get_playbook_info()\n    guid = phantom.get_data(playbook_info[0]['id'], clear_data=False)\n    phantom.debug(guid)\n        \n    template = \"eventcreate /id 999 /D \\\"ended test for {0} guid=%s\\\" /T INFORMATION /L application\" % guid\n\n    # parameter list for template variable replacement\n    parameters = [\n        \"Run_Start_Marker:action_result.parameter.ip_hostname\",\n    ]\n\n    phantom.format(container=container, template=template, parameters=parameters, name=\"Format_End_Marker\")\n\n    Run_End_Marker(container=container)\n\n    return",
+                        "custom_join": "def join_Format_End_Marker(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):\n    phantom.debug('join_Format_End_Marker() called')\n    \n    # if the joined function has already been called, do nothing\n    if phantom.get_run_data(key='join_Format_End_Marker_called'):\n        return\n    \n    if phantom.get_run_data(key='powershell_test') and phantom.get_run_data(key='cmd_test'):\n        if phantom.get_run_data(key='powershell_error') and phantom.get_run_data(key='cmd_error'):\n            if phantom.actions_done([ 'Post_Error_Msg', 'Post_Error_Msg_2' ]):\n                phantom.save_run_data(key='join_Format_End_Marker_called', value='Format_End_Marker')\n        \n                # call connected block \"Format_End_Marker\"\n                Format_End_Marker(container=container, handle=handle)\n        elif phantom.get_run_data(key='cmd_error'): \n            if phantom.actions_done([ 'Post_Error_Msg_2', 'Run_Powershell_Test']):\n                phantom.save_run_data(key='join_Format_End_Marker_called', value='Format_End_Marker')\n        \n                # call connected block \"Format_End_Marker\"\n                Format_End_Marker(container=container, handle=handle)\n        elif phantom.get_run_data(key='powershell_error'): \n            if phantom.actions_done([ 'Post_Error_Msg', 'Run_Cmd_Test' ]):\n                phantom.save_run_data(key='join_Format_End_Marker_called', value='Format_End_Marker')\n        \n                # call connected block \"Format_End_Marker\"\n                Format_End_Marker(container=container, handle=handle)\n        elif phantom.actions_done([ 'Run_Powershell_Test', 'Run_Cmd_Test' ]):\n                phantom.save_run_data(key='join_Format_End_Marker_called', value='Format_End_Marker')\n        \n                # call connected block \"Format_End_Marker\"\n                Format_End_Marker(container=container, handle=handle)\n                \n    elif phantom.get_run_data(key='powershell_test'):\n        if phantom.get_run_data(key='powershell_error') and phantom.actions_done([ 'Post_Error_Msg' ]):\n            phantom.save_run_data(key='join_Format_End_Marker_called', value='Format_End_Marker')\n        \n            # call connected block \"Format_End_Marker\"\n            Format_End_Marker(container=container, handle=handle)\n            \n        elif phantom.actions_done([ 'Run_Powershell_Test' ]):\n            phantom.save_run_data(key='join_Format_End_Marker_called', value='Format_End_Marker')\n        \n            # call connected block \"Format_End_Marker\"\n            Format_End_Marker(container=container, handle=handle)\n            \n    elif phantom.get_run_data(key='cmd_test'):\n        if phantom.get_run_data(key='cmd_error') and phantom.actions_done([ 'Post_Error_Msg_2' ]):\n            phantom.save_run_data(key='join_Format_End_Marker_called', value='Format_End_Marker')\n        \n            # call connected block \"Format_End_Marker\"\n            Format_End_Marker(container=container, handle=handle)\n            \n        elif phantom.actions_done([ 'Run_Cmd_Test' ]):\n            phantom.save_run_data(key='join_Format_End_Marker_called', value='Format_End_Marker')\n        \n            # call connected block \"Format_End_Marker\"\n            Format_End_Marker(container=container, handle=handle)\n    \n    \n    return",
+                        "custom_name": "Format End Marker",
                         "description": "",
                         "format": "format",
                         "has_custom": true,
                         "has_custom_block": true,
                         "has_custom_callback": false,
-                        "has_custom_join": false,
-                        "id": "d6141597-15a3-451a-ae6c-79bd83d15550",
+                        "has_custom_join": true,
+                        "id": "4607ee03-c437-4903-9d01-cbff02ae611d",
                         "inPorts": [
                             "in"
                         ],
-                        "join_code": "",
-                        "join_optional": [],
-                        "join_start": 1,
-                        "line_end": 268,
-                        "line_start": 249,
+                        "join_code": "def join_Format_End_Marker(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):\n    phantom.debug('join_Format_End_Marker() called')\n    \n    # if the joined function has already been called, do nothing\n    if phantom.get_run_data(key='join_Format_End_Marker_called'):\n        return\n\n    # check if all connected incoming actions are done i.e. have succeeded or failed\n    if phantom.actions_done([ 'Post_Error_Msg', 'Post_Error_Msg_2' ]):\n        \n        # save the state that the joined function has now been called\n        phantom.save_run_data(key='join_Format_End_Marker_called', value='Format_End_Marker')\n        \n        # call connected block \"Format_End_Marker\"\n        Format_End_Marker(container=container, handle=handle)\n    \n    return",
+                        "join_optional": [
+                            "Run_Cmd_Test"
+                        ],
+                        "join_start": 457,
+                        "line_end": 517,
+                        "line_start": 437,
                         "message": "Configuring now",
                         "name": "format",
                         "notes": "",
-                        "number": 1,
-                        "order": 12,
+                        "number": 2,
+                        "order": 17,
                         "outPorts": [
                             "out-1"
                         ],
@@ -6755,7 +7453,7 @@
                             {
                                 "position": 0,
                                 "type": "",
-                                "value": "artifact:*.cef.destinationAddress"
+                                "value": "Run_Start_Marker:action_result.parameter.ip_hostname"
                             }
                         ],
                         "ports": {
@@ -6811,11 +7509,11 @@
                             }
                         },
                         "position": {
-                            "x": 640,
-                            "y": -40
+                            "x": 1720,
+                            "y": 300
                         },
                         "previous_function": "",
-                        "previous_name": "Format_Start_Marker",
+                        "previous_name": "Format_End_Marker",
                         "show_number": true,
                         "size": {
                             "height": 100,
@@ -6823,11 +7521,11 @@
                         },
                         "state": "format",
                         "status": "",
-                        "template": "eventcreate /id 999 /D \"started test on {0} guid=\" /T INFORMATION /L application",
+                        "template": "eventcreate /id 999 /D \"ended test for {0}\" /T INFORMATION /L application",
                         "title": "format",
                         "type": "coa.Format",
                         "warn": false,
-                        "z": 527
+                        "z": 546
                     },
                     {
                         "active": false,
@@ -6891,7 +7589,7 @@
                                 "opacity": 1
                             }
                         },
-                        "block_code": "def decision_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):\n    phantom.debug('decision_1() called')\n\n    # check for 'if' condition 1\n    matched_artifacts_1, matched_results_1 = phantom.condition(\n        container=container,\n        action_results=results,\n        conditions=[\n            [\"artifact:*.cef.manual_command\", \"!=\", \"NA\"],\n            [\"artifact:*.cef.manual_powershell\", \"!=\", \"NA\"],\n        ],\n        logical_operator='and')\n\n    # call connected blocks if condition 1 matched\n    if matched_artifacts_1 or matched_results_1:\n        Run_User_Supplied_Cmd(action=action, success=success, container=container, results=results, handle=handle)\n        return\n\n    # call connected blocks for 'else' condition 2\n    Format_ART_Command(action=action, success=success, container=container, results=results, handle=handle)\n\n    return",
+                        "block_code": "def decision_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):\n    phantom.debug('decision_1() called')\n\n    # check for 'if' condition 1\n    matched_artifacts_1, matched_results_1 = phantom.condition(\n        container=container,\n        action_results=results,\n        conditions=[\n            [\"artifact:*.cef.manual_command\", \"!=\", \"NA\"],\n        ])\n\n    # call connected blocks if condition 1 matched\n    if matched_artifacts_1 or matched_results_1:\n        Run_Manual_Cmd(action=action, success=success, container=container, results=results, handle=handle)\n        return\n\n    # call connected blocks for 'else' condition 2\n    decision_3(action=action, success=success, container=container, results=results, handle=handle)\n\n    return",
                         "callback_code": "",
                         "callback_start": 1,
                         "callsback": false,
@@ -6915,7 +7613,7 @@
                         "join_code": "",
                         "join_optional": [],
                         "join_start": 124,
-                        "line_end": 39,
+                        "line_end": 37,
                         "line_start": 16,
                         "name": "decision",
                         "notes": "",
@@ -6932,12 +7630,6 @@
                                         "comparison": "!=",
                                         "data_type": "",
                                         "param": "artifact:*.cef.manual_command",
-                                        "value": "NA"
-                                    },
-                                    {
-                                        "comparison": "!=",
-                                        "data_type": "",
-                                        "param": "artifact:*.cef.manual_powershell",
                                         "value": "NA"
                                     }
                                 ],
@@ -7013,7 +7705,7 @@
                         },
                         "position": {
                             "x": 1120,
-                            "y": -120
+                            "y": -140
                         },
                         "previous_function": "",
                         "previous_name": "decision_1",
@@ -7026,7 +7718,7 @@
                         "status": "",
                         "type": "coa.Decision",
                         "warn": "",
-                        "z": 529
+                        "z": 547
                     }
                 ]
             },
@@ -7035,7 +7727,7 @@
         "schema": 3,
         "version": "4.5.15425"
     },
-    "create_time": "2019-09-03T19:44:57.623324+00:00",
+    "create_time": "2019-09-03T19:59:17.855096+00:00",
     "draft_mode": false,
     "labels": [
         "advsim_test"

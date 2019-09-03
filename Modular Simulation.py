@@ -22,17 +22,15 @@ def decision_1(action=None, success=None, container=None, results=None, handle=N
         action_results=results,
         conditions=[
             ["artifact:*.cef.manual_command", "!=", "NA"],
-            ["artifact:*.cef.manual_powershell", "!=", "NA"],
-        ],
-        logical_operator='and')
+        ])
 
     # call connected blocks if condition 1 matched
     if matched_artifacts_1 or matched_results_1:
-        Run_User_Supplied_Cmd(action=action, success=success, container=container, results=results, handle=handle)
+        Run_Manual_Cmd(action=action, success=success, container=container, results=results, handle=handle)
         return
 
     # call connected blocks for 'else' condition 2
-    Format_ART_Command(action=action, success=success, container=container, results=results, handle=handle)
+    decision_3(action=action, success=success, container=container, results=results, handle=handle)
 
     return
 
@@ -215,34 +213,34 @@ def Format_Start_Event(action=None, success=None, container=None, results=None, 
 
     return
 
-def Run_User_Supplied_Cmd(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):
-    phantom.debug('Run_User_Supplied_Cmd() called')
+def Run_Manual_Cmd(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):
+    phantom.debug('Run_Manual_Cmd() called')
     
     #phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
     
-    # collect data for 'Run_User_Supplied_Cmd' call
-    container_data = phantom.collect2(container=container, datapath=['artifact:*.cef.command', 'artifact:*.id'])
+    # collect data for 'Run_Manual_Cmd' call
+    container_data = phantom.collect2(container=container, datapath=['artifact:*.cef.manual_command', 'artifact:*.id'])
     results_data_1 = phantom.collect2(container=container, datapath=['Run_Start_Marker:action_result.parameter.ip_hostname', 'Run_Start_Marker:action_result.parameter.context.artifact_id'], action_results=results)
 
     parameters = []
     
-    # build parameters list for 'Run_User_Supplied_Cmd' call
+    # build parameters list for 'Run_Manual_Cmd' call
     for container_item in container_data:
         for results_item_1 in results_data_1:
             if results_item_1[0]:
                 parameters.append({
-                    'shell_id': "",
-                    'parser': "",
                     'ip_hostname': results_item_1[0],
                     'command': container_item[0],
                     'arguments': "",
+                    'parser': "",
                     'async': "",
                     'command_id': "",
+                    'shell_id': "",
                     # context (artifact id) is added to associate results with the artifact
                     'context': {'artifact_id': results_item_1[1]},
                 })
 
-    phantom.act("run command", parameters=parameters, app={ "name": 'Windows Remote Management' }, callback=join_Format_End_Marker, name="Run_User_Supplied_Cmd")
+    phantom.act("run command", parameters=parameters, app={ "name": 'Windows Remote Management' }, callback=join_Format_End_Marker, name="Run_Manual_Cmd")
 
     return
 
@@ -683,6 +681,58 @@ def Post_Error_Msg_2(action=None, success=None, container=None, results=None, ha
                 })
 
     phantom.act("post data", parameters=parameters, app={ "name": 'Splunk' }, callback=join_Format_End_Marker, name="Post_Error_Msg_2")
+
+    return
+
+def decision_3(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):
+    phantom.debug('decision_3() called')
+
+    # check for 'if' condition 1
+    matched_artifacts_1, matched_results_1 = phantom.condition(
+        container=container,
+        action_results=results,
+        conditions=[
+            ["artifact:*.cef.manual_powershell", "!=", "NA"],
+        ])
+
+    # call connected blocks if condition 1 matched
+    if matched_artifacts_1 or matched_results_1:
+        Run_Manual_Powershell(action=action, success=success, container=container, results=results, handle=handle)
+        return
+
+    # call connected blocks for 'else' condition 2
+    Format_ART_Command(action=action, success=success, container=container, results=results, handle=handle)
+
+    return
+
+def Run_Manual_Powershell(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):
+    phantom.debug('Run_Manual_Powershell() called')
+    
+    #phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
+    
+    # collect data for 'Run_Manual_Powershell' call
+    container_data = phantom.collect2(container=container, datapath=['artifact:*.cef.manual_powershell', 'artifact:*.id'])
+    results_data_1 = phantom.collect2(container=container, datapath=['Run_Start_Marker:action_result.parameter.ip_hostname', 'Run_Start_Marker:action_result.parameter.context.artifact_id'], action_results=results)
+
+    parameters = []
+    
+    # build parameters list for 'Run_Manual_Powershell' call
+    for container_item in container_data:
+        for results_item_1 in results_data_1:
+            if results_item_1[0]:
+                parameters.append({
+                    'ip_hostname': results_item_1[0],
+                    'script_file': "",
+                    'script_str': container_item[0],
+                    'parser': "",
+                    'async': "",
+                    'command_id': "",
+                    'shell_id': "",
+                    # context (artifact id) is added to associate results with the artifact
+                    'context': {'artifact_id': results_item_1[1]},
+                })
+
+    phantom.act("run script", parameters=parameters, app={ "name": 'Windows Remote Management' }, callback=join_Format_End_Marker, name="Run_Manual_Powershell")
 
     return
 
