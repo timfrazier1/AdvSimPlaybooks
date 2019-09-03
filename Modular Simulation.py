@@ -125,13 +125,13 @@ def Run_End_Marker(action=None, success=None, container=None, results=None, hand
     for results_item_1 in results_data_1:
         if results_item_1[0]:
             parameters.append({
-                'ip_hostname': results_item_1[0],
-                'script_file': "",
-                'script_str': formatted_data_1,
-                'parser': "",
-                'async': "",
-                'command_id': "",
                 'shell_id': "",
+                'parser': "",
+                'ip_hostname': results_item_1[0],
+                'async': "",
+                'script_str': formatted_data_1,
+                'script_file': "",
+                'command_id': "",
                 # context (artifact id) is added to associate results with the artifact
                 'context': {'artifact_id': results_item_1[1]},
             })
@@ -359,13 +359,13 @@ def Run_Powershell_Test(action=None, success=None, container=None, results=None,
         for filtered_results_item_1 in filtered_results_data_1:
             if results_item_1[0]:
                 parameters.append({
-                    'ip_hostname': results_item_1[0],
-                    'script_file': "",
-                    'script_str': filtered_results_item_1[0],
-                    'parser': "",
-                    'async': "",
-                    'command_id': "",
                     'shell_id': "",
+                    'parser': "",
+                    'ip_hostname': results_item_1[0],
+                    'async': "",
+                    'script_str': filtered_results_item_1[0],
+                    'script_file': "",
+                    'command_id': "",
                     # context (artifact id) is added to associate results with the artifact
                     'context': {'artifact_id': results_item_1[1]},
                 })
@@ -400,7 +400,7 @@ def Run_Cmd_Test(action=None, success=None, container=None, results=None, handle
                             'command': each_cmd.split(' ', 1)[0],
                             'arguments': each_cmd.split(' ', 1)[1],
                             'parser': "",
-                            'async': True,
+                            'async': False,
                             'command_id': "",
                             'shell_id': "",
                             # context (artifact id) is added to associate results with the artifact
@@ -412,7 +412,7 @@ def Run_Cmd_Test(action=None, success=None, container=None, results=None, handle
                             'command': each_cmd,
                             'arguments': "",
                             'parser': "",
-                            'async': True,
+                            'async': False,
                             'command_id': "",
                             'shell_id': "",
                             # context (artifact id) is added to associate results with the artifact
@@ -424,7 +424,7 @@ def Run_Cmd_Test(action=None, success=None, container=None, results=None, handle
                     'command': results_item_2[0].split(' ', 1)[0],
                     'arguments': results_item_2[0].split(' ', 1)[1],
                     'parser': "",
-                    'async': True,
+                    'async': False,
                     'command_id': "",
                     'shell_id': "",
                     # context (artifact id) is added to associate results with the artifact
@@ -657,25 +657,30 @@ def Post_Error_Msg_2(action=None, success=None, container=None, results=None, ha
     # collect data for 'Post_Error_Msg_2' call
     results_data_1 = phantom.collect2(container=container, datapath=['Post_Start_Event_to_Splunk:action_result.parameter.data', 'Post_Start_Event_to_Splunk:action_result.parameter.host', 'Post_Start_Event_to_Splunk:action_result.parameter.source', 'Post_Start_Event_to_Splunk:action_result.parameter.source_type', 'Post_Start_Event_to_Splunk:action_result.parameter.index', 'Post_Start_Event_to_Splunk:action_result.parameter.context.artifact_id'], action_results=results)
 
+    filtered_results_data_1 = phantom.collect2(container=container, datapath=["filtered-data:filter_3:condition_1:Run_Cmd_Test:action_result.data.*.std_err", "filtered-data:filter_3:condition_1:Run_Cmd_Test:action_result.parameter.context.artifact_id"])
+    
     id_value = container.get('id', None)
     
     parameters = []
     
     # build parameters list for 'Post_Error_Msg_2' call
     for results_item_1 in results_data_1:
-        if results_item_1[0]:
-            phantom.debug(results_item_1[0])
-            results_item_1[0] = json.loads(results_item_1[0])
-            results_item_1[0] = json.dumps({"guid": results_item_1[0]["guid"], "msg": "Likely error in cmd.exe command run on endpoint. See Phantom event {0} for more details.".format(id_value)})
-            parameters.append({
-                'data': results_item_1[0],
-                'host': results_item_1[1],
-                'source': results_item_1[2],
-                'source_type': results_item_1[3],
-                'index': results_item_1[4],
-                # context (artifact id) is added to associate results with the artifact
-                'context': {'artifact_id': results_item_1[5]},
-            })
+        for filtered_item_1 in filtered_results_data_1:
+            
+            if filtered_item_1[0]:
+                phantom.debug(results_item_1[0])
+                results_item_1[0] = json.loads(results_item_1[0])
+                results_item_1[0] = json.dumps({"guid": results_item_1[0]["guid"], "msg": "Likely error in cmd.exe command run on endpoint. See Phantom event {0} for more details.".format(id_value),
+                                            "std_err": filtered_item_1[0]})
+                parameters.append({
+                    'data': results_item_1[0],
+                    'host': results_item_1[1],
+                    'source': results_item_1[2],
+                    'source_type': results_item_1[3],
+                    'index': results_item_1[4],
+                    # context (artifact id) is added to associate results with the artifact
+                    'context': {'artifact_id': results_item_1[5]},
+                })
 
     phantom.act("post data", parameters=parameters, app={ "name": 'Splunk' }, callback=join_Format_End_Marker, name="Post_Error_Msg_2")
 
