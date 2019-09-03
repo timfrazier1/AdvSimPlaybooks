@@ -21,18 +21,18 @@ def decision_1(action=None, success=None, container=None, results=None, handle=N
         container=container,
         action_results=results,
         conditions=[
-            ["Format_ART_Command:action_result.data.*.executor.name", "==", "powershell"],
-            ["Format_ART_Command:action_result.data.*.executor.name", "==", "command_prompt"],
+            ["artifact:*.cef.manual_command", "!=", None],
+            ["artifact:*.cef.manual_powershell", "!=", None],
         ],
-        logical_operator='or')
+        logical_operator='and')
 
     # call connected blocks if condition 1 matched
     if matched_artifacts_1 or matched_results_1:
-        filter_1(action=action, success=success, container=container, results=results, handle=handle)
+        Run_User_Supplied_Cmd(action=action, success=success, container=container, results=results, handle=handle)
         return
 
     # call connected blocks for 'else' condition 2
-    Run_User_Supplied_Cmd(action=action, success=success, container=container, results=results, handle=handle)
+    Format_ART_Command(action=action, success=success, container=container, results=results, handle=handle)
 
     return
 
@@ -58,7 +58,7 @@ def Format_ART_Command(action=None, success=None, container=None, results=None, 
                 'context': {'artifact_id': container_item[3]},
             })
 
-    phantom.act("format command", parameters=parameters, app={ "name": 'Atomic Red Team' }, callback=decision_1, name="Format_ART_Command", parent_action=action)
+    phantom.act("format command", parameters=parameters, app={ "name": 'Atomic Red Team' }, callback=filter_1, name="Format_ART_Command", parent_action=action)
 
     return
 
@@ -339,7 +339,7 @@ def Run_Start_Marker(action=None, success=None, container=None, results=None, ha
                 'context': {'artifact_id': container_item[1]},
             })
 
-    phantom.act("run script", parameters=parameters, app={ "name": 'Windows Remote Management' }, callback=Format_ART_Command, name="Run_Start_Marker")
+    phantom.act("run script", parameters=parameters, app={ "name": 'Windows Remote Management' }, callback=decision_1, name="Run_Start_Marker")
 
     return
 
