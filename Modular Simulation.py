@@ -21,8 +21,8 @@ def decision_1(action=None, success=None, container=None, results=None, handle=N
         container=container,
         action_results=results,
         conditions=[
-            ["artifact:*.cef.manual_command", "!=", None],
-            ["artifact:*.cef.manual_powershell", "!=", None],
+            ["artifact:*.cef.manual_command", "!=", "NA"],
+            ["artifact:*.cef.manual_powershell", "!=", "NA"],
         ],
         logical_operator='and')
 

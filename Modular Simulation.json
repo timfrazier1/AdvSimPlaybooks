@@ -7,7 +7,7 @@
             "clean": true,
             "code_block": "",
             "description": "",
-            "hash": "5c543fc10caac3998ae17ce495279888de561a9f",
+            "hash": "9022ec0ec4f0564d1f7a6fce2d1d2b658d488a38",
             "joint": {
                 "cells": [
                     {
@@ -6891,7 +6891,7 @@
                                 "opacity": 1
                             }
                         },
-                        "block_code": "def decision_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):\n    phantom.debug('decision_1() called')\n\n    # check for 'if' condition 1\n    matched_artifacts_1, matched_results_1 = phantom.condition(\n        container=container,\n        action_results=results,\n        conditions=[\n            [\"artifact:*.cef.manual_command\", \"!=\", None],\n            [\"artifact:*.cef.manual_powershell\", \"!=\", None],\n        ],\n        logical_operator='and')\n\n    # call connected blocks if condition 1 matched\n    if matched_artifacts_1 or matched_results_1:\n        Run_User_Supplied_Cmd(action=action, success=success, container=container, results=results, handle=handle)\n        return\n\n    # call connected blocks for 'else' condition 2\n    Format_ART_Command(action=action, success=success, container=container, results=results, handle=handle)\n\n    return",
+                        "block_code": "def decision_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):\n    phantom.debug('decision_1() called')\n\n    # check for 'if' condition 1\n    matched_artifacts_1, matched_results_1 = phantom.condition(\n        container=container,\n        action_results=results,\n        conditions=[\n            [\"artifact:*.cef.manual_command\", \"!=\", \"NA\"],\n            [\"artifact:*.cef.manual_powershell\", \"!=\", \"NA\"],\n        ],\n        logical_operator='and')\n\n    # call connected blocks if condition 1 matched\n    if matched_artifacts_1 or matched_results_1:\n        Run_User_Supplied_Cmd(action=action, success=success, container=container, results=results, handle=handle)\n        return\n\n    # call connected blocks for 'else' condition 2\n    Format_ART_Command(action=action, success=success, container=container, results=results, handle=handle)\n\n    return",
                         "callback_code": "",
                         "callback_start": 1,
                         "callsback": false,
@@ -6932,13 +6932,13 @@
                                         "comparison": "!=",
                                         "data_type": "",
                                         "param": "artifact:*.cef.manual_command",
-                                        "value": "None"
+                                        "value": "NA"
                                     },
                                     {
                                         "comparison": "!=",
                                         "data_type": "",
                                         "param": "artifact:*.cef.manual_powershell",
-                                        "value": "None"
+                                        "value": "NA"
                                     }
                                 ],
                                 "display": "If",
@@ -7026,7 +7026,7 @@
                         "status": "",
                         "type": "coa.Decision",
                         "warn": "",
-                        "z": 528
+                        "z": 529
                     }
                 ]
             },
@@ -7035,7 +7035,7 @@
         "schema": 3,
         "version": "4.5.15425"
     },
-    "create_time": "2019-09-03T17:56:43.301499+00:00",
+    "create_time": "2019-09-03T19:44:57.623324+00:00",
     "draft_mode": false,
     "labels": [
         "advsim_test"
