@@ -461,7 +461,18 @@ def join_Format_End_Marker(action=None, success=None, container=None, results=No
     if phantom.get_run_data(key='join_Format_End_Marker_called'):
         return
     
-    if phantom.get_run_data(key='powershell_test') and phantom.get_run_data(key='cmd_test'):
+    if phantom.actions_done(['Run_Manual_Cmd']):
+        phantom.save_run_data(key='join_Format_End_Marker_called', value='Format_End_Marker')
+        
+        # call connected block "Format_End_Marker"
+        Format_End_Marker(container=container, handle=handle)
+    elif phantom.actions_done(['Run_Manual_Powershell']):
+        phantom.save_run_data(key='join_Format_End_Marker_called', value='Format_End_Marker')
+        
+        # call connected block "Format_End_Marker"
+        Format_End_Marker(container=container, handle=handle)
+
+    elif phantom.get_run_data(key='powershell_test') and phantom.get_run_data(key='cmd_test'):
         if phantom.get_run_data(key='powershell_error') and phantom.get_run_data(key='cmd_error'):
             if phantom.actions_done([ 'Post_Error_Msg', 'Post_Error_Msg_2' ]):
                 phantom.save_run_data(key='join_Format_End_Marker_called', value='Format_End_Marker')
