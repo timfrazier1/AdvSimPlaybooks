@@ -38,8 +38,21 @@ def decision_1(action=None, success=None, container=None, results=None, handle=N
         list_campaigns_1(action=action, success=success, container=container, results=results, handle=handle)
         return
 
-    # call connected blocks for 'else' condition 2
-    decision_3(action=action, success=success, container=container, results=results, handle=handle)
+    # check for 'elif' condition 2
+    matched_artifacts_2, matched_results_2 = phantom.condition(
+        container=container,
+        action_results=results,
+        conditions=[
+            ["artifact:*.cef.playbook_name", "==", "Modular Simulation"],
+        ])
+
+    # call connected blocks if condition 2 matched
+    if matched_artifacts_2 or matched_results_2:
+        decision_3(action=action, success=success, container=container, results=results, handle=handle)
+        return
+
+    # call connected blocks for 'else' condition 3
+    format_invoke_cmd(action=action, success=success, container=container, results=results, handle=handle)
 
     return
 
@@ -173,7 +186,7 @@ def decision_2(action=None, success=None, container=None, results=None, handle=N
 
     # call connected blocks if condition 2 matched
     if matched_artifacts_2 or matched_results_2:
-        TODO_Run_Linux_Test(action=action, success=success, container=container, results=results, handle=handle)
+        Format_ART_Linux_Test(action=action, success=success, container=container, results=results, handle=handle)
         return
 
     # check for 'elif' condition 3
@@ -188,13 +201,6 @@ def decision_2(action=None, success=None, container=None, results=None, handle=N
     if matched_artifacts_3 or matched_results_3:
         TODO_Run_Mac_Test(action=action, success=success, container=container, results=results, handle=handle)
         return
-
-    return
-
-def TODO_Run_Linux_Test(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):
-    phantom.debug('TODO_Run_Linux_Test() called')
-
-    phantom.set_status(container=container, status="closed")
 
     return
 
@@ -471,6 +477,14 @@ def join_Format_End_Marker(action=None, success=None, container=None, results=No
     if phantom.get_run_data(key='join_Format_End_Marker_called'):
         return
     
+    if phantom.actions_done(['Run_ART_Linux_Test']):
+        phantom.save_run_data(key='join_Format_End_Marker_called', value='Format_End_Marker')
+        Format_End_Marker(container=container, handle=handle)
+    
+    if phantom.actions_done(['invoke_ART_cmd']):
+        phantom.save_run_data(key='join_Format_End_Marker_called', value='Format_End_Marker')
+        Format_End_Marker(container=container, handle=handle)
+        
     if phantom.actions_done(['Run_Scythe_Campaign']):
         phantom.save_run_data(key='join_Format_End_Marker_called', value='Format_End_Marker')
         Format_End_Marker(container=container, handle=handle)
@@ -778,7 +792,7 @@ def list_campaigns_1(action=None, success=None, container=None, results=None, ha
 
     parameters = []
 
-    phantom.act("list campaigns", parameters=parameters, assets=['scythe_demo'], callback=filter_4, name="list_campaigns_1")
+    phantom.act("list campaigns", parameters=parameters, app={ "name": 'Scythe' }, callback=filter_4, name="list_campaigns_1")
 
     return
 
@@ -819,7 +833,7 @@ def list_payloads_1(action=None, success=None, container=None, results=None, han
                 'context': {'artifact_id': filtered_results_item_1[1]},
             })
 
-    phantom.act("list payloads", parameters=parameters, assets=['scythe_demo'], callback=build_download_cmd, name="list_payloads_1")
+    phantom.act("list payloads", parameters=parameters, app={ "name": 'Scythe' }, callback=build_download_cmd, name="list_payloads_1")
 
     return
 
@@ -838,18 +852,18 @@ def download_payload(action=None, success=None, container=None, results=None, ha
     for results_item_1 in results_data_1:
         if results_item_1[0]:
             parameters.append({
-                'ip_hostname': results_item_1[0],
-                'script_file': "",
-                'script_str': build_download_cmd__download_cmd,
-                'parser': "",
-                'async': "",
-                'command_id': "",
                 'shell_id': "",
+                'parser': "",
+                'ip_hostname': results_item_1[0],
+                'async': "",
+                'script_str': build_download_cmd__download_cmd,
+                'script_file': "",
+                'command_id': "",
                 # context (artifact id) is added to associate results with the artifact
                 'context': {'artifact_id': results_item_1[1]},
             })
 
-    phantom.act("run script", parameters=parameters, assets=['winrm_dect_lab'], callback=Run_Scythe_Campaign, name="download_payload", parent_action=action)
+    phantom.act("run script", parameters=parameters, assets=['winrm_dect_lab'], callback=Run_Scythe_Campaign, name="download_payload")
 
     return
 
@@ -868,13 +882,13 @@ def Run_Scythe_Campaign(action=None, success=None, container=None, results=None,
     for results_item_1 in results_data_1:
         if results_item_1[0]:
             parameters.append({
+                'shell_id': "",
+                'parser': "",
                 'ip_hostname': results_item_1[0],
                 'command': build_download_cmd__file_path,
                 'arguments': "",
-                'parser': "",
                 'async': "",
                 'command_id': "",
-                'shell_id': "",
                 # context (artifact id) is added to associate results with the artifact
                 'context': {'artifact_id': results_item_1[1]},
             })
@@ -912,6 +926,105 @@ def build_download_cmd(action=None, success=None, container=None, results=None, 
     phantom.save_run_data(key='build_download_cmd:download_cmd', value=json.dumps(build_download_cmd__download_cmd))
     phantom.save_run_data(key='build_download_cmd:file_path', value=json.dumps(build_download_cmd__file_path))
     download_payload(container=container)
+
+    return
+
+def format_invoke_cmd(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):
+    phantom.debug('format_invoke_cmd() called')
+    
+    template = """Import-Module \"C:\\Tools\\Atomic Red Team\\atomic-red-team-master\\execution-frameworks\\Invoke-AtomicRedTeam\\Invoke-AtomicRedTeam\\Invoke-AtomicRedTeam.psm1\"; Invoke-AtomicTest {0} -PathToAtomicsFolder \"C:\\Tools\\Atomic Red Team\\atomic-red-team-master\\atomics\""""
+
+    # parameter list for template variable replacement
+    parameters = [
+        "artifact:*.cef.act",
+    ]
+
+    phantom.format(container=container, template=template, parameters=parameters, name="format_invoke_cmd")
+
+    invoke_ART_cmd(container=container)
+
+    return
+
+def invoke_ART_cmd(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):
+    phantom.debug('invoke_ART_cmd() called')
+    
+    #phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
+    
+    # collect data for 'invoke_ART_cmd' call
+    inputs_data_1 = phantom.collect2(container=container, datapath=['Run_Start_Marker:artifact:*.cef.destinationAddress', 'Run_Start_Marker:artifact:*.id'], action_results=results)
+    formatted_data_1 = phantom.get_format_data(name='format_invoke_cmd')
+
+    parameters = []
+    
+    # build parameters list for 'invoke_ART_cmd' call
+    for inputs_item_1 in inputs_data_1:
+        if inputs_item_1[0]:
+            parameters.append({
+                'ip_hostname': inputs_item_1[0],
+                'script_file': "",
+                'script_str': formatted_data_1,
+                'parser': "",
+                'async': False,
+                'command_id': "",
+                'shell_id': "",
+                # context (artifact id) is added to associate results with the artifact
+                'context': {'artifact_id': inputs_item_1[1]},
+            })
+
+    phantom.act("run script", parameters=parameters, app={ "name": 'Windows Remote Management' }, callback=join_Format_End_Marker, name="invoke_ART_cmd")
+
+    return
+
+def Run_ART_Linux_Test(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):
+    phantom.debug('Run_ART_Linux_Test() called')
+    
+    #phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
+    
+    # collect data for 'Run_ART_Linux_Test' call
+    results_data_1 = phantom.collect2(container=container, datapath=['Format_ART_Linux_Test:action_result.data.*.executor.command', 'Format_ART_Linux_Test:action_result.parameter.context.artifact_id'], action_results=results)
+    inputs_data_1 = phantom.collect2(container=container, datapath=['Post_Start_Event_to_Splunk:artifact:*.cef.destinationAddress', 'Post_Start_Event_to_Splunk:artifact:*.id'], action_results=results)
+
+    parameters = []
+    
+    # build parameters list for 'Run_ART_Linux_Test' call
+    for results_item_1 in results_data_1:
+        for inputs_item_1 in inputs_data_1:
+            if inputs_item_1[0]:
+                parameters.append({
+                    'ip_hostname': inputs_item_1[0],
+                    'command': results_item_1[0],
+                    'script_file': "",
+                    'timeout': "",
+                    # context (artifact id) is added to associate results with the artifact
+                    'context': {'artifact_id': inputs_item_1[1]},
+                })
+
+    phantom.act("execute program", parameters=parameters, app={ "name": 'SSH' }, callback=join_Format_End_Marker, name="Run_ART_Linux_Test", parent_action=action)
+
+    return
+
+def Format_ART_Linux_Test(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):
+    phantom.debug('Format_ART_Linux_Test() called')
+    
+    #phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
+    
+    # collect data for 'Format_ART_Linux_Test' call
+    container_data = phantom.collect2(container=container, datapath=['artifact:*.cef.act', 'artifact:*.id'])
+
+    parameters = []
+    
+    # build parameters list for 'Format_ART_Linux_Test' call
+    for container_item in container_data:
+        if container_item[0]:
+            parameters.append({
+                'attack_id': container_item[0],
+                'supported_os': "linux",
+                'input_arguments': "",
+                # context (artifact id) is added to associate results with the artifact
+                'context': {'artifact_id': container_item[1]},
+            })
+
+    phantom.act("format command", parameters=parameters, assets=['art_main_repo'], callback=Run_ART_Linux_Test, name="Format_ART_Linux_Test")
 
     return
 
