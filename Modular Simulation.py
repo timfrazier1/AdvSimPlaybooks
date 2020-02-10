@@ -22,27 +22,6 @@ def on_start(container):
 
     return
 
-def decision_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):
-    phantom.debug('decision_1() called')
-
-    # check for 'if' condition 1
-    matched_artifacts_1, matched_results_1 = phantom.condition(
-        container=container,
-        action_results=results,
-        conditions=[
-            ["artifact:*.cef.playbook_name", "==", "Invoke Simulation"],
-        ])
-
-    # call connected blocks if condition 1 matched
-    if matched_artifacts_1 or matched_results_1:
-        return
-
-    # call connected blocks for 'else' condition 2
-    format_invoke_cmd(action=action, success=success, container=container, results=results, handle=handle)
-    decision_3(action=action, success=success, container=container, results=results, handle=handle)
-
-    return
-
 def Format_ART_Command(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):
     phantom.debug('format_command_1() called')
     
@@ -333,7 +312,7 @@ def Run_Start_Marker(action=None, success=None, container=None, results=None, ha
                 'context': {'artifact_id': container_item[1]},
             })
 
-    phantom.act("run script", parameters=parameters, app={ "name": 'Windows Remote Management' }, callback=decision_1, name="Run_Start_Marker")
+    phantom.act("run script", parameters=parameters, app={ "name": 'Windows Remote Management' }, callback=decision_4, name="Run_Start_Marker")
 
     return
 
@@ -882,8 +861,8 @@ def Format_ART_MacOS_Test(action=None, success=None, container=None, results=Non
     for inputs_item_1 in inputs_data_1:
         if inputs_item_1[0]:
             parameters.append({
-                'attack_id': inputs_item_1[0],
                 'supported_os': "macos",
+                'attack_id': inputs_item_1[0],
                 'input_arguments': "",
                 # context (artifact id) is added to associate results with the artifact
                 'context': {'artifact_id': inputs_item_1[1]},
@@ -909,15 +888,36 @@ def Run_ART_MacOS_Test(action=None, success=None, container=None, results=None, 
         for inputs_item_1 in inputs_data_1:
             if inputs_item_1[0]:
                 parameters.append({
-                    'ip_hostname': inputs_item_1[0],
                     'command': results_item_1[0],
-                    'script_file': "",
                     'timeout': "",
+                    'ip_hostname': inputs_item_1[0],
+                    'script_file': "",
                     # context (artifact id) is added to associate results with the artifact
-                    'context': {'artifact_id': inputs_item_1[1]},
+                    'context': {'artifact_id': results_item_1[1]},
                 })
 
     phantom.act("execute program", parameters=parameters, app={ "name": 'SSH' }, assets=['dect_lab_logger'], callback=join_Format_End_Marker, name="Run_ART_MacOS_Test", parent_action=action)
+
+    return
+
+def decision_4(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):
+    phantom.debug('decision_4() called')
+
+    # check for 'if' condition 1
+    matched_artifacts_1, matched_results_1 = phantom.condition(
+        container=container,
+        action_results=results,
+        conditions=[
+            ["artifact:*.cef.playbook_name", "==", "Invoke Simulation"],
+        ])
+
+    # call connected blocks if condition 1 matched
+    if matched_artifacts_1 or matched_results_1:
+        format_invoke_cmd(action=action, success=success, container=container, results=results, handle=handle)
+        return
+
+    # call connected blocks for 'else' condition 2
+    decision_3(action=action, success=success, container=container, results=results, handle=handle)
 
     return
 

@@ -7,7 +7,7 @@
             "clean": true,
             "code_block": "import platform\nimport uuid",
             "description": "",
-            "hash": "951bdc04bc1b907fd4559aae2e6a4e4eaf89910d",
+            "hash": "9261fe9f0bccdb09357402679268cd7c15a62443",
             "joint": {
                 "cells": [
                     {
@@ -1179,13 +1179,13 @@
                         "join_code": "",
                         "join_optional": [],
                         "join_start": 1,
-                        "line_end": 707,
-                        "line_start": 670,
+                        "line_end": 686,
+                        "line_start": 649,
                         "message": "Configuring now",
                         "name": "post data",
                         "notes": "",
                         "number": 4,
-                        "order": 20,
+                        "order": 19,
                         "outPorts": [
                             "out"
                         ],
@@ -1804,13 +1804,13 @@
                         "join_code": "",
                         "join_optional": [],
                         "join_start": 1,
-                        "line_end": 772,
-                        "line_start": 741,
+                        "line_end": 751,
+                        "line_start": 720,
                         "message": "Configuring now",
                         "name": "run script",
                         "notes": "",
                         "number": 4,
-                        "order": 22,
+                        "order": 21,
                         "outPorts": [
                             "out"
                         ],
@@ -1988,12 +1988,12 @@
                         "join_code": "",
                         "join_optional": [],
                         "join_start": 1,
-                        "line_end": 194,
-                        "line_start": 150,
+                        "line_end": 173,
+                        "line_start": 129,
                         "name": "decision",
                         "notes": "",
                         "number": 2,
-                        "order": 7,
+                        "order": 6,
                         "outPorts": [
                             "out-1",
                             "out-2",
@@ -2108,46 +2108,6 @@
                         "type": "coa.Decision",
                         "warn": "",
                         "z": 552
-                    },
-                    {
-                        "attrs": {
-                            ".connection": {
-                                "stroke": "#818D99",
-                                "stroke-width": 2
-                            },
-                            ".marker-target": {
-                                "d": "M 10 0 L 0 5 L 10 10 z",
-                                "fill": "#818D99",
-                                "stroke": "#818D99"
-                            }
-                        },
-                        "connector": {
-                            "args": {
-                                "radius": 5
-                            },
-                            "name": "rounded"
-                        },
-                        "endDirections": [
-                            "left"
-                        ],
-                        "id": "ebbe49ec-862d-4b83-9883-601024bb5c36",
-                        "router": {
-                            "name": "metro"
-                        },
-                        "source": {
-                            "id": "d10b425d-717c-478a-8fe3-c484a18ff770",
-                            "selector": "> g:nth-child(1) > g:nth-child(2) > g:nth-child(1) > circle:nth-child(1)"
-                        },
-                        "startDirections": [
-                            "right"
-                        ],
-                        "target": {
-                            "id": "71f118b1-449a-4e57-aad0-fe4d24e25923",
-                            "port": "in",
-                            "selector": "> g:nth-child(1) > g:nth-child(1) > g:nth-child(1) > circle:nth-child(1)"
-                        },
-                        "type": "link",
-                        "z": 555
                     },
                     {
                         "action": "run script",
@@ -2464,13 +2424,13 @@
                         "join_code": "",
                         "join_optional": [],
                         "join_start": 1,
-                        "line_end": 150,
-                        "line_start": 120,
+                        "line_end": 129,
+                        "line_start": 99,
                         "message": "Configuring now",
                         "name": "run script",
                         "notes": "",
                         "number": 3,
-                        "order": 6,
+                        "order": 5,
                         "outPorts": [
                             "out"
                         ],
@@ -2975,13 +2935,13 @@
                         "join_code": "",
                         "join_optional": [],
                         "join_start": 244,
-                        "line_end": 242,
-                        "line_start": 211,
+                        "line_end": 221,
+                        "line_start": 190,
                         "message": "Configuring now",
                         "name": "run command",
                         "notes": "",
                         "number": 2,
-                        "order": 9,
+                        "order": 8,
                         "outPorts": [
                             "out"
                         ],
@@ -3367,13 +3327,13 @@
                         "join_code": "",
                         "join_optional": [],
                         "join_start": 1,
-                        "line_end": 433,
-                        "line_start": 371,
+                        "line_end": 412,
+                        "line_start": 350,
                         "message": "Configuring now",
                         "name": "run command",
                         "notes": "",
                         "number": 1,
-                        "order": 14,
+                        "order": 13,
                         "outPorts": [
                             "out"
                         ],
@@ -3536,12 +3496,12 @@
                         "join_code": "",
                         "join_optional": [],
                         "join_start": 1,
-                        "line_end": 670,
-                        "line_start": 638,
+                        "line_end": 649,
+                        "line_start": 617,
                         "name": "filter",
                         "notes": "",
                         "number": 3,
-                        "order": 19,
+                        "order": 18,
                         "outPorts": [
                             "out-1",
                             "out-2"
@@ -3958,13 +3918,13 @@
                         "join_code": "",
                         "join_optional": [],
                         "join_start": 1,
-                        "line_end": 371,
-                        "line_start": 340,
+                        "line_end": 350,
+                        "line_start": 319,
                         "message": "Configuring now",
                         "name": "run script",
                         "notes": "",
                         "number": 1,
-                        "order": 13,
+                        "order": 12,
                         "outPorts": [
                             "out"
                         ],
@@ -4041,227 +4001,6 @@
                         "type": "coa.Action",
                         "warn": false,
                         "z": 585
-                    },
-                    {
-                        "active": false,
-                        "angle": 0,
-                        "attrs": {
-                            ".background": {
-                                "fill": "#000000",
-                                "stroke": "#637282",
-                                "transform": "rotate(45 30 70)"
-                            },
-                            ".inPorts>.port-0>.port-body": {
-                                "port": {
-                                    "id": "in",
-                                    "type": "in"
-                                }
-                            },
-                            ".number": {
-                                "text": 3
-                            },
-                            ".outPorts>.port-0": {
-                                "port": {
-                                    "id": "out-1",
-                                    "type": "out"
-                                },
-                                "ref-x": 83,
-                                "ref-y": 40
-                            },
-                            ".outPorts>.port-0>.port-body": {
-                                "port": {
-                                    "id": "out-1",
-                                    "type": "out"
-                                }
-                            },
-                            ".outPorts>.port-1": {
-                                "port": {
-                                    "id": "out-2",
-                                    "type": "out"
-                                },
-                                "ref-x": 41,
-                                "ref-y": 82
-                            },
-                            ".outPorts>.port-1>.port-body": {
-                                "port": {
-                                    "id": "out-2",
-                                    "type": "out"
-                                }
-                            },
-                            ".outPorts>.port-2": {
-                                "port": {
-                                    "id": "out-3",
-                                    "type": "out"
-                                },
-                                "ref-x": 41,
-                                "ref-y": -2
-                            },
-                            ".outPorts>.port-2>.port-body": {
-                                "port": {
-                                    "id": "out-3",
-                                    "type": "out"
-                                }
-                            },
-                            "g.delete": {
-                                "display": "none"
-                            },
-                            "g.error": {
-                                "opacity": 0
-                            },
-                            "g.error image": {
-                                "xlink:href": "/inc/coa/img/block_icon_warn.svg"
-                            },
-                            "g.notes": {
-                                "display": "block"
-                            },
-                            "g.notes image": {
-                                "opacity": 1
-                            }
-                        },
-                        "block_code": "def decision_3(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):\n    phantom.debug('decision_3() called')\n\n    # check for 'if' condition 1\n    matched_artifacts_1, matched_results_1 = phantom.condition(\n        container=container,\n        action_results=results,\n        conditions=[\n            [\"artifact:*.cef.manual_command\", \"!=\", \"NA\"],\n        ])\n\n    # call connected blocks if condition 1 matched\n    if matched_artifacts_1 or matched_results_1:\n        Run_Manual_Cmd(action=action, success=success, container=container, results=results, handle=handle)\n        return\n\n    # check for 'elif' condition 2\n    matched_artifacts_2, matched_results_2 = phantom.condition(\n        container=container,\n        action_results=results,\n        conditions=[\n            [\"artifact:*.cef.manual_powershell\", \"!=\", \"NA\"],\n        ])\n\n    # call connected blocks if condition 2 matched\n    if matched_artifacts_2 or matched_results_2:\n        Run_Manual_Powershell(action=action, success=success, container=container, results=results, handle=handle)\n        return\n\n    # call connected blocks for 'else' condition 3\n    Format_ART_Command(action=action, success=success, container=container, results=results, handle=handle)\n\n    return",
-                        "callback_code": "",
-                        "callback_start": 1,
-                        "callsback": false,
-                        "connected_to_start": true,
-                        "connection_name": "Run Start Marker",
-                        "connection_type": "action",
-                        "custom_callback": "",
-                        "custom_code": "",
-                        "custom_join": "",
-                        "custom_name": "",
-                        "description": "",
-                        "hasElse": true,
-                        "has_custom": false,
-                        "has_custom_block": false,
-                        "has_custom_callback": false,
-                        "has_custom_join": false,
-                        "id": "09a940ba-2076-43da-9fb6-47fca922f0ab",
-                        "inPorts": [
-                            "in"
-                        ],
-                        "join_code": "",
-                        "join_optional": [],
-                        "join_start": 1,
-                        "line_end": 741,
-                        "line_start": 707,
-                        "name": "decision",
-                        "notes": "",
-                        "number": 3,
-                        "order": 21,
-                        "outPorts": [
-                            "out-1",
-                            "out-2",
-                            "out-3"
-                        ],
-                        "outputs": [
-                            {
-                                "conditions": [
-                                    {
-                                        "comparison": "!=",
-                                        "data_type": "",
-                                        "param": "artifact:*.cef.manual_command",
-                                        "value": "NA"
-                                    }
-                                ],
-                                "display": "If",
-                                "logic": "and",
-                                "type": "if"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "comparison": "!=",
-                                        "data_type": "",
-                                        "param": "artifact:*.cef.manual_powershell",
-                                        "value": "NA"
-                                    }
-                                ],
-                                "display": "Else If",
-                                "logic": "and",
-                                "type": "elif"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "comparison": "==",
-                                        "data_type": "",
-                                        "param": "",
-                                        "value": ""
-                                    }
-                                ],
-                                "display": "Else",
-                                "logic": "and",
-                                "type": "else"
-                            }
-                        ],
-                        "ports": {
-                            "groups": {
-                                "in": {
-                                    "attrs": {
-                                        ".port-body": {
-                                            "fill": "#fff",
-                                            "magnet": true,
-                                            "r": 10,
-                                            "stroke": "#000"
-                                        },
-                                        ".port-label": {
-                                            "fill": "#000"
-                                        }
-                                    },
-                                    "label": {
-                                        "position": {
-                                            "args": {
-                                                "y": 10
-                                            },
-                                            "name": "left"
-                                        }
-                                    },
-                                    "position": {
-                                        "name": "left"
-                                    }
-                                },
-                                "out": {
-                                    "attrs": {
-                                        ".port-body": {
-                                            "fill": "#fff",
-                                            "magnet": true,
-                                            "r": 10,
-                                            "stroke": "#000"
-                                        },
-                                        ".port-label": {
-                                            "fill": "#000"
-                                        }
-                                    },
-                                    "label": {
-                                        "position": {
-                                            "args": {
-                                                "y": 10
-                                            },
-                                            "name": "right"
-                                        }
-                                    },
-                                    "position": {
-                                        "name": "right"
-                                    }
-                                }
-                            }
-                        },
-                        "position": {
-                            "x": 820,
-                            "y": 180
-                        },
-                        "previous_function": "",
-                        "previous_name": "decision_3",
-                        "show_number": true,
-                        "size": {
-                            "height": 82,
-                            "width": 82
-                        },
-                        "state": "decision",
-                        "status": "",
-                        "type": "coa.Decision",
-                        "warn": "",
-                        "z": 592
                     },
                     {
                         "active": false,
@@ -4347,13 +4086,13 @@
                         "join_code": "",
                         "join_optional": [],
                         "join_start": 1,
-                        "line_end": 211,
-                        "line_start": 194,
+                        "line_end": 190,
+                        "line_start": 173,
                         "message": "Configuring now",
                         "name": "format",
                         "notes": "",
                         "number": 3,
-                        "order": 8,
+                        "order": 7,
                         "outPorts": [
                             "out-1"
                         ],
@@ -4524,13 +4263,13 @@
                         "join_code": "",
                         "join_optional": [],
                         "join_start": 1,
-                        "line_end": 120,
-                        "line_start": 103,
+                        "line_end": 99,
+                        "line_start": 82,
                         "message": "Configuring now",
                         "name": "format",
                         "notes": "",
                         "number": 4,
-                        "order": 5,
+                        "order": 4,
                         "outPorts": [
                             "out-1"
                         ],
@@ -4833,13 +4572,13 @@
                         "join_code": "",
                         "join_optional": [],
                         "join_start": 1,
-                        "line_end": 103,
-                        "line_start": 72,
+                        "line_end": 82,
+                        "line_start": 51,
                         "message": "Configuring now",
                         "name": "post data",
                         "notes": "",
                         "number": 2,
-                        "order": 4,
+                        "order": 3,
                         "outPorts": [
                             "out"
                         ],
@@ -5133,13 +4872,13 @@
                         "join_code": "",
                         "join_optional": [],
                         "join_start": 1,
-                        "line_end": 310,
-                        "line_start": 261,
+                        "line_end": 289,
+                        "line_start": 240,
                         "message": "Configuring now",
                         "name": "post data",
                         "notes": "",
                         "number": 1,
-                        "order": 11,
+                        "order": 10,
                         "outPorts": [
                             "out"
                         ],
@@ -5218,46 +4957,6 @@
                         "z": 659
                     },
                     {
-                        "attrs": {
-                            ".connection": {
-                                "stroke": "#818D99",
-                                "stroke-width": 2
-                            },
-                            ".marker-target": {
-                                "d": "M 10 0 L 0 5 L 10 10 z",
-                                "fill": "#818D99",
-                                "stroke": "#818D99"
-                            }
-                        },
-                        "connector": {
-                            "args": {
-                                "radius": 5
-                            },
-                            "name": "rounded"
-                        },
-                        "endDirections": [
-                            "left"
-                        ],
-                        "id": "15b6ef33-a391-4fd8-9f71-20c76423d932",
-                        "router": {
-                            "name": "metro"
-                        },
-                        "source": {
-                            "id": "71f118b1-449a-4e57-aad0-fe4d24e25923",
-                            "port": "out-2",
-                            "selector": "g:nth-child(1) > g:nth-child(2) > g:nth-child(1) > circle:nth-child(1)"
-                        },
-                        "startDirections": [
-                            "right"
-                        ],
-                        "target": {
-                            "id": "73edf05d-71cf-4a86-b83e-4b7b89b8e1a0",
-                            "selector": ".port-body[type=\"input\"]"
-                        },
-                        "type": "link",
-                        "z": 661
-                    },
-                    {
                         "active": false,
                         "angle": 0,
                         "attrs": {
@@ -5307,6 +5006,9 @@
                             "g.error": {
                                 "opacity": 0
                             },
+                            "g.error image": {
+                                "xlink:href": "/inc/coa/img/block_icon_warn.svg"
+                            },
                             "g.notes": {
                                 "display": "block"
                             },
@@ -5338,13 +5040,13 @@
                         "join_code": "",
                         "join_optional": [],
                         "join_start": 1,
-                        "line_end": 788,
-                        "line_start": 772,
+                        "line_end": 767,
+                        "line_start": 751,
                         "message": "Configuring now",
                         "name": "format",
                         "notes": "",
                         "number": 5,
-                        "order": 23,
+                        "order": 22,
                         "outPorts": [
                             "out-1"
                         ],
@@ -5582,47 +5284,6 @@
                         },
                         "type": "link",
                         "z": 687
-                    },
-                    {
-                        "attrs": {
-                            ".connection": {
-                                "stroke": "#818D99",
-                                "stroke-width": 2
-                            },
-                            ".marker-target": {
-                                "d": "M 10 0 L 0 5 L 10 10 z",
-                                "fill": "#818D99",
-                                "stroke": "#818D99"
-                            }
-                        },
-                        "connector": {
-                            "args": {
-                                "radius": 5
-                            },
-                            "name": "rounded"
-                        },
-                        "endDirections": [
-                            "left"
-                        ],
-                        "id": "a41a524c-7218-462c-be0b-072d2e45d213",
-                        "router": {
-                            "name": "metro"
-                        },
-                        "source": {
-                            "id": "71f118b1-449a-4e57-aad0-fe4d24e25923",
-                            "port": "out-2",
-                            "selector": "> g:nth-child(1) > g:nth-child(2) > g:nth-child(2) > circle:nth-child(1)"
-                        },
-                        "startDirections": [
-                            "right"
-                        ],
-                        "target": {
-                            "id": "09a940ba-2076-43da-9fb6-47fca922f0ab",
-                            "port": "in",
-                            "selector": "> g:nth-child(1) > g:nth-child(1) > g:nth-child(1) > circle:nth-child(1)"
-                        },
-                        "type": "link",
-                        "z": 691
                     },
                     {
                         "attrs": {
@@ -5924,13 +5585,13 @@
                         "join_code": "",
                         "join_optional": [],
                         "join_start": 1,
-                        "line_end": 846,
-                        "line_start": 818,
+                        "line_end": 825,
+                        "line_start": 797,
                         "message": "Configuring now",
                         "name": "execute program",
                         "notes": "",
                         "number": 1,
-                        "order": 25,
+                        "order": 24,
                         "outPorts": [
                             "out"
                         ],
@@ -6307,6 +5968,12 @@
                             ".title": {
                                 "text": "Generic"
                             },
+                            "g.approver image": {
+                                "opacity": 1
+                            },
+                            "g.code image": {
+                                "opacity": 1
+                            },
                             "g.delete": {
                                 "display": "none"
                             },
@@ -6325,9 +5992,12 @@
                             "g.notes image": {
                                 "opacity": 1,
                                 "xlink:href": "/inc/coa/img/block_icon_note_dark_on.svg"
+                            },
+                            "g.timer image": {
+                                "opacity": 1
                             }
                         },
-                        "block_code": "def Run_ART_MacOS_Test(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):\n    phantom.debug('Run_ART_MacOS_Test() called')\n    \n    #phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))\n    \n    # collect data for 'Run_ART_MacOS_Test' call\n    results_data_1 = phantom.collect2(container=container, datapath=['Format_ART_MacOS_Test:action_result.data.*.executor.command', 'Format_ART_MacOS_Test:action_result.parameter.context.artifact_id'], action_results=results)\n    inputs_data_1 = phantom.collect2(container=container, datapath=['Post_Start_Event_to_Splunk:artifact:*.cef.destinationAddress', 'Post_Start_Event_to_Splunk:artifact:*.id'], action_results=results)\n\n    parameters = []\n    \n    # build parameters list for 'Run_ART_MacOS_Test' call\n    for results_item_1 in results_data_1:\n        for inputs_item_1 in inputs_data_1:\n            if inputs_item_1[0]:\n                parameters.append({\n                    'ip_hostname': inputs_item_1[0],\n                    'command': results_item_1[0],\n                    'script_file': \"\",\n                    'timeout': \"\",\n                    # context (artifact id) is added to associate results with the artifact\n                    'context': {'artifact_id': inputs_item_1[1]},\n                })\n\n    phantom.act(\"execute program\", parameters=parameters, app={ \"name\": 'SSH' }, assets=['dect_lab_logger'], callback=join_Format_End_Marker, name=\"Run_ART_MacOS_Test\", parent_action=action)\n\n    return",
+                        "block_code": "def Run_ART_MacOS_Test(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):\n    phantom.debug('Run_ART_MacOS_Test() called')\n    \n    #phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))\n    \n    # collect data for 'Run_ART_MacOS_Test' call\n    results_data_1 = phantom.collect2(container=container, datapath=['Format_ART_MacOS_Test:action_result.data.*.executor.command', 'Format_ART_MacOS_Test:action_result.parameter.context.artifact_id'], action_results=results)\n    inputs_data_1 = phantom.collect2(container=container, datapath=['Post_Start_Event_to_Splunk:artifact:*.cef.destinationAddress', 'Post_Start_Event_to_Splunk:artifact:*.id'], action_results=results)\n\n    parameters = []\n    \n    # build parameters list for 'Run_ART_MacOS_Test' call\n    for results_item_1 in results_data_1:\n        for inputs_item_1 in inputs_data_1:\n            if inputs_item_1[0]:\n                parameters.append({\n                    'command': results_item_1[0],\n                    'timeout': \"\",\n                    'ip_hostname': inputs_item_1[0],\n                    'script_file': \"\",\n                    # context (artifact id) is added to associate results with the artifact\n                    'context': {'artifact_id': results_item_1[1]},\n                })\n\n    phantom.act(\"execute program\", parameters=parameters, app={ \"name\": 'SSH' }, assets=['dect_lab_logger'], callback=join_Format_End_Marker, name=\"Run_ART_MacOS_Test\", parent_action=action)\n\n    return",
                         "callback_code": "",
                         "callback_start": 1,
                         "callsback": true,
@@ -6352,13 +6022,13 @@
                         "join_code": "",
                         "join_optional": [],
                         "join_start": 1,
-                        "line_end": 924,
-                        "line_start": 896,
+                        "line_end": 903,
+                        "line_start": 875,
                         "message": "Configuring now",
                         "name": "execute program",
                         "notes": "Requires SSH to be enabled on Mac Endpoint",
                         "number": 2,
-                        "order": 28,
+                        "order": 27,
                         "outPorts": [
                             "out"
                         ],
@@ -6433,7 +6103,7 @@
                         "status": "",
                         "title": "Generic",
                         "type": "coa.Action",
-                        "warn": "",
+                        "warn": false,
                         "z": 707
                     },
                     {
@@ -6691,13 +6361,13 @@
                         "join_code": "",
                         "join_optional": [],
                         "join_start": 1,
-                        "line_end": 638,
-                        "line_start": 602,
+                        "line_end": 617,
+                        "line_start": 581,
                         "message": "Configuring now",
                         "name": "post data",
                         "notes": "",
                         "number": 3,
-                        "order": 18,
+                        "order": 17,
                         "outPorts": [
                             "out"
                         ],
@@ -6860,12 +6530,12 @@
                         "join_code": "",
                         "join_optional": [],
                         "join_start": 549,
-                        "line_end": 570,
-                        "line_start": 537,
+                        "line_end": 549,
+                        "line_start": 516,
                         "name": "filter",
                         "notes": "",
                         "number": 1,
-                        "order": 16,
+                        "order": 15,
                         "outPorts": [
                             "out-1",
                             "out-2"
@@ -7237,13 +6907,13 @@
                         "join_code": "",
                         "join_optional": [],
                         "join_start": 1,
-                        "line_end": 72,
-                        "line_start": 46,
+                        "line_end": 51,
+                        "line_start": 25,
                         "message": "Configuring now",
                         "name": "format command",
                         "notes": "",
                         "number": 1,
-                        "order": 3,
+                        "order": 2,
                         "outPorts": [
                             "out"
                         ],
@@ -7407,12 +7077,12 @@
                         "join_code": "",
                         "join_optional": [],
                         "join_start": 1,
-                        "line_end": 602,
-                        "line_start": 570,
+                        "line_end": 581,
+                        "line_start": 549,
                         "name": "filter",
                         "notes": "",
                         "number": 2,
-                        "order": 17,
+                        "order": 16,
                         "outPorts": [
                             "out-1",
                             "out-2"
@@ -7513,199 +7183,6 @@
                         "type": "coa.Filter",
                         "warn": false,
                         "z": 714
-                    },
-                    {
-                        "active": false,
-                        "angle": 0,
-                        "attrs": {
-                            ".background": {
-                                "fill": "#000000",
-                                "stroke": "#637282",
-                                "transform": "rotate(45 30 70)"
-                            },
-                            ".inPorts>.port-0>.port-body": {
-                                "port": {
-                                    "id": "in",
-                                    "type": "in"
-                                }
-                            },
-                            ".number": {
-                                "text": 1
-                            },
-                            ".outPorts>.port-0": {
-                                "port": {
-                                    "id": "out-1",
-                                    "type": "out"
-                                },
-                                "ref-x": 83,
-                                "ref-y": 40
-                            },
-                            ".outPorts>.port-0>.port-body": {
-                                "port": {
-                                    "id": "out-1",
-                                    "type": "out"
-                                }
-                            },
-                            ".outPorts>.port-1": {
-                                "port": {
-                                    "id": "out-2",
-                                    "type": "out"
-                                },
-                                "ref-x": 41,
-                                "ref-y": 82
-                            },
-                            ".outPorts>.port-1>.port-body": {
-                                "port": {
-                                    "id": "out-2",
-                                    "type": "out"
-                                }
-                            },
-                            "g.delete": {
-                                "display": "none"
-                            },
-                            "g.error": {
-                                "opacity": 0
-                            },
-                            "g.error image": {
-                                "xlink:href": "/inc/coa/img/block_icon_warn.svg"
-                            },
-                            "g.notes": {
-                                "display": "block"
-                            },
-                            "g.notes image": {
-                                "opacity": 1
-                            }
-                        },
-                        "block_code": "def decision_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):\n    phantom.debug('decision_1() called')\n\n    # check for 'if' condition 1\n    matched_artifacts_1, matched_results_1 = phantom.condition(\n        container=container,\n        action_results=results,\n        conditions=[\n            [\"artifact:*.cef.playbook_name\", \"==\", \"Invoke Simulation\"],\n        ])\n\n    # call connected blocks if condition 1 matched\n    if matched_artifacts_1 or matched_results_1:\n        return\n\n    # call connected blocks for 'else' condition 2\n    format_invoke_cmd(action=action, success=success, container=container, results=results, handle=handle)\n    decision_3(action=action, success=success, container=container, results=results, handle=handle)\n\n    return",
-                        "callback_code": "",
-                        "callback_start": 1,
-                        "callsback": false,
-                        "connected_to_start": true,
-                        "connection_name": "Run Start Marker",
-                        "connection_type": "action",
-                        "custom_callback": "",
-                        "custom_code": "",
-                        "custom_join": "",
-                        "custom_name": "",
-                        "description": "",
-                        "hasElse": true,
-                        "has_custom": false,
-                        "has_custom_block": false,
-                        "has_custom_callback": false,
-                        "has_custom_join": false,
-                        "id": "71f118b1-449a-4e57-aad0-fe4d24e25923",
-                        "inPorts": [
-                            "in"
-                        ],
-                        "join_code": "",
-                        "join_optional": [],
-                        "join_start": 124,
-                        "line_end": 46,
-                        "line_start": 25,
-                        "name": "decision",
-                        "notes": "",
-                        "number": 1,
-                        "order": 2,
-                        "outPorts": [
-                            "out-1",
-                            "out-2"
-                        ],
-                        "outputs": [
-                            {
-                                "conditions": [
-                                    {
-                                        "comparison": "==",
-                                        "data_type": "",
-                                        "param": "artifact:*.cef.playbook_name",
-                                        "value": "Invoke Simulation"
-                                    }
-                                ],
-                                "display": "If",
-                                "logic": "and",
-                                "type": "if"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "comparison": "==",
-                                        "data_type": "",
-                                        "param": "",
-                                        "value": ""
-                                    }
-                                ],
-                                "display": "Else",
-                                "logic": "and",
-                                "type": "else"
-                            }
-                        ],
-                        "ports": {
-                            "groups": {
-                                "in": {
-                                    "attrs": {
-                                        ".port-body": {
-                                            "fill": "#fff",
-                                            "magnet": true,
-                                            "r": 10,
-                                            "stroke": "#000"
-                                        },
-                                        ".port-label": {
-                                            "fill": "#000"
-                                        }
-                                    },
-                                    "label": {
-                                        "position": {
-                                            "args": {
-                                                "y": 10
-                                            },
-                                            "name": "left"
-                                        }
-                                    },
-                                    "position": {
-                                        "name": "left"
-                                    }
-                                },
-                                "out": {
-                                    "attrs": {
-                                        ".port-body": {
-                                            "fill": "#fff",
-                                            "magnet": true,
-                                            "r": 10,
-                                            "stroke": "#000"
-                                        },
-                                        ".port-label": {
-                                            "fill": "#000"
-                                        }
-                                    },
-                                    "label": {
-                                        "position": {
-                                            "args": {
-                                                "y": 10
-                                            },
-                                            "name": "right"
-                                        }
-                                    },
-                                    "position": {
-                                        "name": "right"
-                                    }
-                                }
-                            }
-                        },
-                        "position": {
-                            "x": 740,
-                            "y": -80
-                        },
-                        "previous_function": "",
-                        "previous_name": "decision_1",
-                        "show_number": true,
-                        "size": {
-                            "height": 82,
-                            "width": 82
-                        },
-                        "state": "decision",
-                        "status": "",
-                        "type": "coa.Decision",
-                        "warn": "",
-                        "z": 715
                     },
                     {
                         "action": "format command",
@@ -7922,6 +7399,12 @@
                             ".title": {
                                 "text": "Generic"
                             },
+                            "g.approver image": {
+                                "opacity": 1
+                            },
+                            "g.code image": {
+                                "opacity": 1
+                            },
                             "g.delete": {
                                 "display": "none"
                             },
@@ -7933,9 +7416,15 @@
                             },
                             "g.notes": {
                                 "display": "block"
+                            },
+                            "g.notes image": {
+                                "opacity": 1
+                            },
+                            "g.timer image": {
+                                "opacity": 1
                             }
                         },
-                        "block_code": "def Format_ART_MacOS_Test(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):\n    phantom.debug('Format_ART_MacOS_Test() called')\n    \n    #phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))\n    \n    # collect data for 'Format_ART_MacOS_Test' call\n    inputs_data_1 = phantom.collect2(container=container, datapath=['Post_Start_Event_to_Splunk:artifact:*.cef.act', 'Post_Start_Event_to_Splunk:artifact:*.id'], action_results=results)\n\n    parameters = []\n    \n    # build parameters list for 'Format_ART_MacOS_Test' call\n    for inputs_item_1 in inputs_data_1:\n        if inputs_item_1[0]:\n            parameters.append({\n                'attack_id': inputs_item_1[0],\n                'supported_os': \"macos\",\n                'input_arguments': \"\",\n                # context (artifact id) is added to associate results with the artifact\n                'context': {'artifact_id': inputs_item_1[1]},\n            })\n\n    phantom.act(\"format command\", parameters=parameters, app={ \"name\": 'Atomic Red Team' }, callback=Run_ART_MacOS_Test, name=\"Format_ART_MacOS_Test\")\n\n    return",
+                        "block_code": "def Format_ART_MacOS_Test(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):\n    phantom.debug('Format_ART_MacOS_Test() called')\n    \n    #phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))\n    \n    # collect data for 'Format_ART_MacOS_Test' call\n    inputs_data_1 = phantom.collect2(container=container, datapath=['Post_Start_Event_to_Splunk:artifact:*.cef.act', 'Post_Start_Event_to_Splunk:artifact:*.id'], action_results=results)\n\n    parameters = []\n    \n    # build parameters list for 'Format_ART_MacOS_Test' call\n    for inputs_item_1 in inputs_data_1:\n        if inputs_item_1[0]:\n            parameters.append({\n                'supported_os': \"macos\",\n                'attack_id': inputs_item_1[0],\n                'input_arguments': \"\",\n                # context (artifact id) is added to associate results with the artifact\n                'context': {'artifact_id': inputs_item_1[1]},\n            })\n\n    phantom.act(\"format command\", parameters=parameters, app={ \"name\": 'Atomic Red Team' }, callback=Run_ART_MacOS_Test, name=\"Format_ART_MacOS_Test\")\n\n    return",
                         "callback_code": "",
                         "callback_start": 1,
                         "callsback": true,
@@ -7960,13 +7449,13 @@
                         "join_code": "",
                         "join_optional": [],
                         "join_start": 1,
-                        "line_end": 896,
-                        "line_start": 871,
+                        "line_end": 875,
+                        "line_start": 850,
                         "message": "Configuring now",
                         "name": "format command",
                         "notes": "",
                         "number": 3,
-                        "order": 27,
+                        "order": 26,
                         "outPorts": [
                             "out"
                         ],
@@ -8042,7 +7531,7 @@
                         "status": "",
                         "title": "Generic",
                         "type": "coa.Action",
-                        "warn": "",
+                        "warn": false,
                         "z": 716
                     },
                     {
@@ -8358,6 +7847,9 @@
                             "g.error": {
                                 "opacity": 0
                             },
+                            "g.error image": {
+                                "xlink:href": "/inc/coa/img/block_icon_warn.svg"
+                            },
                             "g.icon image": {
                                 "xlink:href": "/inc/coa/img/block_icon_generic.svg"
                             },
@@ -8396,13 +7888,13 @@
                         "join_code": "",
                         "join_optional": [],
                         "join_start": 1,
-                        "line_end": 818,
-                        "line_start": 788,
+                        "line_end": 797,
+                        "line_start": 767,
                         "message": "Configuring now",
                         "name": "run script",
                         "notes": "",
                         "number": 6,
-                        "order": 24,
+                        "order": 23,
                         "outPorts": [
                             "out"
                         ],
@@ -8566,14 +8058,14 @@
                         "join_optional": [
                             "Run_Cmd_Test"
                         ],
-                        "join_start": 453,
-                        "line_end": 537,
-                        "line_start": 433,
+                        "join_start": 432,
+                        "line_end": 516,
+                        "line_start": 412,
                         "message": "Configuring now",
                         "name": "format",
                         "notes": "",
                         "number": 2,
-                        "order": 15,
+                        "order": 14,
                         "outPorts": [
                             "out-1"
                         ],
@@ -8740,13 +8232,13 @@
                         "join_code": "",
                         "join_optional": [],
                         "join_start": 1,
-                        "line_end": 261,
-                        "line_start": 242,
+                        "line_end": 240,
+                        "line_start": 221,
                         "message": "Configuring now",
                         "name": "format",
                         "notes": "",
                         "number": 1,
-                        "order": 10,
+                        "order": 9,
                         "outPorts": [
                             "out-1"
                         ],
@@ -9103,13 +8595,13 @@
                         "join_code": "",
                         "join_optional": [],
                         "join_start": 1,
-                        "line_end": 871,
-                        "line_start": 846,
+                        "line_end": 850,
+                        "line_start": 825,
                         "message": "Configuring now",
                         "name": "format command",
                         "notes": "",
                         "number": 2,
-                        "order": 26,
+                        "order": 25,
                         "outPorts": [
                             "out"
                         ],
@@ -9478,7 +8970,7 @@
                                 "opacity": 1
                             }
                         },
-                        "block_code": "def Run_Start_Marker(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):\n    phantom.debug('Run_Start_Marker() called')\n    \n    #phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))\n    \n    # collect data for 'Run_Start_Marker' call\n    container_data = phantom.collect2(container=container, datapath=['artifact:*.cef.destinationAddress', 'artifact:*.id'])\n    formatted_data_1 = phantom.get_format_data(name='Format_Start_Marker')\n\n    parameters = []\n    \n    # build parameters list for 'Run_Start_Marker' call\n    for container_item in container_data:\n        if container_item[0]:\n            parameters.append({\n                'shell_id': \"\",\n                'parser': \"\",\n                'ip_hostname': container_item[0],\n                'async': \"\",\n                'script_str': formatted_data_1,\n                'script_file': \"\",\n                'command_id': \"\",\n                # context (artifact id) is added to associate results with the artifact\n                'context': {'artifact_id': container_item[1]},\n            })\n\n    phantom.act(\"run script\", parameters=parameters, app={ \"name\": 'Windows Remote Management' }, callback=decision_1, name=\"Run_Start_Marker\")\n\n    return",
+                        "block_code": "def Run_Start_Marker(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):\n    phantom.debug('Run_Start_Marker() called')\n    \n    #phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))\n    \n    # collect data for 'Run_Start_Marker' call\n    container_data = phantom.collect2(container=container, datapath=['artifact:*.cef.destinationAddress', 'artifact:*.id'])\n    formatted_data_1 = phantom.get_format_data(name='Format_Start_Marker')\n\n    parameters = []\n    \n    # build parameters list for 'Run_Start_Marker' call\n    for container_item in container_data:\n        if container_item[0]:\n            parameters.append({\n                'shell_id': \"\",\n                'parser': \"\",\n                'ip_hostname': container_item[0],\n                'async': \"\",\n                'script_str': formatted_data_1,\n                'script_file': \"\",\n                'command_id': \"\",\n                # context (artifact id) is added to associate results with the artifact\n                'context': {'artifact_id': container_item[1]},\n            })\n\n    phantom.act(\"run script\", parameters=parameters, app={ \"name\": 'Windows Remote Management' }, callback=decision_4, name=\"Run_Start_Marker\")\n\n    return",
                         "callback_code": "",
                         "callback_start": 1,
                         "callsback": true,
@@ -9503,13 +8995,13 @@
                         "join_code": "",
                         "join_optional": [],
                         "join_start": 1,
-                        "line_end": 340,
-                        "line_start": 310,
+                        "line_end": 319,
+                        "line_start": 289,
                         "message": "Configuring now",
                         "name": "run script",
                         "notes": "",
                         "number": 2,
-                        "order": 12,
+                        "order": 11,
                         "outPorts": [
                             "out"
                         ],
@@ -9586,6 +9078,534 @@
                         "type": "coa.Action",
                         "warn": false,
                         "z": 723
+                    },
+                    {
+                        "attrs": {
+                            ".connection": {
+                                "stroke": "#818D99",
+                                "stroke-width": 2
+                            },
+                            ".marker-target": {
+                                "d": "M 10 0 L 0 5 L 10 10 z",
+                                "fill": "#818D99",
+                                "stroke": "#818D99"
+                            }
+                        },
+                        "connector": {
+                            "args": {
+                                "radius": 5
+                            },
+                            "name": "rounded"
+                        },
+                        "endDirections": [
+                            "left"
+                        ],
+                        "id": "4b0b0168-b068-40f3-8a3e-d68b767bffa2",
+                        "router": {
+                            "name": "metro"
+                        },
+                        "source": {
+                            "id": "d10b425d-717c-478a-8fe3-c484a18ff770",
+                            "selector": "> g:nth-child(1) > g:nth-child(2) > g:nth-child(1) > circle:nth-child(1)"
+                        },
+                        "startDirections": [
+                            "right"
+                        ],
+                        "target": {
+                            "id": "fa4821a0-f2e5-480e-bb9b-15dedf109f2c",
+                            "selector": ".port-body[type=\"input\"]"
+                        },
+                        "type": "link",
+                        "z": 724
+                    },
+                    {
+                        "attrs": {
+                            ".connection": {
+                                "stroke": "#818D99",
+                                "stroke-width": 2
+                            },
+                            ".marker-target": {
+                                "d": "M 10 0 L 0 5 L 10 10 z",
+                                "fill": "#818D99",
+                                "stroke": "#818D99"
+                            }
+                        },
+                        "connector": {
+                            "args": {
+                                "radius": 5
+                            },
+                            "name": "rounded"
+                        },
+                        "endDirections": [
+                            "left"
+                        ],
+                        "id": "897f1c99-a61f-4a6d-9639-857085e9907e",
+                        "router": {
+                            "name": "metro"
+                        },
+                        "source": {
+                            "id": "fa4821a0-f2e5-480e-bb9b-15dedf109f2c",
+                            "port": "out-1",
+                            "selector": "> g:nth-child(1) > g:nth-child(2) > g:nth-child(1) > circle:nth-child(1)"
+                        },
+                        "startDirections": [
+                            "right"
+                        ],
+                        "target": {
+                            "id": "73edf05d-71cf-4a86-b83e-4b7b89b8e1a0",
+                            "selector": "> g:nth-child(1) > g:nth-child(1) > g:nth-child(1) > circle:nth-child(1)"
+                        },
+                        "type": "link",
+                        "z": 727
+                    },
+                    {
+                        "active": false,
+                        "angle": 0,
+                        "attrs": {
+                            ".background": {
+                                "fill": "#000000",
+                                "stroke": "#637282",
+                                "transform": "rotate(45 30 70)"
+                            },
+                            ".inPorts>.port-0>.port-body": {
+                                "port": {
+                                    "id": "in",
+                                    "type": "in"
+                                }
+                            },
+                            ".number": {
+                                "text": 4
+                            },
+                            ".outPorts>.port-0": {
+                                "port": {
+                                    "id": "out-1",
+                                    "type": "out"
+                                },
+                                "ref-x": 83,
+                                "ref-y": 40
+                            },
+                            ".outPorts>.port-0>.port-body": {
+                                "port": {
+                                    "id": "out-1",
+                                    "type": "out"
+                                }
+                            },
+                            ".outPorts>.port-1": {
+                                "port": {
+                                    "id": "out-2",
+                                    "type": "out"
+                                },
+                                "ref-x": 41,
+                                "ref-y": 82
+                            },
+                            ".outPorts>.port-1>.port-body": {
+                                "port": {
+                                    "id": "out-2",
+                                    "type": "out"
+                                }
+                            },
+                            "g.delete": {
+                                "display": "none"
+                            },
+                            "g.error": {
+                                "opacity": 0
+                            },
+                            "g.notes": {
+                                "display": "block"
+                            }
+                        },
+                        "block_code": "def decision_4(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):\n    phantom.debug('decision_4() called')\n\n    # check for 'if' condition 1\n    matched_artifacts_1, matched_results_1 = phantom.condition(\n        container=container,\n        action_results=results,\n        conditions=[\n            [\"artifact:*.cef.playbook_name\", \"==\", \"Invoke Simulation\"],\n        ])\n\n    # call connected blocks if condition 1 matched\n    if matched_artifacts_1 or matched_results_1:\n        format_invoke_cmd(action=action, success=success, container=container, results=results, handle=handle)\n        return\n\n    # call connected blocks for 'else' condition 2\n    decision_3(action=action, success=success, container=container, results=results, handle=handle)\n\n    return",
+                        "callback_code": "",
+                        "callback_start": 1,
+                        "callsback": false,
+                        "connected_to_start": true,
+                        "connection_name": "Run Start Marker",
+                        "connection_type": "action",
+                        "custom_callback": "",
+                        "custom_code": "",
+                        "custom_join": "",
+                        "custom_name": "",
+                        "description": "",
+                        "hasElse": true,
+                        "has_custom": false,
+                        "has_custom_block": false,
+                        "has_custom_callback": false,
+                        "has_custom_join": false,
+                        "id": "fa4821a0-f2e5-480e-bb9b-15dedf109f2c",
+                        "inPorts": [
+                            "in"
+                        ],
+                        "join_code": "",
+                        "join_optional": [],
+                        "join_start": 1,
+                        "line_end": 924,
+                        "line_start": 903,
+                        "name": "decision",
+                        "notes": "",
+                        "number": 4,
+                        "order": 28,
+                        "outPorts": [
+                            "out-1",
+                            "out-2"
+                        ],
+                        "outputs": [
+                            {
+                                "conditions": [
+                                    {
+                                        "comparison": "==",
+                                        "data_type": "",
+                                        "param": "artifact:*.cef.playbook_name",
+                                        "value": "Invoke Simulation"
+                                    }
+                                ],
+                                "display": "If",
+                                "logic": "and",
+                                "type": "if"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "comparison": "==",
+                                        "data_type": "",
+                                        "param": "",
+                                        "value": ""
+                                    }
+                                ],
+                                "display": "Else",
+                                "logic": "and",
+                                "type": "else"
+                            }
+                        ],
+                        "ports": {
+                            "groups": {
+                                "in": {
+                                    "attrs": {
+                                        ".port-body": {
+                                            "fill": "#fff",
+                                            "magnet": true,
+                                            "r": 10,
+                                            "stroke": "#000"
+                                        },
+                                        ".port-label": {
+                                            "fill": "#000"
+                                        }
+                                    },
+                                    "label": {
+                                        "position": {
+                                            "args": {
+                                                "y": 10
+                                            },
+                                            "name": "left"
+                                        }
+                                    },
+                                    "position": {
+                                        "name": "left"
+                                    }
+                                },
+                                "out": {
+                                    "attrs": {
+                                        ".port-body": {
+                                            "fill": "#fff",
+                                            "magnet": true,
+                                            "r": 10,
+                                            "stroke": "#000"
+                                        },
+                                        ".port-label": {
+                                            "fill": "#000"
+                                        }
+                                    },
+                                    "label": {
+                                        "position": {
+                                            "args": {
+                                                "y": 10
+                                            },
+                                            "name": "right"
+                                        }
+                                    },
+                                    "position": {
+                                        "name": "right"
+                                    }
+                                }
+                            }
+                        },
+                        "position": {
+                            "x": 780,
+                            "y": -80
+                        },
+                        "previous_function": "",
+                        "previous_name": "decision_4",
+                        "show_number": true,
+                        "size": {
+                            "height": 82,
+                            "width": 82
+                        },
+                        "state": "decision",
+                        "status": "",
+                        "type": "coa.Decision",
+                        "warn": "",
+                        "z": 728
+                    },
+                    {
+                        "attrs": {
+                            ".connection": {
+                                "stroke": "#818D99",
+                                "stroke-width": 2
+                            },
+                            ".marker-target": {
+                                "d": "M 10 0 L 0 5 L 10 10 z",
+                                "fill": "#818D99",
+                                "stroke": "#818D99"
+                            }
+                        },
+                        "connector": {
+                            "args": {
+                                "radius": 5
+                            },
+                            "name": "rounded"
+                        },
+                        "endDirections": [
+                            "left"
+                        ],
+                        "id": "7bf62fe0-db7e-496d-99dd-3dc5093238c1",
+                        "router": {
+                            "name": "metro"
+                        },
+                        "source": {
+                            "id": "fa4821a0-f2e5-480e-bb9b-15dedf109f2c",
+                            "port": "out-2",
+                            "selector": "> g:nth-child(1) > g:nth-child(2) > g:nth-child(2) > circle:nth-child(1)"
+                        },
+                        "startDirections": [
+                            "right"
+                        ],
+                        "target": {
+                            "id": "09a940ba-2076-43da-9fb6-47fca922f0ab",
+                            "port": "in",
+                            "selector": "> g:nth-child(1) > g:nth-child(1) > g:nth-child(1) > circle:nth-child(1)"
+                        },
+                        "type": "link",
+                        "z": 729
+                    },
+                    {
+                        "active": false,
+                        "angle": 0,
+                        "attrs": {
+                            ".background": {
+                                "fill": "#000000",
+                                "stroke": "#637282",
+                                "transform": "rotate(45 30 70)"
+                            },
+                            ".inPorts>.port-0>.port-body": {
+                                "port": {
+                                    "id": "in",
+                                    "type": "in"
+                                }
+                            },
+                            ".number": {
+                                "text": 3
+                            },
+                            ".outPorts>.port-0": {
+                                "port": {
+                                    "id": "out-1",
+                                    "type": "out"
+                                },
+                                "ref-x": 83,
+                                "ref-y": 40
+                            },
+                            ".outPorts>.port-0>.port-body": {
+                                "port": {
+                                    "id": "out-1",
+                                    "type": "out"
+                                }
+                            },
+                            ".outPorts>.port-1": {
+                                "port": {
+                                    "id": "out-2",
+                                    "type": "out"
+                                },
+                                "ref-x": 41,
+                                "ref-y": 82
+                            },
+                            ".outPorts>.port-1>.port-body": {
+                                "port": {
+                                    "id": "out-2",
+                                    "type": "out"
+                                }
+                            },
+                            ".outPorts>.port-2": {
+                                "port": {
+                                    "id": "out-3",
+                                    "type": "out"
+                                },
+                                "ref-x": 41,
+                                "ref-y": -2
+                            },
+                            ".outPorts>.port-2>.port-body": {
+                                "port": {
+                                    "id": "out-3",
+                                    "type": "out"
+                                }
+                            },
+                            "g.delete": {
+                                "display": "none"
+                            },
+                            "g.error": {
+                                "opacity": 0
+                            },
+                            "g.error image": {
+                                "xlink:href": "/inc/coa/img/block_icon_warn.svg"
+                            },
+                            "g.notes": {
+                                "display": "block"
+                            },
+                            "g.notes image": {
+                                "opacity": 1
+                            }
+                        },
+                        "block_code": "def decision_3(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):\n    phantom.debug('decision_3() called')\n\n    # check for 'if' condition 1\n    matched_artifacts_1, matched_results_1 = phantom.condition(\n        container=container,\n        action_results=results,\n        conditions=[\n            [\"artifact:*.cef.manual_command\", \"!=\", \"NA\"],\n        ])\n\n    # call connected blocks if condition 1 matched\n    if matched_artifacts_1 or matched_results_1:\n        Run_Manual_Cmd(action=action, success=success, container=container, results=results, handle=handle)\n        return\n\n    # check for 'elif' condition 2\n    matched_artifacts_2, matched_results_2 = phantom.condition(\n        container=container,\n        action_results=results,\n        conditions=[\n            [\"artifact:*.cef.manual_powershell\", \"!=\", \"NA\"],\n        ])\n\n    # call connected blocks if condition 2 matched\n    if matched_artifacts_2 or matched_results_2:\n        Run_Manual_Powershell(action=action, success=success, container=container, results=results, handle=handle)\n        return\n\n    # call connected blocks for 'else' condition 3\n    Format_ART_Command(action=action, success=success, container=container, results=results, handle=handle)\n\n    return",
+                        "callback_code": "",
+                        "callback_start": 1,
+                        "callsback": false,
+                        "connected_to_start": true,
+                        "connection_name": "Run Start Marker",
+                        "connection_type": "action",
+                        "custom_callback": "",
+                        "custom_code": "",
+                        "custom_join": "",
+                        "custom_name": "",
+                        "description": "",
+                        "hasElse": true,
+                        "has_custom": false,
+                        "has_custom_block": false,
+                        "has_custom_callback": false,
+                        "has_custom_join": false,
+                        "id": "09a940ba-2076-43da-9fb6-47fca922f0ab",
+                        "inPorts": [
+                            "in"
+                        ],
+                        "join_code": "",
+                        "join_optional": [],
+                        "join_start": 1,
+                        "line_end": 720,
+                        "line_start": 686,
+                        "name": "decision",
+                        "notes": "",
+                        "number": 3,
+                        "order": 20,
+                        "outPorts": [
+                            "out-1",
+                            "out-2",
+                            "out-3"
+                        ],
+                        "outputs": [
+                            {
+                                "conditions": [
+                                    {
+                                        "comparison": "!=",
+                                        "data_type": "",
+                                        "param": "artifact:*.cef.manual_command",
+                                        "value": "NA"
+                                    }
+                                ],
+                                "display": "If",
+                                "logic": "and",
+                                "type": "if"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "comparison": "!=",
+                                        "data_type": "",
+                                        "param": "artifact:*.cef.manual_powershell",
+                                        "value": "NA"
+                                    }
+                                ],
+                                "display": "Else If",
+                                "logic": "and",
+                                "type": "elif"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "comparison": "==",
+                                        "data_type": "",
+                                        "param": "",
+                                        "value": ""
+                                    }
+                                ],
+                                "display": "Else",
+                                "logic": "and",
+                                "type": "else"
+                            }
+                        ],
+                        "ports": {
+                            "groups": {
+                                "in": {
+                                    "attrs": {
+                                        ".port-body": {
+                                            "fill": "#fff",
+                                            "magnet": true,
+                                            "r": 10,
+                                            "stroke": "#000"
+                                        },
+                                        ".port-label": {
+                                            "fill": "#000"
+                                        }
+                                    },
+                                    "label": {
+                                        "position": {
+                                            "args": {
+                                                "y": 10
+                                            },
+                                            "name": "left"
+                                        }
+                                    },
+                                    "position": {
+                                        "name": "left"
+                                    }
+                                },
+                                "out": {
+                                    "attrs": {
+                                        ".port-body": {
+                                            "fill": "#fff",
+                                            "magnet": true,
+                                            "r": 10,
+                                            "stroke": "#000"
+                                        },
+                                        ".port-label": {
+                                            "fill": "#000"
+                                        }
+                                    },
+                                    "label": {
+                                        "position": {
+                                            "args": {
+                                                "y": 10
+                                            },
+                                            "name": "right"
+                                        }
+                                    },
+                                    "position": {
+                                        "name": "right"
+                                    }
+                                }
+                            }
+                        },
+                        "position": {
+                            "x": 820,
+                            "y": 180
+                        },
+                        "previous_function": "",
+                        "previous_name": "decision_3",
+                        "show_number": true,
+                        "size": {
+                            "height": 82,
+                            "width": 82
+                        },
+                        "state": "decision",
+                        "status": "",
+                        "type": "coa.Decision",
+                        "warn": "",
+                        "z": 730
                     }
                 ]
             },
@@ -9594,7 +9614,7 @@
         "schema": 3,
         "version": "4.6.18265"
     },
-    "create_time": "2020-02-07T16:47:10.594196+00:00",
+    "create_time": "2020-02-10T20:27:10.824119+00:00",
     "draft_mode": false,
     "labels": [
         "advsim_test"
