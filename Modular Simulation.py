@@ -96,6 +96,20 @@ def Format_End_Event(action=None, success=None, container=None, results=None, ha
 
     return
 
+def join_Format_End_Event(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):
+    phantom.debug('join_Format_End_Event() called')
+    
+    # if the joined function has already been called, do nothing
+    if phantom.get_run_data(key='join_Format_End_Event_called'):
+        return
+
+    # no callbacks to check, call connected block "Format_End_Event"
+    phantom.save_run_data(key='join_Format_End_Event_called', value='Format_End_Event', auto=True)
+
+    Format_End_Event(container=container, handle=handle)
+    
+    return
+
 def Run_End_Marker(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):
     phantom.debug('Run_End_Marker() called')
     
@@ -122,7 +136,7 @@ def Run_End_Marker(action=None, success=None, container=None, results=None, hand
                 'context': {'artifact_id': results_item_1[1]},
             })
 
-    phantom.act("run script", parameters=parameters, app={ "name": 'Windows Remote Management' }, callback=Format_End_Event, name="Run_End_Marker")
+    phantom.act("run script", parameters=parameters, app={ "name": 'Windows Remote Management' }, callback=join_Format_End_Event, name="Run_End_Marker")
 
     return
 
@@ -751,7 +765,7 @@ def Run_Manual_Powershell(action=None, success=None, container=None, results=Non
 def format_invoke_cmd(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None):
     phantom.debug('format_invoke_cmd() called')
     
-    template = """Import-Module \"C:\\Tools\\Atomic Red Team\\atomic-red-team-master\\execution-frameworks\\Invoke-AtomicRedTeam\\Invoke-AtomicRedTeam\\Invoke-AtomicRedTeam.psm1\"; Invoke-AtomicTest {0} -PathToAtomicsFolder \"C:\\Tools\\Atomic Red Team\\atomic-red-team-master\\atomics\""""
+    template = """Import-Module \"C:\\AtomicRedTeam\\invoke-atomicredteam\\Invoke-AtomicRedTeam.psm1\"; Invoke-AtomicTest {0} -PathToAtomicsFolder \"C:\\AtomicRedTeam\\atomics\""""
 
     # parameter list for template variable replacement
     parameters = [
@@ -818,7 +832,7 @@ def Run_ART_Linux_Test(action=None, success=None, container=None, results=None, 
                     'context': {'artifact_id': results_item_1[1]},
                 })
 
-    phantom.act("execute program", parameters=parameters, app={ "name": 'SSH' }, callback=join_Format_End_Marker, name="Run_ART_Linux_Test", parent_action=action)
+    phantom.act("execute program", parameters=parameters, app={ "name": 'SSH' }, callback=join_Format_End_Event, name="Run_ART_Linux_Test", parent_action=action)
 
     return
 
@@ -896,7 +910,7 @@ def Run_ART_MacOS_Test(action=None, success=None, container=None, results=None, 
                     'context': {'artifact_id': results_item_1[1]},
                 })
 
-    phantom.act("execute program", parameters=parameters, app={ "name": 'SSH' }, assets=['dect_lab_logger'], callback=join_Format_End_Marker, name="Run_ART_MacOS_Test", parent_action=action)
+    phantom.act("execute program", parameters=parameters, app={ "name": 'SSH' }, assets=['dect_lab_logger'], callback=join_Format_End_Event, name="Run_ART_MacOS_Test", parent_action=action)
 
     return
 
